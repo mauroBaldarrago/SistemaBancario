@@ -8,6 +8,14 @@ class Empleado extends Persona {
         this.idEmpleado = idEmpleado;
         this.cargo = cargo;
     }
+    
+    public String getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
 
     public void procesarTransaccion(String transaccion, String cargo) {
         System.out.println("Procesando transacción: " + transaccion + " con cargo: " + cargo);

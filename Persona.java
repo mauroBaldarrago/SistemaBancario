@@ -13,6 +13,11 @@ public class Persona {
         this.celular = celular;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    
     public void mostrarDatos() {
         System.out.println("Nombre: " + nombre);
         System.out.println("Apellido: " + apellido);

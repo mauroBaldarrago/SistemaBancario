@@ -11,6 +11,14 @@ class Cliente extends Persona {
         this.activo = activo;
     }
 
+    public String getIdCliente() {
+        return idCliente;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
     public void mostrarDatos() {
         super.mostrarDatos();
         System.out.println("ID Cliente: " + idCliente);

@@ -6,6 +6,6 @@ public class Deposito extends Transaccion{
 
     @Override
     public void procesar() {
-        System.out.println("Depósito realizado de "+getMonto()+"por"+getCliente().getNombre());
+        System.out.println("Depósito realizado de "+getMonto()+" por "+getCliente().getNombre());
     }
 }

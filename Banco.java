@@ -6,6 +6,12 @@ public class Banco {
     private ArrayList<Empleado> empleados;
     private ArrayList<Cuenta> cuentas;
 
+    public Banco() {
+        clientes = new ArrayList<>();
+        empleados = new ArrayList<>();
+        cuentas = new ArrayList<>();
+    }
+
     public Cliente buscarCliente(String idCliente){
         for (Cliente c: clientes){
             if (c.getIdCliente().equals(idCliente)){
@@ -17,7 +23,7 @@ public class Banco {
 
     public Cuenta buscarCuenta(String idCuenta){
         for (Cuenta c: cuentas){
-            if (c.getIdCuenta() == idCuenta){
+            if (c.getIdCuenta().equals(idCuenta)) {
                 return c;
             }
         }
@@ -26,7 +32,7 @@ public class Banco {
 
     public Empleado buscarEmpleado(String idEmpleado){
         for (Empleado e: empleados){
-            if (e.getIdEmpleado() == idEmpleado){
+            if (e.getIdEmpleado().equals(idEmpleado)){
                 return e;
             }
         }
