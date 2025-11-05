@@ -1,15 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         Banco banco = new Banco();
-
         Empleado empleadoBase = new Empleado("Luis", "Pérez", "12345678", "Av. Central", "999999999", "E001", "Cajero");
         banco.registrarEmpleado(empleadoBase);
-
         int opcion;
         do {
             System.out.println("\n===== MENÚ BANCO =====");
