@@ -134,7 +134,7 @@ public class Main {
                     String idMov = sc.nextLine();
                     Cuenta cuentaMov = banco.buscarCuenta(idMov);
                     if (cuentaMov != null) {
-                        System.out.println("📄 Transacciones de la cuenta:");
+                        System.out.println("Transacciones de la cuenta:");
                         for (Transaccion t : banco.mostrarTransacciones(idMov)) {
                             System.out.println("- " + t.getClass().getSimpleName() + " de " + t.getMonto() + " (" + t.getFecha() + ")");
                         }
