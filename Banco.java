@@ -102,4 +102,38 @@ public class Banco {
         return c.consultarSaldo();
     }
 
+    /* Método para realizar pago de servicio */
+    public void pagarServicio(String idCuenta, String fecha, double monto, Cliente cliente, Empleado empleado, String tipoServicio) {
+        Cuenta cuenta = buscarCuenta(idCuenta);
+
+        if (cuenta == null) {
+            System.out.println("Cuenta no encontrada.");
+            return;
+        }
+
+        /* Validar formato de fecha */
+        if (!Transaccion.validarFecha(fecha)) {
+            System.out.println("El formato de fecha es inválido. Use dd/mm/aaaa.");
+            return;
+        }
+
+        /* Verificar saldo suficiente */
+        if (cuenta.consultarSaldo() < monto) {
+            System.out.println("Saldo insuficiente para pagar el servicio: " + tipoServicio);
+            return;
+        }
+
+        /* Crear y registrar la transacción */
+        PagoServicio pago = new PagoServicio(idCuenta, monto, fecha, cliente, empleado, tipoServicio);
+        pago.procesar();
+
+        /* Descontar el monto del saldo */
+        cuenta.setSaldo(cuenta.consultarSaldo() - monto);
+
+        /* Registrar el movimiento */
+        cuenta.getMovimientos().add(pago);
+
+        System.out.println("Pago del servicio '" + tipoServicio + "' realizado exitosamente por el monto de " + monto);
+    }
 }
+

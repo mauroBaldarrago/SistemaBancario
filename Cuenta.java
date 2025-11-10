@@ -6,6 +6,7 @@ public class Cuenta {
     private double saldo;
     private ArrayList<Cliente> titulares;
     private ArrayList<Transaccion> movimientos;
+    private Tarjeta tarjeta;
 
     /* Constructor de Cuenta */
     public Cuenta(String idCuenta, String tipo, double saldo, ArrayList<Cliente> titulares){
@@ -14,19 +15,25 @@ public class Cuenta {
         this.saldo = saldo;
         this.titulares = titulares;
         this.movimientos = new ArrayList<>();
+        String tipoTarjeta = (tipo != null && tipo.equalsIgnoreCase("ahorro")) ? "Débito" : "Crédito";
+        this.tarjeta = new Tarjeta(tipoTarjeta);
     }
 
     /* Getters y Setters */
-    public String getIdCuenta() {return idCuenta;}
-    public void setIdCuenta(String idCuenta) {this.idCuenta = idCuenta;}
-    public String getTipo() {return tipo;}
-    public void setTipo(String tipo) {this.tipo = tipo;}
-    public double consultarSaldo() {return saldo;}
-    public void setSaldo(double saldo) {this.saldo = saldo;}
-    public ArrayList<Cliente> getTitulares() {return titulares;}
-    public void setTitulares(ArrayList<Cliente> titulares) {this.titulares = titulares;}
-    public ArrayList<Transaccion> getMovimientos() {return movimientos;}
-    public void setMovimientos(ArrayList<Transaccion> movimientos) {this.movimientos = movimientos;}
+    public String getIdCuenta() { return idCuenta; }
+    public void setIdCuenta(String idCuenta) { this.idCuenta = idCuenta; }
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+    public double consultarSaldo() { return saldo; }
+    public void setSaldo(double saldo) { this.saldo = saldo; }
+    public ArrayList<Cliente> getTitulares() { return titulares; }
+    public void setTitulares(ArrayList<Cliente> titulares) { this.titulares = titulares; }
+    public ArrayList<Transaccion> getMovimientos() { return movimientos; }
+    public void setMovimientos(ArrayList<Transaccion> movimientos) { this.movimientos = movimientos; }
+
+    /* Getter y Setter para la tarjeta */
+    public Tarjeta getTarjeta() { return tarjeta; }
+    public void setTarjeta(Tarjeta tarjeta) { this.tarjeta = tarjeta; }
 
     /* Método de depositar */
     public void depositar(Deposito deposito) {
