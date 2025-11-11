@@ -5,8 +5,9 @@ public class Deposito extends Transaccion{
     }
 
     /* Método "procesar" de Deposito (polimorfismo y heredación) */
-    @Override
-    public void procesar() {
-        System.out.println("Depósito realizado de "+getMonto()+" por "+getCliente().getNombre());
+    public void procesar(Cuenta cuenta, double monto, Deposito deposito) {
+        cuenta.setSaldo(cuenta.consultarSaldo()+monto);
+        cuenta.agregarDeposito(deposito);
+        System.out.println("Se despositó correctamente el monto");
     }
 }

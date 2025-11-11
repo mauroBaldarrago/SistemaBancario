@@ -12,8 +12,9 @@ public class PagoServicio extends Transaccion {
     public String getTipoServicio() { return tipoServicio; }
 
     /* Procesar pago */
-    @Override
-    public void procesar() {
-        System.out.println("Procesando pago del servicio: " + tipoServicio);
+    public void procesar(Cuenta cuenta, double monto, PagoServicio pagoServicio) {
+        cuenta.setSaldo(cuenta.consultarSaldo()-monto);
+        cuenta.agregarPago(pagoServicio);
+        System.out.println("Pago del servicio '" + tipoServicio + "' realizado exitosamente por el monto de " + monto);
     }
 }

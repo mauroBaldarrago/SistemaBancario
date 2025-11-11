@@ -32,7 +32,7 @@ public class Transaccion {
     public void setCliente(Cliente cliente) { this.cliente = cliente; }
     public Empleado getEmpleado() { return empleado; }
     public void setEmpleado(Empleado empleado) { this.empleado = empleado; }
-    public void procesar(){}
+    public void procesar(Cuenta cuenta, int monto){}
 
     /* Validaciones */
     public static boolean validarFecha(String fecha) {

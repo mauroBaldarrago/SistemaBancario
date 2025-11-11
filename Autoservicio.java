@@ -12,21 +12,25 @@ public class Autoservicio {
         return tipo;
     }
 
-    /* Método de depositar (de autoservicio)*/
-    public void depositar(Cliente cliente, Cuenta cuenta, double monto, Empleado empleado, String fecha) {
-        if (cuenta == null) {
+    /* Método de depositar (de autoservicio)
+    public void depositar(String idCuenta, String idDeposito, String fecha, double monto, Cliente cliente, Empleado empleado) {
+        Cuenta cuenta = buscarCuenta(idCuenta);
+        if (cuenta != null) {
+            Deposito deposito = new Deposito(idDeposito, monto, fecha, cliente, empleado);
+            deposito.procesar(cuenta, monto, deposito);
+        } else {
             System.out.println("Cuenta no encontrada");
         }
-        Deposito deposito = new Deposito(cuenta.getIdCuenta(), monto, fecha, cliente, empleado);
-        cuenta.depositar(deposito);
     }
 
-    /* Método de retirar (de autoservicio)*/
-    public void retirar(Cliente cliente, Cuenta cuenta, double monto, Empleado empleado, String fecha) {
-        if (cuenta == null) {
-            System.out.println("Cuenta no encontradaa");
+    public void retirar(String idCuenta, String idDeposito, String fecha, double monto, Cliente cliente, Empleado empleado) {
+        Cuenta cuenta = buscarCuenta(idCuenta);
+        if (cuenta != null) {
+            Retiro retiro = new Retiro(idCuenta, monto, fecha, cliente, empleado);
+            retiro.procesar(cuenta, monto, retiro);
+        } else {
+            System.out.println("Cuenta no encontrada");
         }
-        Retiro retiro = new Retiro(cuenta.getIdCuenta(), monto, fecha, cliente, empleado);
-        cuenta.retirar(retiro);
     }
+    */
 }

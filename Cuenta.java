@@ -29,27 +29,21 @@ public class Cuenta {
     public ArrayList<Cliente> getTitulares() { return titulares; }
     public void setTitulares(ArrayList<Cliente> titulares) { this.titulares = titulares; }
     public ArrayList<Transaccion> getMovimientos() { return movimientos; }
-    public void setMovimientos(ArrayList<Transaccion> movimientos) { this.movimientos = movimientos; }
+    public void agregarDeposito(Deposito objeto) { 
+        movimientos.add(objeto);
+    }
+    public void agregarRetiro(Retiro objeto) { 
+        movimientos.add(objeto);
+    }
+    public void agregarPago(PagoServicio objeto) { 
+        movimientos.add(objeto);
+    }
+    public void agregarTransferencia(Transferencia objeto) { 
+        movimientos.add(objeto);
+    }
 
     /* Getter y Setter para la tarjeta */
     public Tarjeta getTarjeta() { return tarjeta; }
     public void setTarjeta(Tarjeta tarjeta) { this.tarjeta = tarjeta; }
 
-    /* Método de depositar */
-    public void depositar(Deposito deposito) {
-        deposito.procesar();
-        saldo += deposito.getMonto();
-        movimientos.add(deposito);
-    }
-
-    /* Método de retirar */
-    public void retirar(Retiro retiro) {
-        if (saldo >= retiro.getMonto()) {
-            retiro.procesar();
-            saldo -= retiro.getMonto();
-            movimientos.add(retiro);
-        } else {
-            System.out.println("No se puede efectuar el retiro, fondos insuficientes");
-        }
-    }
 }

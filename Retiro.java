@@ -5,8 +5,9 @@ public class Retiro extends Transaccion{
     }
 
     /* Método "procesar" de Retiro (polimorfismo y heredación) */
-    public void procesar() {
-        System.out.println("Retiro realizado de " +getMonto()+ " por " +getCliente().getNombre());
+        public void procesar(Cuenta cuenta, double monto, Retiro retiro) {
+        cuenta.setSaldo(cuenta.consultarSaldo()-monto);
+        cuenta.agregarRetiro(retiro);
+        System.out.println("Se retiró correctamente el monto");
     }
-
 }

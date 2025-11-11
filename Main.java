@@ -6,6 +6,8 @@ public class Main {
         Banco banco = new Banco();
         Empleado empleadoBase = new Empleado("Luis", "Pérez", "12345678", "Av. Central", "999999999", "E001", "Cajero");
         banco.registrarEmpleado(empleadoBase);
+        Cliente clienteBase = new Cliente("Alejandro", "Mendoza", "32164255", "Av. Central", "999999999", "C001", "ajmendozap", true);
+        banco.registrarCliente(clienteBase);
         int opcion;
         do {
             System.out.println("\n===== MENÚ BANCO =====");
@@ -15,7 +17,13 @@ public class Main {
             System.out.println("4. Retirar dinero");
             System.out.println("5. Consultar saldo");
             System.out.println("6. Mostrar transacciones");
-            System.out.println("7. Salir");
+            System.out.println("7. Realizar pago");
+            System.out.println("8. Realizar transferencia");
+            System.out.println("9. Mostrar empleado");
+            System.out.println("10. Mostrar cliente");
+            System.out.println("11. Eliminar empleado");
+            System.out.println("12. Eliminar cliente");
+            System.out.println("13. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = sc.nextInt();
             sc.nextLine();
@@ -72,6 +80,8 @@ public class Main {
                     System.out.println("\n--- Depósito ---");
                     System.out.print("ID de cuenta: ");
                     String idCtaDep = sc.nextLine();
+                    System.out.print("Código de depósito: ");
+                    String codigoDep = sc.nextLine();
                     System.out.print("ID del cliente: ");
                     String idCliDep = sc.nextLine();
                     System.out.print("Monto a depositar: ");
@@ -79,21 +89,16 @@ public class Main {
                     sc.nextLine();
                     System.out.print("Fecha (dd/mm/aaaa): ");
                     String fechaDep = sc.nextLine();
-
                     Cliente cliDep = banco.buscarCliente(idCliDep);
-                    Cuenta ctaDep = banco.buscarCuenta(idCtaDep);
-
-                    if (cliDep != null && ctaDep != null) {
-                        banco.depositar(idCtaDep, fechaDep, montoDep, cliDep, empleadoBase);
-                    } else {
-                        System.out.println("Cliente o cuenta no encontrada.");
-                    }
+                    banco.depositar(idCtaDep, codigoDep, fechaDep, montoDep, cliDep, empleadoBase);
                     break;
 
                 case 4:
                     System.out.println("\n--- Retiro ---");
                     System.out.print("ID de cuenta: ");
                     String idCtaRet = sc.nextLine();
+                    System.out.print("Código de retiro: ");
+                    String codigoRet = sc.nextLine();
                     System.out.print("ID del cliente: ");
                     String idCliRet = sc.nextLine();
                     System.out.print("Monto a retirar: ");
@@ -101,15 +106,8 @@ public class Main {
                     sc.nextLine();
                     System.out.print("Fecha (dd/mm/aaaa): ");
                     String fechaRet = sc.nextLine();
-
                     Cliente cliRet = banco.buscarCliente(idCliRet);
-                    Cuenta ctaRet = banco.buscarCuenta(idCtaRet);
-
-                    if (cliRet != null && ctaRet != null) {
-                        banco.retirar(idCtaRet, fechaRet, montoRet, cliRet, empleadoBase);
-                    } else {
-                        System.out.println("Cliente o cuenta no encontrada.");
-                    }
+                    banco.retirar(idCtaRet, codigoRet, fechaRet, montoRet, cliRet, empleadoBase);
                     break;
 
                 case 5:
@@ -140,6 +138,71 @@ public class Main {
                     break;
 
                 case 7:
+                    System.out.println("\n--- Pago a servicio ---");
+                    System.out.print("ID de cuenta: ");
+                    String idCta = sc.nextLine();
+                    System.out.print("Código de pago: ");
+                    String codigo = sc.nextLine();
+                    System.out.print("ID del cliente: ");
+                    String idCli = sc.nextLine();
+                    System.out.print("Monto a pagar: ");
+                    double monto = sc.nextDouble();
+                    sc.nextLine();
+                    System.out.print("Fecha (dd/mm/aaaa): ");
+                    String fecha = sc.nextLine();
+                    System.out.print("Servicio a pagar: ");
+                    String servicio = sc.nextLine();
+                    Cliente cli = banco.buscarCliente(idCli);
+                    banco.pagarServicio(idCta, codigo, fecha, monto, cli, empleadoBase, servicio);
+                    break;
+
+                case 8:
+                    System.out.println("\n--- Transferencia ---");
+                    System.out.print("ID de su cuenta: ");
+                    String idCtaTra1 = sc.nextLine();
+                    System.out.print("ID de la cuenta a transferir: ");
+                    String idCtaTra2 = sc.nextLine();
+                    System.out.print("Código de pago: ");
+                    String codigoTra = sc.nextLine();
+                    System.out.print("Su ID: ");
+                    String idCliTra1 = sc.nextLine();
+                    System.out.print("ID del cliente a transferir: ");
+                    String idCliTra2 = sc.nextLine();
+                    System.out.print("Monto a pagar: ");
+                    double montoTra = sc.nextDouble();
+                    sc.nextLine();
+                    System.out.print("Fecha (dd/mm/aaaa): ");
+                    String fechaTra = sc.nextLine();
+                    Cliente cliTra1 = banco.buscarCliente(idCliTra1);
+                    Cliente cliTra2 = banco.buscarCliente(idCliTra2);
+                    banco.transferencia(idCtaTra1, idCtaTra2, codigoTra, fechaTra, montoTra, cliTra1, cliTra2, empleadoBase);
+                    break;
+
+                case 9:
+                    System.out.println("Ingrese el codigo del empleado a mostrar: ");
+                    String codigoEmpleado = sc.next();
+                    banco.mostrarEmpleado(codigoEmpleado);
+                    break;
+
+                case 10:
+                    System.out.println("Ingrese el codigo del cliente a mostrar: ");
+                    String codigoCliente = sc.next();
+                    banco.mostrarCliente(codigoCliente);
+                    break;
+                
+                case 11:
+                    System.out.println("Ingrese el codigo del empleado a eliminar: ");
+                    String codigoEmp = sc.next();
+                    banco.eliminarEmpleado(codigoEmp);
+                    break;
+                
+                case 12:
+                    System.out.println("Ingrese el codigo del cliente a eliminar: ");
+                    String codigoCli = sc.next();
+                    banco.eliminarCliente(codigoCli);
+                    break;
+                
+                case 13:
                     System.out.println("Saliendo del sistema...");
                     break;
 
@@ -147,8 +210,6 @@ public class Main {
                     System.out.println( "Opción no válida.");
             }
 
-        } while (opcion != 7);
-
-        sc.close();
+        } while (opcion != 13);
     }
 }
