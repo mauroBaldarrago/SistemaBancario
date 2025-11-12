@@ -1,7 +1,7 @@
 public class Deposito extends Transaccion{
     /* Constructor de Deposito (polimorfismo y heredación) */
-    public Deposito(String idTransaccion, double monto, String fecha, Cliente cliente, Empleado empleado){
-        super(idTransaccion, monto, fecha, cliente, empleado);
+    public Deposito(String idTransaccion, double monto, Cliente cliente, Empleado empleado){
+        super(idTransaccion, monto, cliente, empleado);
     }
 
     /* Método "procesar" de Deposito (polimorfismo y heredación) */

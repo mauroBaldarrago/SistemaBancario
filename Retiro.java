@@ -1,7 +1,7 @@
 public class Retiro extends Transaccion{
     /* Constructor de Retiro (polimorfismo y heredación) */
-    public Retiro(String idTransaccion, double monto, String fecha, Cliente cliente, Empleado empleado) {
-        super(idTransaccion, monto, fecha, cliente, empleado);
+    public Retiro(String idTransaccion, double monto, Cliente cliente, Empleado empleado) {
+        super(idTransaccion, monto, cliente, empleado);
     }
 
     /* Método "procesar" de Retiro (polimorfismo y heredación) */

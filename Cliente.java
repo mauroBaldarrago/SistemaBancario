@@ -9,7 +9,7 @@ class Cliente extends Persona {
         super(nombre, apellido, dni, direccion, celular);
         this.idCliente = idCliente;
         this.correo = correo;
-        this.activo = activo;
+        this.activo = true;
     }
 
     /* Getters necesarios */

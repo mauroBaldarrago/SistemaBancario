@@ -6,7 +6,6 @@ public class Cuenta {
     private double saldo;
     private ArrayList<Cliente> titulares;
     private ArrayList<Transaccion> movimientos;
-    private Tarjeta tarjeta;
 
     /* Constructor de Cuenta */
     public Cuenta(String idCuenta, String tipo, double saldo, ArrayList<Cliente> titulares){
@@ -15,8 +14,6 @@ public class Cuenta {
         this.saldo = saldo;
         this.titulares = titulares;
         this.movimientos = new ArrayList<>();
-        String tipoTarjeta = (tipo != null && tipo.equalsIgnoreCase("ahorro")) ? "Débito" : "Crédito";
-        this.tarjeta = new Tarjeta(tipoTarjeta);
     }
 
     /* Getters y Setters */
@@ -41,9 +38,4 @@ public class Cuenta {
     public void agregarTransferencia(Transferencia objeto) { 
         movimientos.add(objeto);
     }
-
-    /* Getter y Setter para la tarjeta */
-    public Tarjeta getTarjeta() { return tarjeta; }
-    public void setTarjeta(Tarjeta tarjeta) { this.tarjeta = tarjeta; }
-
 }

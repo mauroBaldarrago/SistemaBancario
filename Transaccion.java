@@ -1,16 +1,18 @@
+import java.time.LocalDate;
+
 public class Transaccion {
     /* Creando los atributos de la clase padre "Transacción" */
-    private String idTransaccion;
-    private double monto;
-    private String fecha;
-    private Cliente cliente;
-    private Empleado empleado;
+    protected String idTransaccion;
+    protected double monto;
+    protected LocalDate fecha;
+    protected Cliente cliente;
+    protected Empleado empleado;
 
     /* Constructor de Transacción */
-    public Transaccion(String idTransaccion, double monto, String fecha, Cliente cliente, Empleado empleado){
+    public Transaccion(String idTransaccion, double monto, Cliente cliente, Empleado empleado){
         this.idTransaccion = idTransaccion;
         this.monto = monto;
-        this.fecha = fecha;
+        this.fecha = LocalDate.now();
         this.cliente = cliente;
         this.empleado = empleado;
     }
@@ -20,14 +22,7 @@ public class Transaccion {
     public void setIdTransaccion(String idTransaccion) { this.idTransaccion = idTransaccion; }
     public double getMonto() { return monto; }
     public void setMonto(double monto) { this.monto = monto; }
-    public String getFecha() { return fecha; }
-    public void setFecha(String fecha) { 
-        if (!validarFecha(fecha)) {
-            System.out.println("El formato de fecha es inválido");
-            this.fecha = null;
-        }
-        this.fecha = fecha; 
-    }
+    public String getFecha() { return fecha.toString(); }
     public Cliente getCliente() { return cliente; }
     public void setCliente(Cliente cliente) { this.cliente = cliente; }
     public Empleado getEmpleado() { return empleado; }
