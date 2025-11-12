@@ -22,37 +22,40 @@ public class Banco {
     /* MÉTODOS DE AUTENTICACIÓN */
     
     public Usuario iniciarSesion(String dni, String contrasena) {
+        // Buscar en clientes
         for (Cliente c : clientes) {
             if (c.getDni().equals(dni) && c.verificarContrasena(contrasena)) {
                 usuarioActual = c;
-                System.out.println("\n✓ Bienvenido Cliente: " + c.getNombre() + " " + c.getApellido());
+                System.out.println("\nBienvenido Cliente: " + c.getNombre() + " " + c.getApellido());
                 return c;
             }
         }
-        
+
+        // Buscar en empleados
         for (Empleado e : empleados) {
             if (e.getDni().equals(dni) && e.verificarContrasena(contrasena)) {
                 usuarioActual = e;
-                System.out.println("\n✓ Bienvenido Empleado: " + e.getNombre() + " " + e.getApellido());
+                System.out.println("\nBienvenido Empleado: " + e.getNombre() + " " + e.getApellido());
                 return e;
             }
         }
-        
+
+        // Buscar en administradores
         for (Admin a : admins) {
             if (a.getDni().equals(dni) && a.verificarContrasena(contrasena)) {
                 usuarioActual = a;
-                System.out.println("\n✓ Bienvenido Administrador: " + a.getNombre() + " " + a.getApellido());
+                System.out.println("\nBienvenido Administrador: " + a.getNombre() + " " + a.getApellido());
                 return a;
             }
         }
-        
-        System.out.println("\n✗ Error: DNI o contraseña incorrectos");
+
+        System.out.println("\nError: DNI o contraseña incorrectos");
         return null;
     }
 
     public void cerrarSesion() {
         if (usuarioActual != null) {
-            System.out.println("\n✓ Sesión cerrada. Hasta pronto, " + usuarioActual.getNombre());
+            System.out.println("\nSesión cerrada. Hasta pronto, " + usuarioActual.getNombre());
             usuarioActual = null;
         }
     }
@@ -68,7 +71,7 @@ public class Banco {
     /* Método para verificar permisos antes de ejecutar operaciones */
     public boolean verificarPermiso(String operacion) {
         if (usuarioActual == null) {
-            System.out.println("\n✗ Error: Debe iniciar sesión primero");
+            System.out.println("\nError: Debe iniciar sesión primero");
             return false;
         }
         
@@ -90,9 +93,10 @@ public class Banco {
                 case "RETIRAR":
                 case "TRANSFERIR":
                 case "PAGAR_SERVICIO":
+                case "ELIMINAR_TITULAR":
                     return true;
                 default:
-                    System.out.println("\n✗ Error: No tiene permisos para esta operación");
+                    System.out.println("\nError: No tiene permisos para esta operación");
                     return false;
             }
         }
@@ -106,7 +110,7 @@ public class Banco {
                 case "MOSTRAR_SALDO":
                     return true;
                 default:
-                    System.out.println("\n✗ Error: No tiene permisos para esta operación");
+                    System.out.println("\nError: No tiene permisos para esta operación");
                     return false;
             }
         }
@@ -153,8 +157,6 @@ public class Banco {
 
     /* MÉTODOS PARA REGISTRAR USUARIOS (CON VALIDACIONES) */
     public void registrarCliente(Cliente cliente){
-        if (!verificarPermiso("REGISTRAR_CLIENTE")) return;
-        
         Cliente c = buscarCliente(cliente.getIdCliente());
         if (c == null) {
             clientes.add(cliente);
@@ -217,21 +219,19 @@ public class Banco {
         Cliente c = buscarCliente(nuevo.getIdCliente());
         if (c == null) {
             clientes.add(nuevo);
-            System.out.println("✓ Cliente registrado correctamente");
+            System.out.println("Cliente registrado correctamente");
         } else {
-            System.out.println("✗ El cliente ya está registrado");
+            System.out.println("El cliente ya está registrado");
         }
     }
 
     public void registrarEmpleado(Empleado empleado){
-        if (!verificarPermiso("REGISTRAR_EMPLEADO")) return;
-        
         Empleado e = buscarEmpleado(empleado.getIdEmpleado());
         if (e == null) {
             empleados.add(empleado);
-            System.out.println("✓ Empleado registrado correctamente");
+            System.out.println("Empleado registrado correctamente");
         } else {
-            System.out.println("✗ El empleado ya está registrado");
+            System.out.println("El empleado ya está registrado");
         }
     }
 
@@ -288,36 +288,30 @@ public class Banco {
         Empleado e = buscarEmpleado(nuevo.getIdEmpleado());
         if (e == null) {
             empleados.add(nuevo);
-            System.out.println("✓ Empleado registrado correctamente");
+            System.out.println("Empleado registrado correctamente");
         } else {
-            System.out.println("✗ El empleado ya está registrado");
+            System.out.println("El empleado ya está registrado");
         }
     }
 
     public void registrarAdmin(Admin admin){
-        if (!(usuarioActual instanceof Admin)) {
-            System.out.println("\n✗ Error: Solo administradores pueden registrar otros administradores");
-            return;
-        }
         Admin a = buscarAdmin(admin.getIdAdmin());
         if (a == null) {
             admins.add(admin);
-            System.out.println("✓ Administrador registrado correctamente");
+            System.out.println("Administrador registrado correctamente");
         } else {
-            System.out.println("✗ El administrador ya está registrado");
+            System.out.println("El administrador ya está registrado");
         }
     }
 
     /* MÉTODOS PARA CREAR CUENTAS  */
     public void crearCuenta(Cuenta cuenta){
-        if (!verificarPermiso("CREAR_CUENTA")) return;
-        
         Cuenta c = buscarCuenta(cuenta.getIdCuenta());
         if (c == null) {
             cuentas.add(cuenta);
-            System.out.println("✓ Cuenta creada correctamente");
+            System.out.println("Cuenta creada correctamente");
         } else {
-            System.out.println("✗ La cuenta ya está registrada");
+            System.out.println("La cuenta ya está registrada");
         }
     }
 
@@ -361,9 +355,9 @@ public class Banco {
         Cuenta c = buscarCuenta(nueva.getIdCuenta());
         if (c == null) {
             cuentas.add(nueva);
-            System.out.println("✓ Cuenta creada correctamente");
+            System.out.println("Cuenta creada correctamente");
         } else {
-            System.out.println("✗ La cuenta ya está registrada");
+            System.out.println("La cuenta ya está registrada");
         }
     }
 
@@ -391,7 +385,7 @@ public class Banco {
             return;
         }
         titulares.add(cliente);
-        System.out.println("✓ Cliente " + cliente.getNombre() + " añadido como titular con éxito");
+        System.out.println("Cliente " + cliente.getNombre() + " añadido como titular con éxito");
     }
 
     /* MÉTODOS PARA TRANSACCIONES */
@@ -572,8 +566,8 @@ public class Banco {
             System.out.println("Error: Saldo insuficiente en la cuenta origen");
             return;
         }
-    Transferencia transferencia = new Transferencia(idTransferencia, monto, cliente1, cliente2, empleado);
-    transferencia.procesar(cuenta1, cuenta2, monto, transferencia);
+        Transferencia transferencia = new Transferencia(idTransferencia, monto, cliente1, cliente2, empleado);
+        transferencia.procesar(cuenta1, cuenta2, monto, transferencia);
     }
 
     public void pagarServicio() {
@@ -595,6 +589,10 @@ public class Banco {
         Cliente cliente = buscarCliente(idCliente);
         if (!Validaciones.validarObjeto(cliente)) {
             System.out.println("Error: Cliente no válido");
+            return;
+        }
+        if (!cuenta.getTitulares().contains(cliente)) {
+            System.out.println("Error: Cliente no titular");
             return;
         }
         
@@ -635,8 +633,8 @@ public class Banco {
             System.out.println("Error: Saldo insuficiente para pagar el servicio: " + tipoServicio);
             return;
         }
-    PagoServicio pagoServicio = new PagoServicio(idPago, monto, cliente, empleado, tipoServicio);
-    pagoServicio.procesar(cuenta, monto, pagoServicio);
+        PagoServicio pagoServicio = new PagoServicio(idPago, monto, cliente, empleado, tipoServicio);
+        pagoServicio.procesar(cuenta, monto, pagoServicio);
     }
 
     /* MÉTODOS PARA MOSTRAR Y ELIMINAR (CON VALIDACIONES) */
@@ -767,6 +765,7 @@ public class Banco {
     }
 
     public void eliminarTitular() {
+        if (!verificarPermiso("ELIMINAR_TITULAR")) return;
         System.out.println("\n--- Eliminar Titular ---");
         System.out.print("ID de cuenta: ");
         String idCuenta = sc.nextLine();
@@ -801,7 +800,7 @@ public class Banco {
             System.out.println("\n--- MIS DATOS DE USUARIO ---");
             usuarioActual.mostrarDatos();
         } else {
-            System.out.println("\n✗ Error: No hay sesión iniciada.");
+            System.out.println("\nError: No hay sesión iniciada.");
         }
     }
     
@@ -848,7 +847,6 @@ public class Banco {
         System.out.println("Cuentas totales: " + cuentas.size());
     }
 
-
     /* MÉTODO PRINCIPAL DE EJECUCIÓN DEL MENÚ CON SWITCH */
     public void ejecutarMenuPrincipal() {
         if (usuarioActual == null) return; 
@@ -865,24 +863,11 @@ public class Banco {
                 sc.nextLine(); 
                 continue;
             }
-
-        while (!salir) {
-            System.out.println("\n=============================================");
-            usuarioActual.mostrarPermisos(); 
-            System.out.print("\nSeleccione una opción: ");
-            try {
-                opcion = sc.nextInt();
-                sc.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println("✗ Error: Ingrese un número válido.");
-                sc.nextLine();
-                continue;
-            }
             
             if (usuarioActual instanceof Admin) {
                 Admin admin = (Admin) usuarioActual;     
                 if (!admin.puedeRealizarOperacion(opcion)) { 
-                    System.out.println("✗ Opción no válida para un Administrador.");
+                    System.out.println("Opción no válida para un Administrador.");
                     continue;
                 }
                 switch (opcion) {
@@ -915,7 +900,7 @@ public class Banco {
             } else if (usuarioActual instanceof Empleado) {
                 Empleado empleado = (Empleado) usuarioActual;               
                 if (!empleado.puedeRealizarOperacion(opcion)) { 
-                    System.out.println("✗ Opción no válida para un Empleado.");
+                    System.out.println("Opción no válida para un Empleado.");
                     continue;
                 }
                 
@@ -942,7 +927,7 @@ public class Banco {
             } else if (usuarioActual instanceof Cliente) {
                 Cliente cliente = (Cliente) usuarioActual; 
                 if (!cliente.puedeRealizarOperacion(opcion)) { 
-                    System.out.println("✗ Opción no válida para un Cliente.");
+                    System.out.println("Opción no válida para un Cliente.");
                     continue;
                 }
                 switch (opcion) {
@@ -964,5 +949,4 @@ public class Banco {
             }
         }
     }
-}
 }

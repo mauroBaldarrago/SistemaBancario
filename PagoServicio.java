@@ -1,5 +1,4 @@
 public class PagoServicio extends Transaccion {
-
     private String tipoServicio; // luz, agua, internet, etc.
 
     /* Constructor */

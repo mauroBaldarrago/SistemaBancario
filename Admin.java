@@ -56,4 +56,8 @@ public class Admin extends Usuario{
     public boolean puedeRealizarOperacion(int opcion) {
         return opcion >= 1 && opcion <= 20;
     }
+
+    public boolean verificarContrasena(String contrasena) {
+    return this.contrasena.equals(contrasena);
+    }
 }
