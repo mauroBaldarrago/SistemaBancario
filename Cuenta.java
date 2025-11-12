@@ -16,6 +16,7 @@ public class Cuenta {
         this.movimientos = new ArrayList<>();
     }
 
+
     /* Getters y Setters */
     public String getIdCuenta() { return idCuenta; }
     public void setIdCuenta(String idCuenta) { this.idCuenta = idCuenta; }
@@ -37,5 +38,32 @@ public class Cuenta {
     }
     public void agregarTransferencia(Transferencia objeto) { 
         movimientos.add(objeto);
+    }
+
+    public void mostrarDatos() {
+        System.out.println("\n--- DATOS DE CUENTA ---");
+        System.out.println("ID Cuenta: " + idCuenta);
+        System.out.println("Tipo: " + tipo);
+        System.out.printf("Saldo: S/. %.2f\n", consultarSaldo());
+        System.out.print("Titulares: ");
+        if (titulares.isEmpty()) {
+            System.out.println("N/A");
+        } else {
+            for (int i = 0; i < titulares.size(); i++) {
+                System.out.print(titulares.get(i).getNombre() + " " + titulares.get(i).getApellido() + " (ID: " + titulares.get(i).getIdCliente() + ")" + (i < titulares.size() - 1 ? ", " : ""));
+            }
+            System.out.println();
+        }
+    }
+    
+    public void mostrarMovimientos() {
+        if (movimientos.isEmpty()) {
+            System.out.println("La cuenta " + idCuenta + " no tiene movimientos.");
+            return;
+        }
+        System.out.println("\n--- MOVIMIENTOS DE LA CUENTA " + idCuenta + " ---");
+        for (Transaccion t : movimientos) {
+            t.mostrarDetalles(); 
+        }
     }
 }

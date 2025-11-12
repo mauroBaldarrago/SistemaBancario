@@ -29,8 +29,14 @@ public class Transaccion {
     public void setEmpleado(Empleado empleado) { this.empleado = empleado; }
     public void procesar(Cuenta cuenta, int monto){}
 
-    /* Validaciones */
-    public static boolean validarFecha(String fecha) {
-        return fecha.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\\d{4}$");
+    /* Método para mostrar los datos comunes de la transacción */
+    public void mostrarDetalles() {
+        String empleadoId = (empleado != null) ? empleado.getIdEmpleado() : "N/A (Autoservicio)";
+        System.out.println("-------------------------------------");
+        System.out.println("ID Transacción: " + idTransaccion);
+        System.out.println("Monto: S/. " + monto);
+        System.out.println("Fecha: " + fecha.toString());
+        System.out.println("Cliente Principal: " + cliente.getNombre() + " " + cliente.getApellido() + " (DNI: " + cliente.getDni() + ")");
+        System.out.println("Procesado por Empleado ID: " + empleadoId);
     }
 }
