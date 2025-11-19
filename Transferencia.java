@@ -4,7 +4,6 @@ public class Transferencia extends Transaccion{
         super(idTransaccion, monto, cliente1, empleado);
     } 
     
-    @Override
     public void procesar(Cuenta cuenta1, Cuenta cuenta2, double monto, Transferencia transferencia){
         cuenta1.setSaldo(cuenta1.consultarSaldo()-monto);
         cuenta2.setSaldo(cuenta2.consultarSaldo()+monto);
