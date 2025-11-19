@@ -20,7 +20,6 @@ public class Banco {
     }
 
     /* MÉTODOS DE AUTENTICACIÓN */
-    
     public Usuario iniciarSesion(String dni, String contrasena) {
         // Buscar en clientes
         for (Cliente c : clientes) {
@@ -30,7 +29,6 @@ public class Banco {
                 return c;
             }
         }
-
         // Buscar en empleados
         for (Empleado e : empleados) {
             if (e.getDni().equals(dni) && e.verificarContrasena(contrasena)) {
@@ -39,7 +37,6 @@ public class Banco {
                 return e;
             }
         }
-
         // Buscar en administradores
         for (Admin a : admins) {
             if (a.getDni().equals(dni) && a.verificarContrasena(contrasena)) {
@@ -48,7 +45,6 @@ public class Banco {
                 return a;
             }
         }
-
         System.out.println("\nError: DNI o contraseña incorrectos");
         return null;
     }
@@ -74,7 +70,6 @@ public class Banco {
             System.out.println("\nError: Debe iniciar sesión primero");
             return false;
         }
-        
         if (usuarioActual instanceof Admin) {
             return true;
         }
@@ -106,6 +101,7 @@ public class Banco {
                 case "DEPOSITAR":
                 case "RETIRAR":
                 case "PAGAR_SERVICIO":
+                case "TRANSFERIR":
                 case "MOSTRAR_TRANSACCIONES":
                 case "MOSTRAR_SALDO":
                     return true;
@@ -114,11 +110,11 @@ public class Banco {
                     return false;
             }
         }
-        
         return false;
     }
 
-    /* MÉTODOS PARA BUSCAR */
+/* MÉTODOS PARA BUSCAR */
+    // Buscar cliente
     public Cliente buscarCliente(String idCliente){
         for (Cliente c: clientes){
             if (c.getIdCliente().equals(idCliente)){
@@ -128,6 +124,7 @@ public class Banco {
         return null;
     }
 
+    // Buscar cuenta
     public Cuenta buscarCuenta(String idCuenta){
         for (Cuenta c: cuentas){
             if (c.getIdCuenta().equals(idCuenta)) {
@@ -137,6 +134,7 @@ public class Banco {
         return null;
     }
 
+    // Buscar empleado
     public Empleado buscarEmpleado(String idEmpleado){
         for (Empleado e: empleados){
             if (e.getIdEmpleado().equals(idEmpleado)){
@@ -146,6 +144,7 @@ public class Banco {
         return null;
     }
 
+    // Buscar admin
     public Admin buscarAdmin(String idAdmin){
         for (Admin a: admins){
             if (a.getIdAdmin().equals(idAdmin)){
@@ -155,64 +154,76 @@ public class Banco {
         return null;
     }
 
-    /* MÉTODOS PARA REGISTRAR USUARIOS (CON VALIDACIONES) */
+/* MÉTODOS PARA REGISTRAR USUARIOS (CON VALIDACIONES) */
+    // Cliente inicializado
     public void registrarCliente(Cliente cliente){
         Cliente c = buscarCliente(cliente.getIdCliente());
-        if (c == null) {
+        if (c == null) 
             clientes.add(cliente);
-            System.out.println("Cliente registrado correctamente");
-        } else {
-            System.out.println("El cliente ya está registrado");
-        }
     }
     
+    // Cliente teclado
     public void registrarClienteTeclado() {
         if (!verificarPermiso("REGISTRAR_CLIENTE")) return;
-        
         System.out.println("\n--- REGISTRAR NUEVO CLIENTE ---");
-        System.out.print("DNI: ");
-        String dni = sc.nextLine();
-        if (!Validaciones.validarDNI(dni)){
-            System.out.println("Error: Ingrese un DNI válido");
-            return;
+        
+        String dni;
+        while (true) {
+            System.out.print("DNI: ");
+            dni = sc.nextLine();
+            if (Validaciones.validarDNI(dni)) {break;}
+            System.out.println("Error: Ingrese un DNI válido (8 dígitos)");
         }
-        System.out.print("Nombre: ");
-        String nombre = sc.nextLine();
-        if (!Validaciones.validarNombre(nombre)){
-            System.out.println("Error: Ingrese un nombre válido");
-            return;
+        
+        String nombre;
+        while (true) {
+            System.out.print("Nombre: ");
+            nombre = sc.nextLine();
+            if (Validaciones.validarNombre(nombre)) {break;}
+            System.out.println("Error: Ingrese un nombre válido (solo letras, 2-50 caracteres)");
         }
-        System.out.print("Apellido: ");
-        String apellido = sc.nextLine();
-        if (!Validaciones.validarNombre(apellido)){
-            System.out.println("Error: Ingrese un apellido válido");
-            return;
+        
+        String apellido;
+        while (true) {
+            System.out.print("Apellido: ");
+            apellido = sc.nextLine();
+            if (Validaciones.validarNombre(apellido)) {break;}
+            System.out.println("Error: Ingrese un apellido válido (solo letras, 2-50 caracteres)");
         }
+        
         System.out.print("Dirección: ");
         String direccion = sc.nextLine();
-        System.out.print("Celular: ");
-        String celular = sc.nextLine();
-        if (!Validaciones.validarCelular(celular)){
-            System.out.println("Error: Ingrese un celular válido");
-            return;
+        
+        String celular;
+        while (true) {
+            System.out.print("Celular: ");
+            celular = sc.nextLine();
+            if (Validaciones.validarCelular(celular)) {break;}
+            System.out.println("Error: Ingrese un celular válido (9 dígitos, debe empezar con 9)");
         }
-        System.out.print("Email: ");
-        String correo = sc.nextLine();
-        if (!Validaciones.validarCorreo(correo)){
-            System.out.println("Error: Ingrese un correo válido");
-            return;
+        
+        String correo;
+        while (true) {
+            System.out.print("Email: ");
+            correo = sc.nextLine();
+            if (Validaciones.validarCorreo(correo)) {break;}
+            System.out.println("Error: Ingrese un correo válido (formato: usuario@dominio.com)");
         }
-        System.out.print("ID Cliente: ");
-        String idCliente = sc.nextLine();
-        if (!Validaciones.validarCodigoCliente(idCliente)){
-            System.out.println("Error: Ingrese un ID válido");
-            return;
+        
+        String idCliente;
+        while (true) {
+            System.out.print("ID Cliente: ");
+            idCliente = sc.nextLine();
+            if (Validaciones.validarCodigoCliente(idCliente)) {break;}
+            System.out.println("Error: Ingrese un ID válido (formato: CLI seguido de 3 dígitos)");
         }
-        System.out.print("Contraseña: ");
-        String contrasena = sc.nextLine();
-        if (!Validaciones.validarTexto(contrasena)){
-            System.out.println("Error: Ingrese una contraseña válida");
-            return;
+        
+        String contrasena;
+        while (true) {
+            System.out.print("Contraseña: ");
+            contrasena = sc.nextLine();
+            if (Validaciones.validarTexto(contrasena)) {break;}
+            System.out.println("Error: Ingrese una contraseña válida (no puede estar vacía)");
         }
         
         Cliente nuevo = new Cliente(nombre, apellido, dni, direccion, celular, idCliente, correo, contrasena);
@@ -220,68 +231,77 @@ public class Banco {
         if (c == null) {
             clientes.add(nuevo);
             System.out.println("Cliente registrado correctamente");
-        } else {
+        } else
             System.out.println("El cliente ya está registrado");
-        }
     }
 
     public void registrarEmpleado(Empleado empleado){
         Empleado e = buscarEmpleado(empleado.getIdEmpleado());
-        if (e == null) {
+        if (e == null)
             empleados.add(empleado);
-            System.out.println("Empleado registrado correctamente");
-        } else {
-            System.out.println("El empleado ya está registrado");
-        }
     }
 
     public void registrarEmpleadoTeclado(){
-        if (!verificarPermiso("REGISTRAR_EMPLEADO")) return;
-        
+        if (!verificarPermiso("REGISTRAR_EMPLEADO")) return;  
         System.out.println("\n--- REGISTRAR NUEVO EMPLEADO ---");
-        System.out.print("DNI: ");
-        String dni = sc.nextLine();
-        if (!Validaciones.validarDNI(dni)){
-            System.out.println("Error: Ingrese un DNI válido");
-            return;
+        
+        String dni;
+        while (true) {
+            System.out.print("DNI: ");
+            dni = sc.nextLine();
+            if (Validaciones.validarDNI(dni)) {break;}
+            System.out.println("Error: Ingrese un DNI válido (8 dígitos)");
         }
-        System.out.print("Nombre: ");
-        String nombre = sc.nextLine();
-        if (!Validaciones.validarNombre(nombre)){
-            System.out.println("Error: Ingrese un nombre válido");
-            return;
+        
+        String nombre;
+        while (true) {
+            System.out.print("Nombre: ");
+            nombre = sc.nextLine();
+            if (Validaciones.validarNombre(nombre)) {break;}
+            System.out.println("Error: Ingrese un nombre válido (solo letras, 2-50 caracteres)");
         }
-        System.out.print("Apellido: ");
-        String apellido = sc.nextLine();
-        if (!Validaciones.validarNombre(apellido)){
-            System.out.println("Error: Ingrese un apellido válido");
-            return;
+        
+        String apellido;
+        while (true) {
+            System.out.print("Apellido: ");
+            apellido = sc.nextLine();
+            if (Validaciones.validarNombre(apellido)) {break;}
+            System.out.println("Error: Ingrese un apellido válido (solo letras, 2-50 caracteres)");
         }
+        
         System.out.print("Dirección: ");
         String direccion = sc.nextLine();
-        System.out.print("Celular: ");
-        String celular = sc.nextLine();
-        if (!Validaciones.validarCelular(celular)){
-            System.out.println("Error: Ingrese un celular válido");
-            return;
+        
+        String celular;
+        while (true) {
+            System.out.print("Celular: ");
+            celular = sc.nextLine();
+            if (Validaciones.validarCelular(celular)) {break;}
+            System.out.println("Error: Ingrese un celular válido (9 dígitos, debe empezar con 9)");
         }
-        System.out.print("ID Empleado: ");
-        String idEmpleado = sc.nextLine();
-        if (!Validaciones.validarCodigoEmpleado(idEmpleado)){
-            System.out.println("Error: Ingrese un ID válido");
-            return;
+        
+        String idEmpleado;
+        while (true) {
+            System.out.print("ID Empleado: ");
+            idEmpleado = sc.nextLine();
+            if (Validaciones.validarCodigoEmpleado(idEmpleado)) {break;}
+            System.out.println("Error: Ingrese un ID válido (formato: EMP seguido de 3 dígitos)");
         }
-        System.out.print("Cargo: ");
-        String cargo = sc.nextLine();
-        if (!Validaciones.validarTexto(cargo)){
-            System.out.println("Error: Ingrese un cargo válido");
-            return;
+        
+        String cargo;
+        while (true) {
+            System.out.print("Cargo: ");
+            cargo = sc.nextLine();
+            if (Validaciones.validarTexto(cargo)) {break;}
+            System.out.println("Error: Ingrese un cargo válido (no puede estar vacío)");
         }
-        System.out.print("Contraseña: ");
-        String contrasena = sc.nextLine();
-        if (!Validaciones.validarTexto(contrasena)){
-            System.out.println("Error: Ingrese una contraseña válida");
-            return;
+        
+        String contrasena;
+        while (true) {
+            System.out.print("Contraseña: ");
+            contrasena = sc.nextLine();
+            if (Validaciones.validarTexto(contrasena)) {break;}
+            System.out.println("Error: Ingrese una contraseña válida (no puede estar vacía)");
         }
         
         Empleado nuevo = new Empleado(nombre, apellido, dni, direccion, celular, idEmpleado, cargo, contrasena);
@@ -289,64 +309,63 @@ public class Banco {
         if (e == null) {
             empleados.add(nuevo);
             System.out.println("Empleado registrado correctamente");
-        } else {
+        } else
             System.out.println("El empleado ya está registrado");
-        }
     }
 
     public void registrarAdmin(Admin admin){
         Admin a = buscarAdmin(admin.getIdAdmin());
-        if (a == null) {
+        if (a == null)
             admins.add(admin);
-            System.out.println("Administrador registrado correctamente");
-        } else {
-            System.out.println("El administrador ya está registrado");
-        }
     }
 
     /* MÉTODOS PARA CREAR CUENTAS  */
     public void crearCuenta(Cuenta cuenta){
         Cuenta c = buscarCuenta(cuenta.getIdCuenta());
-        if (c == null) {
+        if (c == null)
             cuentas.add(cuenta);
-            System.out.println("Cuenta creada correctamente");
-        } else {
-            System.out.println("La cuenta ya está registrada");
-        }
     }
 
     public void crearCuentaTeclado() {
         if (!verificarPermiso("CREAR_CUENTA")) return;
-        
         System.out.println("\n--- CREAR NUEVA CUENTA ---");
-        System.out.print("ID Cuenta: ");
-        String idCuenta = sc.nextLine();
-        if (!Validaciones.validarCodigoCuenta(idCuenta)){
+        
+        String idCuenta;
+        while (true) {
+            System.out.print("ID Cuenta: ");
+            idCuenta = sc.nextLine();
+            if (Validaciones.validarCodigoCuenta(idCuenta)) {break;}
             System.out.println("Error: Ingrese un ID de cuenta válido (formato: CTA seguido de 8-10 dígitos)");
-            return;
         }
-        System.out.print("Tipo de cuenta (ahorro/corriente): ");
-        String tipo = sc.nextLine();
-        if (!Validaciones.validarTexto(tipo)){
+        
+        String tipo;
+        while (true) {
+            System.out.print("Tipo de cuenta (ahorro/corriente): ");
+            tipo = sc.nextLine();
+            if (Validaciones.validarTexto(tipo)) {break;}
             System.out.println("Error: Ingrese un tipo de cuenta válido");
-            return;
         }
-        System.out.print("Saldo inicial: ");
+
         double saldo;
-        try {
-            saldo = sc.nextDouble();
-            sc.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Ingrese un monto válido");
-            sc.nextLine();
-            return;
+        while (true) {
+            System.out.print("Saldo inicial: ");
+            try {
+                saldo = sc.nextDouble();
+                sc.nextLine();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un monto válido");
+                sc.nextLine();
+            }
         }
-        System.out.print("ID del cliente titular: ");
-        String idTitular = sc.nextLine();
-        Cliente titular = buscarCliente(idTitular);
-        if (!Validaciones.validarObjeto(titular)){
-            System.out.println("Error: Cliente no encontrado. No se puede crear la cuenta.");
-            return;
+        
+        Cliente titular;
+        while (true) {
+            System.out.print("ID del cliente titular: ");
+            String idTitular = sc.nextLine();
+            titular = buscarCliente(idTitular);
+            if (Validaciones.validarObjeto(titular)) {break;}
+            System.out.println("Error: Cliente no encontrado. Intente nuevamente.");
         }
 
         ArrayList<Cliente> titulares = new ArrayList<>();
@@ -356,34 +375,40 @@ public class Banco {
         if (c == null) {
             cuentas.add(nueva);
             System.out.println("Cuenta creada correctamente");
-        } else {
+        } else
             System.out.println("La cuenta ya está registrada");
-        }
     }
 
     public void agregarTitular() {
         if (!verificarPermiso("AGREGAR_TITULAR")) return;
-        
         System.out.println("\n--- Agregar Titular ---");
-        System.out.print("ID de cuenta: ");
-        String idCuenta = sc.nextLine();
-        Cuenta cuenta = buscarCuenta(idCuenta);
-        if (!Validaciones.validarObjeto(cuenta)) {
-            System.out.println("Error: Cuenta no encontrada");
-            return;
+        
+        Cuenta cuenta;
+        while (true) {
+            System.out.print("ID de cuenta: ");
+            String idCuenta = sc.nextLine();
+            cuenta = buscarCuenta(idCuenta);
+            if (Validaciones.validarObjeto(cuenta)) {break;}
+            System.out.println("Error: Cuenta no encontrada. Intente nuevamente.");
         }
-        System.out.print("ID del cliente a agregar como titular: ");
-        String idCliente = sc.nextLine();
-        Cliente cliente = buscarCliente(idCliente);
-        if (!Validaciones.validarObjeto(cliente)) {
-            System.out.println("Error: Cliente no encontrado");
-            return;
+        
+        Cliente cliente;
+        while (true) {
+            System.out.print("ID del cliente a agregar como titular: ");
+            String idCliente = sc.nextLine();
+            cliente = buscarCliente(idCliente);
+            if (!Validaciones.validarObjeto(cliente)) {
+                System.out.println("Error: Cliente no encontrado. Intente nuevamente.");
+                continue;
+            }
+            ArrayList<Cliente> titulares = cuenta.getTitulares();
+            if (titulares.contains(cliente)) {
+                System.out.println("Error: El cliente ya es titular de esta cuenta. Intente con otro cliente.");
+                continue;
+            }
+            break;
         }
         ArrayList<Cliente> titulares = cuenta.getTitulares();
-        if (titulares.contains(cliente)) {
-            System.out.println("Error: El cliente ya es titular de esta cuenta");
-            return;
-        }
         titulares.add(cliente);
         System.out.println("Cliente " + cliente.getNombre() + " añadido como titular con éxito");
     }
@@ -391,50 +416,60 @@ public class Banco {
     /* MÉTODOS PARA TRANSACCIONES */
     public void depositar() {
         if (!verificarPermiso("DEPOSITAR")) return;
-        
         System.out.println("\n--- Depósito ---");
         System.out.print("ID del depósito: ");
         String idDeposito = sc.nextLine();
-        System.out.print("ID de cuenta: ");
-        String idCuenta = sc.nextLine();
-        Cuenta cuenta = buscarCuenta(idCuenta);
-        if (!Validaciones.validarObjeto(cuenta)) {
-            System.out.println("Error: Cuenta no encontrada");
-            return;
+        
+        Cuenta cuenta;
+        while (true) {
+            System.out.print("ID de cuenta: ");
+            String idCuenta = sc.nextLine();
+            cuenta = buscarCuenta(idCuenta);
+            if (Validaciones.validarObjeto(cuenta)) {break;}
+            System.out.println("Error: Cuenta no encontrada. Intente nuevamente.");
         }
         
-        System.out.print("ID del cliente: ");
-        String idCliente = sc.nextLine();
-        Cliente cliente = buscarCliente(idCliente);
-        if (!Validaciones.validarObjeto(cliente)) {
-            System.out.println("Error: Cliente no válido");
-            return;
-        }  
+        Cliente cliente;
+        while (true) {
+            System.out.print("ID del cliente: ");
+            String idCliente = sc.nextLine();
+            cliente = buscarCliente(idCliente);
+            if (Validaciones.validarObjeto(cliente)) {break;}
+            System.out.println("Error: Cliente no válido. Intente nuevamente.");
+        }
+        
+        if (usuarioActual instanceof Cliente) {
+            Cliente clienteActual = (Cliente) usuarioActual;
+            if (!cuenta.getTitulares().contains(clienteActual)) {
+                System.out.println("Error: No es titular de esta cuenta");
+                return;
+            }
+        }
         Empleado empleado = null;
         if (usuarioActual instanceof Empleado) {
             empleado = (Empleado) usuarioActual;
         } else {
-            System.out.print("ID del empleado (si aplica): ");
-            String idEmpleado = sc.nextLine();
-            empleado = buscarEmpleado(idEmpleado);
-            if (!Validaciones.validarObjeto(empleado)) {
-                System.out.println("Error: Empleado no válido");
-                return;
+            while (true) {
+                System.out.print("ID del empleado (si aplica): ");
+                String idEmpleado = sc.nextLine();
+                empleado = buscarEmpleado(idEmpleado);
+                if (Validaciones.validarObjeto(empleado)) {break;}
+                System.out.println("Error: Empleado no válido. Intente nuevamente.");
             }
         }
-        System.out.print("Monto a depositar: ");
+        
         double monto;
-        try {
-            monto = sc.nextDouble();
-            sc.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Ingrese un monto válido");
-            sc.nextLine();
-            return;
-        }
-        if (!Validaciones.validarMontoDeposito(monto)) {
-            System.out.println("Error: El monto debe estar entre 10 y 50,000");
-            return;
+        while (true) {
+            System.out.print("Monto a depositar: ");
+            try {
+                monto = sc.nextDouble();
+                sc.nextLine();
+                if (Validaciones.validarMontoDeposito(monto)) {break;}
+                System.out.println("Error: El monto debe estar entre 10 y 50,000");
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un monto válido");
+                sc.nextLine();
+            }
         }
         Deposito deposito = new Deposito(idDeposito, monto, cliente, empleado);
         deposito.procesar(cuenta, monto, deposito);
@@ -445,51 +480,64 @@ public class Banco {
         System.out.println("\n--- Retiro ---");
         System.out.print("ID del retiro: ");
         String idRetiro = sc.nextLine();
-        System.out.print("ID de cuenta: ");
-        String idCuenta = sc.nextLine();
-        Cuenta cuenta = buscarCuenta(idCuenta);
-        if (!Validaciones.validarObjeto(cuenta)) {
-            System.out.println("Error: Cuenta no encontrada");
-            return;
-        }
-        System.out.print("ID del cliente: ");
-        String idCliente = sc.nextLine();
-        Cliente cliente = buscarCliente(idCliente);
-        if (!Validaciones.validarObjeto(cliente)) {
-            System.out.println("Error: Cliente no válido");
-            return;
+        
+        Cuenta cuenta;
+        while (true) {
+            System.out.print("ID de cuenta: ");
+            String idCuenta = sc.nextLine();
+            cuenta = buscarCuenta(idCuenta);
+            if (Validaciones.validarObjeto(cuenta)) {break;}
+            System.out.println("Error: Cuenta no encontrada. Intente nuevamente.");
         }
         
-        Empleado empleado = null;
-        if (usuarioActual instanceof Empleado) {
-            empleado = (Empleado) usuarioActual;
-        } else {
-            System.out.print("ID del empleado (si aplica): ");
-            String idEmpleado = sc.nextLine();
-            empleado = buscarEmpleado(idEmpleado);
-            if (!Validaciones.validarObjeto(empleado)) {
-                System.out.println("Error: Empleado no válido");
+        Cliente cliente;
+        while (true) {
+            System.out.print("ID del cliente: ");
+            String idCliente = sc.nextLine();
+            cliente = buscarCliente(idCliente);
+            if (Validaciones.validarObjeto(cliente)) {break;}
+            System.out.println("Error: Cliente no válido. Intente nuevamente.");
+        }
+        
+        if (usuarioActual instanceof Cliente) {
+            Cliente clienteActual = (Cliente) usuarioActual;
+            if (!cuenta.getTitulares().contains(clienteActual)) {
+                System.out.println("Error: No es titular de esta cuenta");
                 return;
             }
         }
+        Empleado empleado = null;
+        if (usuarioActual instanceof Empleado)
+            empleado = (Empleado) usuarioActual;
+        else {
+            while (true) {
+                System.out.print("ID del empleado (si aplica): ");
+                String idEmpleado = sc.nextLine();
+                empleado = buscarEmpleado(idEmpleado);
+                if (Validaciones.validarObjeto(empleado)) {break;}
+                System.out.println("Error: Empleado no válido. Intente nuevamente.");
+            }
+        }
         
-        System.out.print("Monto a retirar: ");
         double monto;
-        try {
-            monto = sc.nextDouble();
-            sc.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Ingrese un monto válido");
-            sc.nextLine();
-            return;
-        }
-        if (!Validaciones.validarMontoRetiro(monto)) {
-            System.out.println("Error: El monto debe estar entre 10 y 5,000");
-            return;
-        }
-        if (!Validaciones.validarSaldoSuficiente(cuenta, monto)) {
-            System.out.println("Error: Saldo insuficiente para realizar el retiro");
-            return;
+        while (true) {
+            System.out.print("Monto a retirar: ");
+            try {
+                monto = sc.nextDouble();
+                sc.nextLine();
+                if (!Validaciones.validarMontoRetiro(monto)) {
+                    System.out.println("Error: El monto debe estar entre 10 y 5,000");
+                    continue;
+                }
+                if (!Validaciones.validarSaldoSuficiente(cuenta, monto)) {
+                    System.out.println("Error: Saldo insuficiente para realizar el retiro");
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un monto válido");
+                sc.nextLine();
+            }
         }
         
         Retiro retiro = new Retiro(idRetiro, monto, cliente, empleado);
@@ -498,75 +546,82 @@ public class Banco {
 
     public void transferir() {
         if (!verificarPermiso("TRANSFERIR")) return;
-        
         System.out.println("\n--- Transferencia ---");
         System.out.print("ID de la transferencia: ");
         String idTransferencia = sc.nextLine();
-        System.out.print("ID de su cuenta (origen): ");
-        String idCuenta1 = sc.nextLine();
-        System.out.print("ID de la cuenta destino: ");
-        String idCuenta2 = sc.nextLine();
-        if (!Validaciones.validarCuentasDiferentes(idCuenta1, idCuenta2)) {
-            System.out.println("Error: No puede transferir a la misma cuenta");
-            return;
-        }
-        Cuenta cuenta1 = buscarCuenta(idCuenta1);
-        if (!Validaciones.validarObjeto(cuenta1)) {
+
+        Cuenta cuenta1;
+        String idCuenta1;
+        while (true) {
+            System.out.print("ID de su cuenta (origen): ");
+            idCuenta1 = sc.nextLine();
+            cuenta1 = buscarCuenta(idCuenta1);
+            if (Validaciones.validarObjeto(cuenta1)) {break;}
             System.out.println("Error: Cuenta origen no encontrada");
-            return;
         }
-        Cuenta cuenta2 = buscarCuenta(idCuenta2);
-        if (!Validaciones.validarObjeto(cuenta2)) {
-            System.out.println("Error: Cuenta destino no encontrada");
-            return;
+
+        Cuenta cuenta2;
+        String idCuenta2;
+        while (true) {
+            System.out.print("ID de la cuenta destino: ");
+            idCuenta2 = sc.nextLine();
+            cuenta2 = buscarCuenta(idCuenta2);
+            if (!Validaciones.validarObjeto(cuenta2)) {
+                System.out.println("Error: Cuenta destino no encontrada");
+                continue;
+            }
+            if (!Validaciones.validarCuentasDiferentes(idCuenta1, idCuenta2)) {
+                System.out.println("Error: No puede transferir a la misma cuenta");
+                continue;
+            }
+            break;
         }
-        System.out.print("Su ID de cliente: ");
-        String idCliente1 = sc.nextLine();
-        Cliente cliente1 = buscarCliente(idCliente1);
-        if (!Validaciones.validarObjeto(cliente1)) {
+
+        Cliente cliente1;
+        while (true) {
+            System.out.print("Su ID de cliente: ");
+            String idCliente1 = sc.nextLine();
+            cliente1 = buscarCliente(idCliente1);
+            if (Validaciones.validarObjeto(cliente1)) {break;}
             System.out.println("Error: Cliente origen no válido");
+        }
+
+        if (usuarioActual instanceof Cliente) {
+        Cliente clienteActual = (Cliente) usuarioActual;
+        if (!cuenta1.getTitulares().contains(clienteActual)) {
+            System.out.println("Error: No es titular de esta cuenta");
             return;
         }
-        System.out.print("ID del cliente destino: ");
-        String idCliente2 = sc.nextLine();
-        Cliente cliente2 = buscarCliente(idCliente2);
-        if (!Validaciones.validarObjeto(cliente2)) {
-            System.out.println("Error: Cliente destino no válido");
-            return;
-        }
+    }
         
         Empleado empleado = null;
         if (usuarioActual instanceof Empleado) {
             empleado = (Empleado) usuarioActual;
         } else {
-            System.out.print("ID del empleado (si aplica): ");
-            String idEmpleado = sc.nextLine();
-            empleado = buscarEmpleado(idEmpleado);
-            if (!Validaciones.validarObjeto(empleado)) {
+            while (true) {
+                System.out.print("ID del empleado (si aplica): ");
+                String idEmpleado = sc.nextLine();
+                empleado = buscarEmpleado(idEmpleado);
+                if (Validaciones.validarObjeto(empleado)) {break;}
                 System.out.println("Error: Empleado no válido");
-                return;
             }
         }
         
-        System.out.print("Monto a transferir: ");
         double monto;
-        try {
-            monto = sc.nextDouble();
-            sc.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Ingrese un monto válido");
-            sc.nextLine();
-            return;
+        while (true) {
+            System.out.print("Monto a transferir: ");
+            try {
+                monto = sc.nextDouble();
+                sc.nextLine();
+                if (Validaciones.validarSaldoSuficiente(cuenta1, monto)) {break;}
+                System.out.println("Error: Saldo insuficiente en la cuenta origen");
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un monto válido");
+                sc.nextLine();
+            }
         }
-        if (!Validaciones.validarMontoTransferencia(monto)) {
-            System.out.println("Error: El monto debe estar entre 10 y 10,000");
-            return;
-        }
-        if (!Validaciones.validarSaldoSuficiente(cuenta1, monto)) {
-            System.out.println("Error: Saldo insuficiente en la cuenta origen");
-            return;
-        }
-        Transferencia transferencia = new Transferencia(idTransferencia, monto, cliente1, cliente2, empleado);
+        
+        Transferencia transferencia = new Transferencia(idTransferencia, monto, cliente1, empleado);
         transferencia.procesar(cuenta1, cuenta2, monto, transferencia);
     }
 
@@ -577,62 +632,73 @@ public class Banco {
         System.out.print("ID del pago: ");
         String idPago = sc.nextLine();
 
-        System.out.print("ID de cuenta: ");
-        String idCuenta = sc.nextLine();
-        Cuenta cuenta = buscarCuenta(idCuenta);
-        if (!Validaciones.validarObjeto(cuenta)) {
-            System.out.println("Error: Cuenta no encontrada");
-            return;
+        Cuenta cuenta;
+        while (true) {
+            System.out.print("ID de cuenta: ");
+            String idCuenta = sc.nextLine();
+            cuenta = buscarCuenta(idCuenta);
+            if (Validaciones.validarObjeto(cuenta)) {break;}
+            System.out.println("Error: Cuenta no encontrada. Intente nuevamente.");
         }
-        System.out.print("ID del cliente: ");
-        String idCliente = sc.nextLine();
-        Cliente cliente = buscarCliente(idCliente);
-        if (!Validaciones.validarObjeto(cliente)) {
-            System.out.println("Error: Cliente no válido");
-            return;
-        }
-        if (!cuenta.getTitulares().contains(cliente)) {
-            System.out.println("Error: Cliente no titular");
-            return;
+        
+        Cliente cliente;
+        while (true) {
+            System.out.print("ID del cliente: ");
+            String idCliente = sc.nextLine();
+            cliente = buscarCliente(idCliente);
+            if (!Validaciones.validarObjeto(cliente)) {
+                System.out.println("Error: Cliente no válido. Intente nuevamente.");
+                continue;
+            }
+            if (!cuenta.getTitulares().contains(cliente)) {
+                System.out.println("Error: Cliente no es titular de esta cuenta. Intente nuevamente.");
+                continue;
+            }
+            break;
         }
         
         Empleado empleado = null;
-        if (usuarioActual instanceof Empleado) {
+        if (usuarioActual instanceof Empleado)
             empleado = (Empleado) usuarioActual;
-        } else {
-            System.out.print("ID del empleado (si aplica): ");
-            String idEmpleado = sc.nextLine();
-            empleado = buscarEmpleado(idEmpleado);
-            if (!Validaciones.validarObjeto(empleado)) {
-                System.out.println("Error: Empleado no válido");
-                return;
+        else {
+            while (true) {
+                System.out.print("ID del empleado (si aplica): ");
+                String idEmpleado = sc.nextLine();
+                empleado = buscarEmpleado(idEmpleado);
+                if (Validaciones.validarObjeto(empleado)) {break;}
+                System.out.println("Error: Empleado no válido. Intente nuevamente.");
             }
         }
         
-        System.out.print("Tipo de servicio (luz, agua, internet, etc.): ");
-        String tipoServicio = sc.nextLine();
-        if (!Validaciones.validarTexto(tipoServicio)) {
+        String tipoServicio;
+        while (true) {
+            System.out.print("Tipo de servicio (luz, agua, internet, etc.): ");
+            tipoServicio = sc.nextLine();
+            if (Validaciones.validarTexto(tipoServicio)) {break;}
             System.out.println("Error: Debe especificar el tipo de servicio");
-            return;
         }
-        System.out.print("Monto a pagar: ");
+        
         double monto;
-        try {
-            monto = sc.nextDouble();
-            sc.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Ingrese un monto válido");
-            sc.nextLine();
-            return;
+        while (true) {
+            System.out.print("Monto a pagar: ");
+            try {
+                monto = sc.nextDouble();
+                sc.nextLine();
+                if (!Validaciones.validarMontoPositivo(monto)) {
+                    System.out.println("Error: El monto debe ser mayor a 0");
+                    continue;
+                }
+                if (!Validaciones.validarSaldoSuficiente(cuenta, monto)) {
+                    System.out.println("Error: Saldo insuficiente para pagar el servicio: " + tipoServicio);
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un monto válido");
+                sc.nextLine();
+            }
         }
-        if (!Validaciones.validarMontoPositivo(monto)) {
-            System.out.println("Error: El monto debe ser mayor a 0");
-            return;
-        }
-        if (!Validaciones.validarSaldoSuficiente(cuenta, monto)) {
-            System.out.println("Error: Saldo insuficiente para pagar el servicio: " + tipoServicio);
-            return;
-        }
+        
         PagoServicio pagoServicio = new PagoServicio(idPago, monto, cliente, empleado, tipoServicio);
         pagoServicio.procesar(cuenta, monto, pagoServicio);
     }
@@ -708,6 +774,8 @@ public class Banco {
     }
 
     public void mostrarCuenta() {
+        if (!verificarPermiso("MOSTRAR_CUENTA")) return;
+
         System.out.println("\n--- Datos de la Cuenta ---");
         System.out.print("Ingrese el ID de la cuenta: ");
         String idCuenta = sc.nextLine();
@@ -733,9 +801,8 @@ public class Banco {
         if (Validaciones.validarObjeto(cliente)) {
             clientes.remove(cliente);
             System.out.println("Se eliminó el cliente correctamente");
-        } else {
+        } else
             System.out.println("El cliente no está registrado");
-        }
     }
 
     public void eliminarCuenta() {
@@ -746,9 +813,8 @@ public class Banco {
         if (Validaciones.validarObjeto(cuenta)) {
             cuentas.remove(cuenta);
             System.out.println("Se eliminó la cuenta correctamente");
-        } else {
+        } else
             System.out.println("La cuenta no está registrada");
-        }
     }
 
     public void eliminarEmpleado() {
@@ -759,9 +825,8 @@ public class Banco {
         if (Validaciones.validarObjeto(empleado)) {
             empleados.remove(empleado);
             System.out.println("Se eliminó el empleado correctamente");
-        } else {
+        } else
             System.out.println("El empleado no está registrado");
-        }
     }
 
     public void eliminarTitular() {
@@ -799,9 +864,8 @@ public class Banco {
         if (usuarioActual != null) {
             System.out.println("\n--- MIS DATOS DE USUARIO ---");
             usuarioActual.mostrarDatos();
-        } else {
+        } else
             System.out.println("\nError: No hay sesión iniciada.");
-        }
     }
     
     public void mostrarListaClientes() {
@@ -934,10 +998,11 @@ public class Banco {
                     case 1 -> depositar();
                     case 2 -> retirar();
                     case 3 -> pagarServicio();
-                    case 4 -> mostrarTransacciones();
-                    case 5 -> mostrarSaldo(); 
-                    case 6 -> mostrarDatosUsuarioActual();
-                    case 7 -> {
+                    case 4 -> transferir();
+                    case 5 -> mostrarTransacciones();
+                    case 6 -> mostrarSaldo(); 
+                    case 7 -> mostrarDatosUsuarioActual();
+                    case 8 -> {
                         cerrarSesion();
                         salir = true;
                     }

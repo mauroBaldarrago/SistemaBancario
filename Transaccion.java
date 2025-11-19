@@ -39,4 +39,6 @@ public class Transaccion {
         System.out.println("Cliente Principal: " + cliente.getNombre() + " " + cliente.getApellido() + " (DNI: " + cliente.getDni() + ")");
         System.out.println("Procesado por Empleado ID: " + empleadoId);
     }
+
+    public void procesar(){}
 }

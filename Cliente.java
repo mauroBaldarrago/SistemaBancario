@@ -33,15 +33,16 @@ class Cliente extends Usuario {
         System.out.println("1. Procesar Depósito");
         System.out.println("2. Procesar Retiro");
         System.out.println("3. Pagar servicios");
-        System.out.println("4. Mostrar Transacciones");
-        System.out.println("5. Consultar Saldo");
-        System.out.println("6. Mostrar mis Datos");
-        System.out.println("7. Cerrar Sesión");
+        System.out.println("4. Procesar Transferencia");       
+        System.out.println("5. Mostrar Transacciones");
+        System.out.println("6. Consultar Saldo");
+        System.out.println("7. Mostrar mis Datos");
+        System.out.println("8. Cerrar Sesión");
     }
 
     /* Método para verificar si el cliente puede realizar una operación específica */
     @Override
     public boolean puedeRealizarOperacion(int opcion) {
-        return opcion >= 1 && opcion <= 7;
+        return opcion >= 1 && opcion <= 8;
     }
 }

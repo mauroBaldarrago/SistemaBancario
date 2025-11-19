@@ -8,6 +8,6 @@ public class Deposito extends Transaccion{
     public void procesar(Cuenta cuenta, double monto, Deposito deposito) {
         cuenta.setSaldo(cuenta.consultarSaldo()+monto);
         cuenta.agregarDeposito(deposito);
-        System.out.println("Se despositó correctamente el monto");
+        System.out.println("Se depósito correctamente el monto");
     }
 }
