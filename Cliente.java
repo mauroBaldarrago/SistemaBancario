@@ -39,10 +39,4 @@ class Cliente extends Usuario {
         System.out.println("7. Mostrar mis Datos");
         System.out.println("8. Cerrar Sesión");
     }
-
-    /* Método para verificar si el cliente puede realizar una operación específica */
-    @Override
-    public boolean puedeRealizarOperacion(int opcion) {
-        return opcion >= 1 && opcion <= 8;
-    }
 }

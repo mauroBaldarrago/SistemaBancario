@@ -3,6 +3,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Banco banco = new Banco();
+        GestorMenus gestorMenus = new GestorMenus(banco);
+
         // ==== INICIALIZACIÓN DE DATOS ====
         Empleado empleado1 = new Empleado(
             "Luis", "Pérez", "12345678", "Av. Central", "999999999",
@@ -37,8 +39,8 @@ public class Main {
         boolean salir = false;
         while (!salir) {
             if (banco.hayUsuarioAutenticado()) {
-                // Si ya inició sesión, ejecuta su menú según el tipo de usuario
-                banco.ejecutarMenuPrincipal();
+                Usuario usuario = banco.getUsuarioActual();
+                gestorMenus.ejecutarMenuPrincipal(usuario);
             } else {
                 System.out.println("\n--- INICIO DE SESIÓN ---");
                 System.out.println("1. Iniciar Sesión");

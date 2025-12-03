@@ -60,10 +60,4 @@ class Empleado extends Usuario {
         System.out.println("12. Procesar Transferencia");
         System.out.println("\n13. Cerrar Sesión");    
     }
-
-    /* Método para verificar si el empleado puede realizar una operación específica */
-    @Override
-    public boolean puedeRealizarOperacion(int opcion) {
-        return opcion >= 1 && opcion <= 13;
-    }
 }

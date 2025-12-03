@@ -50,10 +50,4 @@ public class Admin extends Usuario{
         System.out.println("19. Ver Estadísticas del Sistema");
         System.out.println("20. Cerrar Sesión");
     }
-
-    /* Método para verificar si el admin puede realizar una operación específica */
-    @Override
-    public boolean puedeRealizarOperacion(int opcion) {
-        return opcion >= 1 && opcion <= 20;
-    }
 }
