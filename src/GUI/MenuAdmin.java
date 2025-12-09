@@ -17,7 +17,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         this.admin = admin;
         initComponents();
         this.setLocationRelativeTo(null);
+        
         SetImageLabel(Logo, "src/GUI/imgs/LogoBanco.png");
+        
+        actualizarEstadisticas();
+        if (lblNombreUsuario != null) lblNombreUsuario.setText("¡Bienvenido " + admin.getNombre() + " " + admin.getApellido() + "!");
     }
 
     private void mostrarPanel(JPanel p, JPanel PanelLayOut) {
@@ -25,7 +29,13 @@ public class MenuAdmin extends javax.swing.JFrame {
         PanelLayOut.removeAll();
         PanelLayOut.add(p, java.awt.BorderLayout.CENTER);
         PanelLayOut.revalidate();
-        PanelLayOut.repaint();
+        PanelLayOut.repaint();        
+    }
+    
+    private void actualizarEstadisticas() {
+        lblClientes.setText("" + banco.getGestorUsuarios().getClientes().size());
+        lblEmpleados.setText("" + banco.getGestorUsuarios().getEmpleados().size());
+        lblCuentas.setText("" + banco.getCuentas().size());
     }
     
     @SuppressWarnings("unchecked")
@@ -69,17 +79,17 @@ public class MenuAdmin extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         PanelLayOutTransacciones = new javax.swing.JPanel();
         PanelSuperior = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblNombreUsuario = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblEmpleados5 = new javax.swing.JLabel();
         lblEmpleados6 = new javax.swing.JLabel();
-        lblNombreUsuario1 = new javax.swing.JLabel();
+        lblClientes = new javax.swing.JLabel();
         lblEmpleados7 = new javax.swing.JLabel();
-        lblDNIUsuario2 = new javax.swing.JLabel();
+        lblEmpleados = new javax.swing.JLabel();
         lblEmpleados8 = new javax.swing.JLabel();
-        lblDNIUsuario3 = new javax.swing.JLabel();
+        lblCuentas = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
         jLabel6.setText("jLabel6");
@@ -332,7 +342,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         );
         PanelLayOutCuentasLayout.setVerticalGroup(
             PanelLayOutCuentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 369, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
         );
 
         PanelBotones1.setBackground(new java.awt.Color(255, 255, 255));
@@ -584,9 +594,9 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         PanelSuperior.setBackground(new java.awt.Color(0, 51, 102));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Variable", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("¡Bienvenido, !");
+        lblNombreUsuario.setFont(new java.awt.Font("Segoe UI Variable", 0, 18)); // NOI18N
+        lblNombreUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreUsuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -599,14 +609,11 @@ public class MenuAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelSuperiorLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addGroup(PanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelSuperiorLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(31, 31, 31))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelSuperiorLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(160, 160, 160))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
         );
         PanelSuperiorLayout.setVerticalGroup(
             PanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -616,11 +623,9 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelSuperiorLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addGap(27, 27, 27))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelSuperiorLayout.createSequentialGroup()
-                        .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(lblNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Logo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 102));
@@ -633,25 +638,25 @@ public class MenuAdmin extends javax.swing.JFrame {
         lblEmpleados6.setForeground(new java.awt.Color(255, 255, 255));
         lblEmpleados6.setText("Clientes:");
 
-        lblNombreUsuario1.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
-        lblNombreUsuario1.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombreUsuario1.setText("Nombre:");
+        lblClientes.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
+        lblClientes.setForeground(new java.awt.Color(255, 255, 255));
+        lblClientes.setText("Nombre:");
 
         lblEmpleados7.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         lblEmpleados7.setForeground(new java.awt.Color(255, 255, 255));
         lblEmpleados7.setText("Empleados:");
 
-        lblDNIUsuario2.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
-        lblDNIUsuario2.setForeground(new java.awt.Color(255, 255, 255));
-        lblDNIUsuario2.setText("Nombre:");
+        lblEmpleados.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
+        lblEmpleados.setForeground(new java.awt.Color(255, 255, 255));
+        lblEmpleados.setText("Nombre:");
 
         lblEmpleados8.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         lblEmpleados8.setForeground(new java.awt.Color(255, 255, 255));
         lblEmpleados8.setText("Cuentas:");
 
-        lblDNIUsuario3.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
-        lblDNIUsuario3.setForeground(new java.awt.Color(255, 255, 255));
-        lblDNIUsuario3.setText("Nombre:");
+        lblCuentas.setFont(new java.awt.Font("Segoe UI Variable", 0, 14)); // NOI18N
+        lblCuentas.setForeground(new java.awt.Color(255, 255, 255));
+        lblCuentas.setText("Nombre:");
 
         jButton2.setBackground(new java.awt.Color(214, 37, 37));
         jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -673,17 +678,17 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(lblEmpleados5)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblEmpleados6)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblNombreUsuario1)
-                        .addGap(40, 40, 40)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblClientes)
+                        .addGap(43, 43, 43)
                         .addComponent(lblEmpleados8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDNIUsuario3)
-                        .addGap(18, 18, 18)
+                        .addComponent(lblCuentas)
+                        .addGap(27, 27, 27)
                         .addComponent(lblEmpleados7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDNIUsuario2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEmpleados)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -697,11 +702,11 @@ public class MenuAdmin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblEmpleados6)
-                            .addComponent(lblNombreUsuario1)
+                            .addComponent(lblClientes)
                             .addComponent(lblEmpleados8)
-                            .addComponent(lblDNIUsuario3)
+                            .addComponent(lblCuentas)
                             .addComponent(lblEmpleados7)
-                            .addComponent(lblDNIUsuario2)))
+                            .addComponent(lblEmpleados)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -837,7 +842,6 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnRetiro;
     private javax.swing.JButton btnTransferencia;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
@@ -849,13 +853,14 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JLabel lblDNIUsuario2;
-    private javax.swing.JLabel lblDNIUsuario3;
+    private javax.swing.JLabel lblClientes;
+    private javax.swing.JLabel lblCuentas;
+    private javax.swing.JLabel lblEmpleados;
     private javax.swing.JLabel lblEmpleados5;
     private javax.swing.JLabel lblEmpleados6;
     private javax.swing.JLabel lblEmpleados7;
     private javax.swing.JLabel lblEmpleados8;
-    private javax.swing.JLabel lblNombreUsuario1;
+    private javax.swing.JLabel lblNombreUsuario;
     private javax.swing.JTabbedPane tabClientes;
     // End of variables declaration//GEN-END:variables
 
