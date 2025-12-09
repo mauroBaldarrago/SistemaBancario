@@ -14,12 +14,11 @@ public class PnlBuscarEmpleado extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
         TITULO = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         idEmpleadoDBE = new javax.swing.JTextField();
         idEmpleadoBE = new javax.swing.JLabel();
-        enviarBE = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         nombresBE = new javax.swing.JLabel();
         apellidoBE = new javax.swing.JLabel();
@@ -29,11 +28,13 @@ public class PnlBuscarEmpleado extends javax.swing.JPanel {
         apellidosMBE = new javax.swing.JLabel();
         cargoBE = new javax.swing.JLabel();
         dniMBE = new javax.swing.JLabel();
-        Salir = new javax.swing.JButton();
+        enviarBE = new javax.swing.JButton();
 
-        TITULO.setBackground(new java.awt.Color(0, 0, 0));
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        TITULO.setBackground(new java.awt.Color(0, 51, 102));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("BUSCAR EMPLEADO");
 
@@ -42,39 +43,37 @@ public class PnlBuscarEmpleado extends javax.swing.JPanel {
         TITULOLayout.setHorizontalGroup(
             TITULOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TITULOLayout.createSequentialGroup()
-                .addGap(119, 119, 119)
+                .addGap(266, 266, 266)
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
         TITULOLayout.setVerticalGroup(
             TITULOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TITULOLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel3)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        idEmpleadoBE.setFont(new java.awt.Font("Segoe UI Variable", 3, 16)); // NOI18N
-        idEmpleadoBE.setText("ID DEL EMPLEADO:");
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        enviarBE.setBackground(new java.awt.Color(204, 204, 204));
-        enviarBE.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        enviarBE.setText("Enviar datos");
-        enviarBE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enviarBEActionPerformed(evt);
-            }
-        });
+        idEmpleadoBE.setFont(new java.awt.Font("Segoe UI Variable", 1, 16)); // NOI18N
+        idEmpleadoBE.setForeground(new java.awt.Color(50, 50, 50));
+        idEmpleadoBE.setText("ID del empleado:");
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del empleado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del empleado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 51, 102))); // NOI18N
+        jPanel4.setToolTipText("");
 
         nombresBE.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        nombresBE.setForeground(new java.awt.Color(50, 50, 50));
         nombresBE.setText("Nombres:");
 
         apellidoBE.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        apellidoBE.setForeground(new java.awt.Color(50, 50, 50));
         apellidoBE.setText("Apellidos:");
 
         dniBE.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        dniBE.setForeground(new java.awt.Color(50, 50, 50));
         dniBE.setText("DNI:");
 
         cargoMDE.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
@@ -84,6 +83,7 @@ public class PnlBuscarEmpleado extends javax.swing.JPanel {
         apellidosMBE.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
 
         cargoBE.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        cargoBE.setForeground(new java.awt.Color(50, 50, 50));
         cargoBE.setText("Cargo:");
 
         dniMBE.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
@@ -99,7 +99,7 @@ public class PnlBuscarEmpleado extends javax.swing.JPanel {
                         .addComponent(nombresBE)
                         .addGap(18, 18, 18)
                         .addComponent(nombreMBE, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(15, Short.MAX_VALUE))
+                        .addContainerGap(59, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dniBE)
@@ -124,11 +124,11 @@ public class PnlBuscarEmpleado extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nombresBE)
-                            .addComponent(nombreMBE, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
+                            .addComponent(nombreMBE, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(apellidoBE)
-                            .addComponent(apellidosMBE, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+                            .addComponent(apellidosMBE, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dniMBE, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -138,86 +138,65 @@ public class PnlBuscarEmpleado extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cargoMDE, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cargoBE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
+
+        enviarBE.setBackground(new java.awt.Color(0, 51, 102));
+        enviarBE.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        enviarBE.setForeground(new java.awt.Color(255, 255, 255));
+        enviarBE.setText("Enviar datos");
+        enviarBE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enviarBEActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TITULO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addGap(13, 13, 13)
-                            .addComponent(idEmpleadoBE, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(idEmpleadoDBE, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(35, 35, 35)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
+                        .addGap(152, 152, 152)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(idEmpleadoBE, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(idEmpleadoDBE, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(enviarBE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(TITULO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idEmpleadoBE)
-                    .addComponent(idEmpleadoDBE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(enviarBE)
-                .addGap(12, 12, 12))
+                    .addComponent(idEmpleadoDBE, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enviarBE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
-
-        Salir.setBackground(new java.awt.Color(204, 204, 204));
-        Salir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Salir.setText("Salir");
-        Salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SalirActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(222, Short.MAX_VALUE)
-                .addComponent(Salir)
-                .addGap(120, 120, 120))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(TITULO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(282, Short.MAX_VALUE)
-                .addComponent(Salir)
-                .addGap(14, 14, 14))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(TITULO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        idEmpleadoDBE.setText("");
-        limpiarCampos();
-    }//GEN-LAST:event_SalirActionPerformed
 
     private void limpiarCampos() {
         nombreMBE.setText("---");
@@ -257,7 +236,6 @@ public class PnlBuscarEmpleado extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Salir;
     private javax.swing.JPanel TITULO;
     private javax.swing.JLabel apellidoBE;
     private javax.swing.JLabel apellidosMBE;
