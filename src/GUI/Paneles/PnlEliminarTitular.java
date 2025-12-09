@@ -1,6 +1,5 @@
 package GUI.Paneles;
 import Logica.*;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class PnlEliminarTitular extends javax.swing.JPanel {
@@ -27,26 +26,30 @@ public class PnlEliminarTitular extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         txtNombresET = new javax.swing.JLabel();
         txtApellidoET = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtIDCuentaET = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Variable", 3, 16)); // NOI18N
-        jLabel4.setText("ID DEL TITULAR:");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        botonMostrarDatos.setBackground(new java.awt.Color(204, 204, 204));
-        botonMostrarDatos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        botonMostrarDatos.setText("Mostrar datos");
+        jLabel4.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(50, 50, 50));
+        jLabel4.setText("ID del titular a eliminar:");
+
+        botonMostrarDatos.setBackground(new java.awt.Color(0, 51, 102));
+        botonMostrarDatos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        botonMostrarDatos.setForeground(new java.awt.Color(255, 255, 255));
+        botonMostrarDatos.setText("Ver cliente");
         botonMostrarDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonMostrarDatosActionPerformed(evt);
             }
         });
 
-        botonEliminar.setBackground(new java.awt.Color(204, 204, 204));
-        botonEliminar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        botonEliminar.setBackground(new java.awt.Color(0, 51, 102));
+        botonEliminar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        botonEliminar.setForeground(new java.awt.Color(255, 255, 255));
         botonEliminar.setText("Eliminar");
         botonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,7 +57,10 @@ public class PnlEliminarTitular extends javax.swing.JPanel {
             }
         });
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        txtIDTitularET.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 51, 102))); // NOI18N
+        jPanel3.setForeground(new java.awt.Color(0, 51, 102));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         jLabel7.setText("Nombres:");
@@ -70,100 +76,85 @@ public class PnlEliminarTitular extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 13, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtApellidoET, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(txtNombresET, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtApellidoET, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 24, Short.MAX_VALUE))
+                    .addComponent(txtNombresET, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(2, 2, 2)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(txtNombresET, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtApellidoET, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtApellidoET, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        jLabel10.setText("(Mostrar datos para ver si es correcto el cliente a eliminar)");
+        jLabel5.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(50, 50, 50));
+        jLabel5.setText("ID de la cuenta:");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI Variable", 3, 16)); // NOI18N
-        jLabel5.setText("ID DE LA CUENTA:");
+        txtIDCuentaET.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtIDTitularET, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addComponent(txtIDCuentaET, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(botonMostrarDatos)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonEliminar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(24, 24, 24)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(259, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(282, 282, 282))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(172, 172, 172))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIDCuentaET, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIDTitularET, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonMostrarDatos)
+                .addGap(0, 29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(txtIDCuentaET, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtIDTitularET, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonMostrarDatos)
-                    .addComponent(botonEliminar))
-                .addContainerGap(32, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(16, 16, 16)
+                    .addComponent(txtIDCuentaET, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addContainerGap(272, Short.MAX_VALUE)))
+                    .addComponent(jLabel4)
+                    .addComponent(txtIDTitularET, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonMostrarDatos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setBackground(new java.awt.Color(0, 51, 102));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("ELIMINAR TITULAR");
 
@@ -172,35 +163,31 @@ public class PnlEliminarTitular extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(156, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(162, 162, 162))
+                .addGap(246, 246, 246))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel3)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -209,30 +196,42 @@ public class PnlEliminarTitular extends javax.swing.JPanel {
         String idTitular = txtIDTitularET.getText().trim();
 
         if (idCuenta.isEmpty() || idTitular.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese tanto el ID de Cuenta como el ID del Titular.");
+            JOptionPane.showMessageDialog(this, "Faltan datos.");
             return;
         }
 
         Cuenta cuenta = banco.buscarCuenta(idCuenta);
         if (cuenta == null) {
-            JOptionPane.showMessageDialog(this, "La cuenta no existe.");
-            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Cuenta no encontrada.");
             return;
         }
 
-        Cliente titularEncontrado = null;
+        Cliente titularAEliminar = null;
         for (Cliente c : cuenta.getTitulares()) {
             if (c.getIdCliente().equals(idTitular)) {
-                titularEncontrado = c;
+                titularAEliminar = c;
                 break;
             }
         }
 
-        if (titularEncontrado != null) {
-            txtNombresET.setText(titularEncontrado.getNombre());
-            txtApellidoET.setText(titularEncontrado.getApellido());
-        } else {
-            JOptionPane.showMessageDialog(this, "Ese cliente no es titular de esta cuenta.");
+        if (titularAEliminar == null) {
+            JOptionPane.showMessageDialog(this, "El cliente no está asociado a esta cuenta.");
+            return;
+        }
+
+        if (cuenta.getTitulares().size() <= 1) {
+            JOptionPane.showMessageDialog(this, "Error: No puede eliminar al único titular. La cuenta debe tener al menos uno.");
+            return;
+        }
+
+        int confirmacion = JOptionPane.showConfirmDialog(this, 
+                "¿Seguro que desea desvincular a " + titularAEliminar.getNombre() + " de la cuenta?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            cuenta.getTitulares().remove(titularAEliminar);           
+            JOptionPane.showMessageDialog(this, "Titular eliminado exitosamente.");           
+            txtIDCuentaET.setText("");
+            txtIDTitularET.setText("");
             limpiarCampos();
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
@@ -242,19 +241,16 @@ public class PnlEliminarTitular extends javax.swing.JPanel {
         String idTitular = txtIDTitularET.getText().trim();
 
         if (idCuenta.isEmpty() || idTitular.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese tanto el ID de Cuenta como el ID del Titular.");
+            JOptionPane.showMessageDialog(this, "Debe ingresar el ID de Cuenta y el ID del Titular.");
             return;
         }
-
-        // A. Buscar Cuenta
         Cuenta cuenta = banco.buscarCuenta(idCuenta);
         if (cuenta == null) {
-            JOptionPane.showMessageDialog(this, "La cuenta no existe.");
+            JOptionPane.showMessageDialog(this, "La cuenta " + idCuenta + " no existe.");
             limpiarCampos();
             return;
         }
 
-        // B. Buscar si el titular pertenece a esa cuenta
         Cliente titularEncontrado = null;
         for (Cliente c : cuenta.getTitulares()) {
             if (c.getIdCliente().equals(idTitular)) {
@@ -263,12 +259,11 @@ public class PnlEliminarTitular extends javax.swing.JPanel {
             }
         }
 
-        // C. Mostrar resultados
         if (titularEncontrado != null) {
             txtNombresET.setText(titularEncontrado.getNombre());
             txtApellidoET.setText(titularEncontrado.getApellido());
         } else {
-            JOptionPane.showMessageDialog(this, "Ese cliente no es titular de esta cuenta.");
+            JOptionPane.showMessageDialog(this, "El cliente " + idTitular + " NO es titular de la cuenta " + idCuenta + ".");
             limpiarCampos();
         }
     }//GEN-LAST:event_botonMostrarDatosActionPerformed
@@ -281,7 +276,6 @@ public class PnlEliminarTitular extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonMostrarDatos;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

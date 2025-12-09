@@ -26,10 +26,6 @@ public class PnlAgregarTitular extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         nombreBC = new javax.swing.JLabel();
         apellidoBC = new javax.swing.JLabel();
-        dniBC = new javax.swing.JLabel();
-        direccionBC = new javax.swing.JLabel();
-        direccionADT = new javax.swing.JLabel();
-        dniADT = new javax.swing.JLabel();
         nombreADT = new javax.swing.JLabel();
         apellidoADT = new javax.swing.JLabel();
 
@@ -100,18 +96,6 @@ public class PnlAgregarTitular extends javax.swing.JPanel {
         apellidoBC.setForeground(new java.awt.Color(50, 50, 50));
         apellidoBC.setText("Apellidos:");
 
-        dniBC.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        dniBC.setForeground(new java.awt.Color(50, 50, 50));
-        dniBC.setText("DNI:");
-
-        direccionBC.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        direccionBC.setForeground(new java.awt.Color(50, 50, 50));
-        direccionBC.setText("Dirección:");
-
-        direccionADT.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-
-        dniADT.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-
         nombreADT.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
 
         apellidoADT.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
@@ -122,22 +106,16 @@ public class PnlAgregarTitular extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(nombreBC)
-                        .addGap(18, 18, 18)
-                        .addComponent(nombreADT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(direccionBC)
-                            .addComponent(apellidoBC)
-                            .addComponent(dniBC))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dniADT, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(direccionADT, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(apellidoADT, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(nombreBC)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(nombreADT, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                .addGap(27, 27, 27))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(apellidoBC)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(apellidoADT, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,20 +123,14 @@ public class PnlAgregarTitular extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombreBC)
-                    .addComponent(nombreADT, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(nombreADT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(apellidoBC)
-                    .addComponent(apellidoADT, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dniBC)
-                    .addComponent(dniADT, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(direccionBC)
-                    .addComponent(direccionADT, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(apellidoBC)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(apellidoADT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -179,12 +151,11 @@ public class PnlAgregarTitular extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(278, 278, 278)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(174, 174, 174)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(104, 104, 104)
-                                .addComponent(jButton1)))))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -197,9 +168,9 @@ public class PnlAgregarTitular extends javax.swing.JPanel {
                     .addComponent(idClienteATD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(idClienteAAT)
                     .addComponent(jButton2))
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(37, 37, 37)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -270,8 +241,6 @@ public class PnlAgregarTitular extends javax.swing.JPanel {
         if (clienteEncontrado != null) {
             nombreADT.setText(clienteEncontrado.getNombre());
             apellidoADT.setText(clienteEncontrado.getApellido());
-            dniADT.setText(clienteEncontrado.getDni());
-            direccionADT.setText(clienteEncontrado.getDireccion());
         } else 
             JOptionPane.showMessageDialog(this, "Cliente no encontrado.");
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -281,10 +250,6 @@ public class PnlAgregarTitular extends javax.swing.JPanel {
     private javax.swing.JPanel TITULO;
     private javax.swing.JLabel apellidoADT;
     private javax.swing.JLabel apellidoBC;
-    private javax.swing.JLabel direccionADT;
-    private javax.swing.JLabel direccionBC;
-    private javax.swing.JLabel dniADT;
-    private javax.swing.JLabel dniBC;
     private javax.swing.JLabel idClienteAAT;
     private javax.swing.JTextField idClienteATD;
     private javax.swing.JLabel idCuentaAT;

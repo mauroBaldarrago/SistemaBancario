@@ -11,11 +11,12 @@ public class PnlBuscarCuenta extends javax.swing.JPanel {
     public PnlBuscarCuenta(Banco banco) {
         this.banco = banco;
         initComponents();
-        configurarTabla(); 
+        configurarTabla();
     }
 
     private void configurarTabla() {
         String[] columnas = {"ID Cliente", "DNI", "Nombre", "Apellido"};
+        
         modelo = new DefaultTableModel(null, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -31,6 +32,7 @@ public class PnlBuscarCuenta extends javax.swing.JPanel {
 
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtIDCuenta = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -41,11 +43,11 @@ public class PnlBuscarCuenta extends javax.swing.JPanel {
         lblSaldoCuenta = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        botonMostrarDatos = new javax.swing.JButton();
 
-        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel3.setBackground(new java.awt.Color(0, 51, 102));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Variable", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("BUSCAR CUENTA");
 
@@ -53,36 +55,45 @@ public class PnlBuscarCuenta extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(127, 127, 127)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(270, 270, 270))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel3)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Variable", 3, 16)); // NOI18N
-        jLabel4.setText("ID DE LA CUENTA:");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de la cuenta", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(50, 50, 50));
+        jLabel4.setText("ID de la cuenta:");
+
+        txtIDCuenta.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de la cuenta", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 51, 102))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(50, 50, 50));
         jLabel8.setText("Tipo de cuenta:");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(50, 50, 50));
         jLabel11.setText("Saldo:");
 
         lblTipoCuenta.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
 
         jLabel17.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(50, 50, 50));
         jLabel17.setText("Titulares:");
 
         lblSaldoCuenta.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
+        lblSaldoCuenta.setForeground(new java.awt.Color(50, 50, 50));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,100 +116,112 @@ public class PnlBuscarCuenta extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel17))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSaldoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 19, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblSaldoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 70, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lblTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                        .addGap(5, 5, 5)))
+                    .addComponent(lblTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(0, 5, Short.MAX_VALUE))
-                    .addComponent(lblSaldoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel11)
+                    .addComponent(lblSaldoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Enviar datos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonMostrarDatos.setBackground(new java.awt.Color(0, 51, 102));
+        botonMostrarDatos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        botonMostrarDatos.setForeground(new java.awt.Color(255, 255, 255));
+        botonMostrarDatos.setText("Ver cuenta");
+        botonMostrarDatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonMostrarDatosActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtIDCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonMostrarDatos)))
+                .addContainerGap(142, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtIDCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonMostrarDatos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIDCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtIDCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonMostrarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarDatosActionPerformed
         String idCuenta = txtIDCuenta.getText().trim();
 
         if (idCuenta.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID de Cuenta.");
+            JOptionPane.showMessageDialog(this, "Ingrese un ID de cuenta.");
             return;
         }
 
-        Cuenta cuentaEncontrada = banco.buscarCuenta(idCuenta);
+        // Buscar la cuenta en el banco
+        Cuenta cuenta = banco.buscarCuenta(idCuenta);
 
-        if (cuentaEncontrada != null) {
-            lblTipoCuenta.setText(cuentaEncontrada.getTipo());
-            lblSaldoCuenta.setText("S/. " + cuentaEncontrada.consultarSaldo());
+        if (cuenta != null) {
+            lblTipoCuenta.setText(cuenta.getTipo());
+            lblSaldoCuenta.setText("S/. " + cuenta.consultarSaldo());
+            
             modelo.setRowCount(0);
-            
-            ArrayList<Cliente> titulares = cuentaEncontrada.getTitulares();
-            
+            ArrayList<Cliente> titulares = cuenta.getTitulares();
             if (titulares != null && !titulares.isEmpty()) {
                 for (Cliente c : titulares) {
                     Object[] fila = {
@@ -207,17 +230,19 @@ public class PnlBuscarCuenta extends javax.swing.JPanel {
                         c.getNombre(),
                         c.getApellido()
                     };
-                    modelo.addRow(fila);
+                    modelo.addRow(fila); 
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Esta cuenta no tiene titulares registrados.");
+                JOptionPane.showMessageDialog(this, "Esta cuenta no tiene titulares registrados (Error de datos).");
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Cuenta no encontrada.");
-            limpiarCampos();
+            lblTipoCuenta.setText("---");
+            lblSaldoCuenta.setText("---");
+            modelo.setRowCount(0);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonMostrarDatosActionPerformed
     
     private void limpiarCampos() {
         lblTipoCuenta.setText("---");
@@ -226,12 +251,13 @@ public class PnlBuscarCuenta extends javax.swing.JPanel {
     } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton botonMostrarDatos;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;

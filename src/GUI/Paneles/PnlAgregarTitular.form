@@ -98,14 +98,12 @@
                           <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="278" max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="30" max="32767" attributes="0"/>
@@ -123,9 +121,9 @@
                       <Component id="idClienteAAT" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
@@ -242,27 +240,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="nombreBC" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="nombreADT" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="direccionBC" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="apellidoBC" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="dniBC" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="dniADT" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
-                                  <Component id="direccionADT" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
-                                  <Component id="apellidoADT" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                      <Component id="nombreBC" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="nombreADT" pref="219" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="apellidoBC" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="apellidoADT" min="-2" pref="219" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -272,24 +260,17 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="nombreBC" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="nombreADT" alignment="0" pref="24" max="32767" attributes="0"/>
+                          <Component id="nombreADT" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="apellidoBC" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="apellidoADT" alignment="0" pref="24" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="apellidoBC" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="apellidoADT" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dniBC" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="dniADT" alignment="0" pref="24" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="direccionBC" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="direccionADT" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -315,42 +296,6 @@
                   <Color blue="32" green="32" red="32" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Apellidos:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="dniBC">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI Variable" size="14" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="32" green="32" red="32" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="DNI:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="direccionBC">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI Variable" size="14" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="32" green="32" red="32" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="direccionADT">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI Variable" size="14" style="1"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="dniADT">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI Variable" size="14" style="1"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="nombreADT">

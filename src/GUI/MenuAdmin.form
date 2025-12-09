@@ -970,6 +970,7 @@
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblNombreUsuario" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       </Group>
                       <Component id="Logo" alignment="1" min="-2" pref="98" max="-2" attributes="0"/>
                   </Group>
