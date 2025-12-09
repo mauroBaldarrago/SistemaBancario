@@ -130,7 +130,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jSeparator4" alignment="1" pref="701" max="32767" attributes="0"/>
+                      <Component id="jSeparator4" alignment="1" pref="700" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
                           <Component id="btnRegistrarCliente" min="-2" pref="85" max="-2" attributes="0"/>
@@ -324,7 +324,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jSeparator3" alignment="1" pref="701" max="32767" attributes="0"/>
+                      <Component id="jSeparator3" alignment="1" pref="700" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
                           <Component id="btnRegistrarEmpleado" min="-2" pref="85" max="-2" attributes="0"/>
@@ -502,7 +502,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="701" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="700" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -735,7 +735,7 @@
                           <Component id="btnPagoServicio" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnConsultarTransacciones" min="-2" pref="123" max="-2" attributes="0"/>
-                          <EmptySpace pref="83" max="32767" attributes="0"/>
+                          <EmptySpace pref="82" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -1034,7 +1034,7 @@
                           <Component id="lblEmpleados" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="93" max="32767" attributes="0"/>
+                  <EmptySpace pref="92" max="32767" attributes="0"/>
                   <Component id="jButton2" min="-2" pref="142" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               </Group>

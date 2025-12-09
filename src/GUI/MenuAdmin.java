@@ -173,7 +173,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         PanelBotones3.setLayout(PanelBotones3Layout);
         PanelBotones3Layout.setHorizontalGroup(
             PanelBotones3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
             .addGroup(PanelBotones3Layout.createSequentialGroup()
                 .addGap(183, 183, 183)
                 .addComponent(btnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,7 +287,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         PanelBotones2.setLayout(PanelBotones2Layout);
         PanelBotones2Layout.setHorizontalGroup(
             PanelBotones2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
             .addGroup(PanelBotones2Layout.createSequentialGroup()
                 .addGap(183, 183, 183)
                 .addComponent(btnRegistrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,7 +338,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         PanelLayOutCuentas.setLayout(PanelLayOutCuentasLayout);
         PanelLayOutCuentasLayout.setHorizontalGroup(
             PanelLayOutCuentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
         PanelLayOutCuentasLayout.setVerticalGroup(
             PanelLayOutCuentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -544,7 +544,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addComponent(btnPagoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnConsultarTransacciones, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
             .addComponent(jSeparator1)
         );
         PanelBotonesLayout.setVerticalGroup(
@@ -689,7 +689,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                         .addComponent(lblEmpleados7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblEmpleados)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
