@@ -202,7 +202,7 @@ public class PnlDepositar extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {    
             String idDeposito = txtIDeposito.getText(); 
-            String idCuenta = txtIDCliente.getText(); 
+            String idCuenta = txtIDCuenta.getText(); 
             String idCliente  = txtIDCliente.getText();
             String idEmpleado = txtIDEmpleado.getText();
             String montoTxt = txtMonto.getText();
