@@ -87,6 +87,7 @@ public class MenuEmpleado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
 
         PanelSuperior.setBackground(new java.awt.Color(0, 51, 102));
 

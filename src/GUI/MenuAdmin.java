@@ -95,6 +95,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         jLabel6.setText("jLabel6");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         tabClientes.setBackground(new java.awt.Color(255, 255, 255));
         tabClientes.setForeground(new java.awt.Color(50, 50, 50));
