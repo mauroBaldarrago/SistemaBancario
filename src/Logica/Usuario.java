@@ -22,6 +22,7 @@ public abstract class Usuario {
     public String getNombre() { return nombre; }
     public String getApellido() { return apellido; }
     public String getDni() { return dni; }
+    public String getDireccion() { return direccion; }
     public String getCelular() {return celular;}
     public String getContrasena() {return contrasena;}
     

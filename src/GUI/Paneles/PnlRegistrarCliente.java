@@ -1,4 +1,5 @@
 package GUI.Paneles;
+import Datos.ClienteDAO;
 import Logica.*;
 import javax.swing.JOptionPane;
 

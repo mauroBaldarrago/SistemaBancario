@@ -1,4 +1,6 @@
 package Logica;
+import Datos.EmpleadoDAO;
+import Datos.ClienteDAO;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
