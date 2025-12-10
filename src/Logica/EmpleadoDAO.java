@@ -65,4 +65,36 @@ public class EmpleadoDAO {
 
         return lista;
     }
+    
+    public Empleado login(String dni, String contrasena) {
+    String sql = "SELECT id_empleado, dni, nombre, apellido, direccion, celular, correo, cargo, contrasena " +
+                 "FROM empleado WHERE dni = ? AND contrasena = ? AND activo = 1";
+
+    try (Connection con = ConexionBD.getConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, dni);
+        ps.setString(2, contrasena);
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return new Empleado(
+                rs.getString("nombre"),
+                rs.getString("apellido"),
+                rs.getString("dni"),
+                rs.getString("direccion"),
+                rs.getString("celular"),
+                rs.getString("id_empleado"),
+                rs.getString("cargo"),
+                rs.getString("correo"),
+                rs.getString("contrasena")
+            );
+        }
+
+    } catch (Exception ex) {
+        throw new RuntimeException("Error al hacer login de empleado: " + ex.getMessage());
+    }
+    return null;
+}
+
 }

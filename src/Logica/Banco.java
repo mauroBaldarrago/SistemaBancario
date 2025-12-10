@@ -8,13 +8,17 @@ public class Banco {
     private GestorUsuarios gestorUsuarios;
     private ArrayList<Cuenta> cuentas;
     private Usuario usuarioActual;
+    
 
     /* Constructor de Banco */
-    public Banco() {
-        gestorUsuarios = new GestorUsuarios();
-        cuentas = new ArrayList<>();
-        usuarioActual = null;
-    }
+        public Banco() {
+         gestorUsuarios = new GestorUsuarios();
+         cuentas = new ArrayList<>();
+         usuarioActual = null;
+
+         cargarUsuariosDesdeBD(); // Carga desde la BD
+     }
+
 
     /* MÉTODOS DE AUTENTICACIÓN */
     public Usuario iniciarSesion(String dni, String contrasena) {
@@ -204,6 +208,21 @@ public class Banco {
         titulares.add(cliente);
         System.out.println("Cliente " + cliente.getNombre() + " añadido como titular con éxito");
     }
+
+    
+    public void cargarUsuariosDesdeBD() {
+    // Limpiamos listas actuales
+    gestorUsuarios.getClientes().clear();
+    gestorUsuarios.getEmpleados().clear();
+
+    // Cargar clientes
+    ClienteDAO clienteDAO = new ClienteDAO();
+    gestorUsuarios.getClientes().addAll(clienteDAO.listarClientes());
+
+    // Cargar empleados
+    EmpleadoDAO empleadoDAO = new EmpleadoDAO();
+    gestorUsuarios.getEmpleados().addAll(empleadoDAO.listarEmpleados());
+}
 
     /* MÉTODOS PARA TRANSACCIONES */
     public void depositar() {
