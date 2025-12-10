@@ -1,58 +1,44 @@
 package Datos;
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CuentaDAO {
-
-    public void crearCuenta(int idCliente) {
-        String sql = "INSERT INTO cuenta(id_cliente, saldo) VALUES (?, 0)";
-
+    public boolean crearCuenta(String idCuenta, String tipo) {
+        String sql = "INSERT INTO cuenta(id_cuenta, tipo, saldo) VALUES (?, ?, 0)";
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setInt(1, idCliente);
+            ps.setString(1, idCuenta);
+            ps.setString(2, tipo);
             ps.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al crear cuenta: " + e.getMessage());
+            return false;
         }
     }
 
-    public List<String> listarCuentas() {
-        List<String> lista = new ArrayList<>();
-        String sql = "SELECT id_cuenta, saldo FROM cuenta";
-
-        try (Connection con = ConexionBD.getConexion();
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-
-            while (rs.next()) {
-                lista.add("Cuenta " + rs.getInt("id_cuenta")
-                        + " - Saldo: " + rs.getDouble("saldo"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return lista;
-    }
-
-    public double obtenerSaldo(int idCuenta) {
-        String sql = "SELECT saldo FROM cuenta WHERE id_cuenta = ?";
-        double saldo = 0;
-
+    public boolean agregarTitular(String idCuenta, String idCliente) {
+        String sql = "INSERT INTO titular(id_cuenta, id_cliente) VALUES (?, ?)";
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setInt(1, idCuenta);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) saldo = rs.getDouble("saldo");
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            ps.setString(1, idCuenta);
+            ps.setString(2, idCliente);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al agregar titular: " + e.getMessage());
+            return false;
         }
-        return saldo;
+    }
+    
+    public double obtenerSaldo(String idCuenta) {
+        String sql = "SELECT saldo FROM cuenta WHERE id_cuenta = ?";
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, idCuenta);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) return rs.getDouble("saldo");
+        } catch (Exception e) {}
+        return 0.0;
     }
 }

@@ -1,5 +1,6 @@
 package GUI.Paneles;
 import Logica.*; 
+import Datos.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -17,8 +18,8 @@ public class PnlMostrarTransacciones extends javax.swing.JPanel {
         }
         
     private void configurarTabla() {
-        String[] columnas = {"ID Trans.", "Fecha", "Tipo", "Monto"};
-        
+        String[] columnas = {"ID Trans.", "Tipo", "Monto", "Detalle", "Fecha"};
+    
         modelo = new DefaultTableModel(null, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -197,42 +198,51 @@ public class PnlMostrarTransacciones extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEnviarActionPerformed
-        String idCuenta = txtIDCuenta.getText().trim();
+       String idCuenta = txtIDCuenta.getText();    
+        modelo.setRowCount(0);
 
-        if (idCuenta.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID de Cuenta.");
-            return;
-        }
+        String sql = "SELECT * FROM transaccion WHERE id_cuenta = ?";
 
-        Cuenta cuenta = banco.buscarCuenta(idCuenta);
-        if (cuenta != null) {
-            modelo.setRowCount(0);
+        try (java.sql.Connection con = Datos.ConexionBD.getConexion();
+             java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ArrayList<Transaccion> movimientos = cuenta.getMovimientos();
+            ps.setString(1, idCuenta);
+            java.sql.ResultSet rs = ps.executeQuery();
 
-            if (movimientos.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "La cuenta existe, pero no tiene movimientos registrados.");
-                return;
+            boolean hayDatos = false;
+
+            while (rs.next()) {
+                hayDatos = true;
+
+                String tipo = rs.getString("tipo");
+                String detalle = "---"; 
+
+                if ("TRANSFERENCIA".equals(tipo)) {
+                    // Si es transferencia, mostramos la cuenta destino
+                    String destino = rs.getString("cuenta_destino");
+                    detalle = (destino != null) ? "A: " + destino : "---";
+                } else if ("PAGO_SERVICIO".equals(tipo)) {
+                    // Si es pago, mostramos el nombre del servicio
+                    String servicio = rs.getString("nombre_servicio");
+                    detalle = (servicio != null) ? servicio : "---";
+                }
+
+                modelo.addRow(new Object[]{
+                    rs.getInt("id_transaccion"), 
+                    tipo,                       
+                    rs.getDouble("monto"),        
+                    detalle,                      
+                    rs.getString("fecha")      
+                });
             }
 
-            for (Transaccion t : movimientos) {
-                String tipo = "Desconocido";
-                if (t instanceof Deposito) tipo = "Depósito";
-                else if (t instanceof Retiro) tipo = "Retiro";
-                else if (t instanceof Transferencia) tipo = "Transferencia";
-                else if (t instanceof PagoServicio) tipo = "Pago Servicio";
-
-                Object[] fila = {
-                    t.getIdTransaccion(),
-                    t.getFecha(),
-                    tipo,
-                    "S/. " + t.getMonto()
-                };
-                modelo.addRow(fila);
+            if (!hayDatos) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Esta cuenta no tiene movimientos o no existe.");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Error: La cuenta con ID " + idCuenta + " no existe.");
-            modelo.setRowCount(0); 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al conectar con BD: " + e.getMessage());
         }
     }//GEN-LAST:event_BotonEnviarActionPerformed
 

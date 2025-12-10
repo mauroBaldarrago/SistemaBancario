@@ -1,89 +1,201 @@
 package Datos;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransaccionDAO {
+    //EPÓSITO
+    public boolean depositar(String idTransaccion, String idCuenta, double monto) {
+        String sqlInsert = "INSERT INTO transaccion(id_transaccion, id_cuenta, tipo, monto) VALUES (?, ?, 'DEPOSITO', ?)";
+        String sqlUpdate = "UPDATE cuenta SET saldo = saldo + ? WHERE id_cuenta = ?";
 
-    // DEPOSITO
-    public void depositar(int idCuenta, double monto) {
-        String insert = "INSERT INTO transaccion(id_cuenta, tipo, monto) VALUES (?, 'DEPOSITO', ?)";
-        String update = "UPDATE cuenta SET saldo = saldo + ? WHERE id_cuenta = ?";
-
-        try (Connection con = ConexionBD.getConexion()) {
+        Connection con = null;
+        try {
+            con = ConexionBD.getConexion();
             con.setAutoCommit(false);
 
-            PreparedStatement ps1 = con.prepareStatement(insert);
-            ps1.setInt(1, idCuenta);
-            ps1.setDouble(2, monto);
-            ps1.executeUpdate();
+            // 1. Guardar en el historial
+            try (PreparedStatement ps1 = con.prepareStatement(sqlInsert)) {
+                ps1.setString(1, idTransaccion);
+                ps1.setString(2, idCuenta);
+                ps1.setDouble(3, monto);
+                ps1.executeUpdate();
+            }
 
-            PreparedStatement ps2 = con.prepareStatement(update);
-            ps2.setDouble(1, monto);
-            ps2.setInt(2, idCuenta);
-            ps2.executeUpdate();
+            // 2. Sumar al saldo
+            try (PreparedStatement ps2 = con.prepareStatement(sqlUpdate)) {
+                ps2.setDouble(1, monto);
+                ps2.setString(2, idCuenta);
+                if (ps2.executeUpdate() == 0) {
+                    throw new SQLException("La cuenta no existe.");
+                }
+            }
 
-            con.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
+            con.commit(); // GUARDAR CAMBIOS
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Error en Depósito: " + e.getMessage());
+            try { if (con != null) con.rollback(); } catch (SQLException ex) {} // Deshacer
+            return false;
+        } finally {
+            try { if (con != null) con.setAutoCommit(true); } catch (SQLException ex) {}
         }
     }
 
-    // RETIRO (con validación)
-    public boolean retirar(int idCuenta, double monto) {
-        CuentaDAO cuentaDAO = new CuentaDAO();
-        double saldo = cuentaDAO.obtenerSaldo(idCuenta);
-
-        if (monto > saldo) {
-            return false; // NO permite retiro
+    // RETIRO
+    public boolean retirar(String idTransaccion, String idCuenta, double monto) {
+        // Primero verificamos saldo
+        if (!verificarSaldoSuficiente(idCuenta, monto)) {
+            System.out.println("Saldo insuficiente.");
+            return false;
         }
 
-        String insert = "INSERT INTO transaccion(id_cuenta, tipo, monto) VALUES (?, 'RETIRO', ?)";
-        String update = "UPDATE cuenta SET saldo = saldo - ? WHERE id_cuenta = ?";
+        String sqlInsert = "INSERT INTO transaccion(id_transaccion, id_cuenta, tipo, monto) VALUES (?, ?, 'RETIRO', ?)";
+        String sqlUpdate = "UPDATE cuenta SET saldo = saldo - ? WHERE id_cuenta = ?";
 
-        try (Connection con = ConexionBD.getConexion()) {
+        Connection con = null;
+        try {
+            con = ConexionBD.getConexion();
             con.setAutoCommit(false);
 
-            PreparedStatement ps1 = con.prepareStatement(insert);
-            ps1.setInt(1, idCuenta);
-            ps1.setDouble(2, monto);
-            ps1.executeUpdate();
+            // 1. Guardar en historial
+            try (PreparedStatement ps1 = con.prepareStatement(sqlInsert)) {
+                ps1.setString(1, idTransaccion);
+                ps1.setString(2, idCuenta);
+                ps1.setDouble(3, monto);
+                ps1.executeUpdate();
+            }
 
-            PreparedStatement ps2 = con.prepareStatement(update);
-            ps2.setDouble(1, monto);
-            ps2.setInt(2, idCuenta);
-            ps2.executeUpdate();
+            // 2. Restar saldo
+            try (PreparedStatement ps2 = con.prepareStatement(sqlUpdate)) {
+                ps2.setDouble(1, monto);
+                ps2.setString(2, idCuenta);
+                ps2.executeUpdate();
+            }
 
             con.commit();
             return true;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Error en Retiro: " + e.getMessage());
+            try { if (con != null) con.rollback(); } catch (SQLException ex) {}
             return false;
+        } finally {
+            try { if (con != null) con.setAutoCommit(true); } catch (SQLException ex) {}
         }
     }
 
-    // HISTORIAL
-    public List<String> listarTransacciones(int idCuenta) {
-        List<String> lista = new ArrayList<>();
-        String sql = "SELECT tipo, monto, fecha FROM transaccion WHERE id_cuenta = ?";
+    // TRANSFERENCIA
+    public boolean transferir(String idTransaccion, String cuentaOrigen, String cuentaDestino, double monto) {
+        if (!verificarSaldoSuficiente(cuentaOrigen, monto)) return false;
 
-        try (Connection con = ConexionBD.getConexion();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        String sqlResta = "UPDATE cuenta SET saldo = saldo - ? WHERE id_cuenta = ?";
+        String sqlSuma  = "UPDATE cuenta SET saldo = saldo + ? WHERE id_cuenta = ?";
+        String sqlHist  = "INSERT INTO transaccion(id_transaccion, id_cuenta, tipo, monto, cuenta_destino) VALUES (?, ?, 'TRANSFERENCIA', ?, ?)";
 
-            ps.setInt(1, idCuenta);
-            ResultSet rs = ps.executeQuery();
+        Connection con = null;
+        try {
+            con = ConexionBD.getConexion();
+            con.setAutoCommit(false);
 
-            while (rs.next()) {
-                lista.add(rs.getString("tipo")
-                        + " - " + rs.getDouble("monto")
-                        + " - " + rs.getTimestamp("fecha"));
+            // 1. Restar a Origen
+            try (PreparedStatement ps1 = con.prepareStatement(sqlResta)) {
+                ps1.setDouble(1, monto);
+                ps1.setString(2, cuentaOrigen);
+                if (ps1.executeUpdate() == 0) throw new SQLException("Cuenta origen error.");
             }
 
-        } catch (Exception e) {
+            // 2. Sumar a Destino
+            try (PreparedStatement ps2 = con.prepareStatement(sqlSuma)) {
+                ps2.setDouble(1, monto);
+                ps2.setString(2, cuentaDestino);
+                if (ps2.executeUpdate() == 0) throw new SQLException("Cuenta destino no existe.");
+            }
+
+            // 3. Guardar en Historial
+            try (PreparedStatement ps3 = con.prepareStatement(sqlHist)) {
+                ps3.setString(1, idTransaccion);
+                ps3.setString(2, cuentaOrigen);
+                ps3.setDouble(3, monto);
+                ps3.setString(4, cuentaDestino);
+                ps3.executeUpdate();
+            }
+
+            con.commit();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Error en Transferencia: " + e.getMessage());
+            try { if (con != null) con.rollback(); } catch (SQLException ex) {}
+            return false;
+        } finally {
+            try { if (con != null) con.setAutoCommit(true); } catch (SQLException ex) {}
+        }
+    }
+
+    // PAGO DE SERVICIOS
+    public boolean pagarServicio(String idTransaccion, String idCuenta, String nombreServicio, double monto) {
+        if (!verificarSaldoSuficiente(idCuenta, monto)) return false;
+
+        String sqlUpdate = "UPDATE cuenta SET saldo = saldo - ? WHERE id_cuenta = ?";
+        String sqlInsert = "INSERT INTO transaccion(id_transaccion, id_cuenta, tipo, monto, nombre_servicio) VALUES (?, ?, 'PAGO_SERVICIO', ?, ?)";
+
+        Connection con = null;
+        try {
+            con = ConexionBD.getConexion();
+            con.setAutoCommit(false);
+
+            // 1. Restar saldo
+            try (PreparedStatement ps1 = con.prepareStatement(sqlUpdate)) {
+                ps1.setDouble(1, monto);
+                ps1.setString(2, idCuenta);
+                if (ps1.executeUpdate() == 0) throw new SQLException("Cuenta no existe.");
+            }
+
+            // 2. Guardar Historial
+            try (PreparedStatement ps2 = con.prepareStatement(sqlInsert)) {
+                ps2.setString(1, idTransaccion);
+                ps2.setString(2, idCuenta);
+                ps2.setDouble(3, monto);
+                ps2.setString(4, nombreServicio);
+                ps2.executeUpdate();
+            }
+
+            con.commit();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Error Pago Servicio: " + e.getMessage());
+            try { if (con != null) con.rollback(); } catch (SQLException ex) {}
+            return false;
+        } finally {
+            try { if (con != null) con.setAutoCommit(true); } catch (SQLException ex) {}
+        }
+    }
+
+    private boolean verificarSaldoSuficiente(String idCuenta, double monto) {
+        String sql = "SELECT saldo FROM cuenta WHERE id_cuenta = ?";
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            ps.setString(1, idCuenta);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                double saldoActual = rs.getDouble("saldo");
+                return saldoActual >= monto;
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return lista;
+        return false;
+    }
+
+    public ResultSet obtenerHistorial(String idCuenta) {
+        return null; 
     }
 }
