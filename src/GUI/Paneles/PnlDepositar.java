@@ -1,5 +1,6 @@
 package GUI.Paneles;
 import Logica.*;
+import Datos.TransaccionDAO;
 import javax.swing.JOptionPane;
 
 public class PnlDepositar extends javax.swing.JPanel {
@@ -200,51 +201,34 @@ public class PnlDepositar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {    
-            String idDeposito = txtIDeposito.getText(); 
-            String idCuenta = txtIDCuenta.getText(); 
-            String idCliente  = txtIDCliente.getText();
-            String idEmpleado = txtIDEmpleado.getText();
-            String montoTxt = txtMonto.getText();
-            if (idDeposito.isEmpty() || idCuenta.isEmpty() || idCliente.isEmpty() || 
-                idEmpleado.isEmpty() || montoTxt.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
-                return;
-            }
-            double monto = Double.parseDouble(montoTxt);
+        String idTransaccion = txtIDeposito.getText().trim();
+        String idCuenta = txtIDCuenta.getText().trim();
+        String montoTexto = txtMonto.getText().trim();
 
-            // --- LÓGICA DEL BANCO ---
-            Cuenta cuenta = banco.buscarCuenta(idCuenta);
-            Cliente cliente = banco.buscarCliente(idCliente);
-            Empleado empleado = banco.buscarEmpleado(idEmpleado);
-            
-            if (cuenta == null) {
-                JOptionPane.showMessageDialog(this, "Error: La Cuenta no existe.");
-                return;
-            }
-            if (cliente == null) {
-                JOptionPane.showMessageDialog(this, "Error: El Cliente no existe.");
-                return;
-            }
-            if (empleado == null) {
-                JOptionPane.showMessageDialog(this, "Error: El Empleado no existe.");
-                return;
-            }
-            
-            Deposito nuevoDeposito = new Deposito(idDeposito, monto, cliente, empleado);
-            nuevoDeposito.procesar(cuenta, monto, nuevoDeposito);
-            JOptionPane.showMessageDialog(this, "¡Depósito realizado con éxito!");
-            
-            txtIDeposito.setText(""); 
-            txtIDCliente.setText(""); 
-            txtIDCliente.setText("");
-            txtIDEmpleado.setText("");
+        if (idTransaccion.isEmpty() || idCuenta.isEmpty() || montoTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Llene todos los campos.");
+            return;
+        }
+        double monto = 0;
+        try {
+            monto = Double.parseDouble(montoTexto);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El monto debe ser un número válido (Ej: 50.00).");
+            return;
+        }
+        if (!Validaciones.validarMontoPositivo(monto)) {
+            JOptionPane.showMessageDialog(this, "El monto debe ser mayor a 0.");
+            return;
+        }
+
+        TransaccionDAO dao = new TransaccionDAO();
+        if (dao.depositar(idTransaccion, idCuenta, monto)) {
+            JOptionPane.showMessageDialog(this, "Depósito exitoso.");
+            txtIDeposito.setText("");
+            txtIDCuenta.setText("");
             txtMonto.setText("");
-    
-            } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El monto debe ser un número válido.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al depositar (Verifique ID Cuenta).");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

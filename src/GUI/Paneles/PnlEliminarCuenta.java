@@ -1,4 +1,5 @@
 package GUI.Paneles;
+import Datos.CuentaDAO;
 import Logica.*;
 import javax.swing.JOptionPane;
 
@@ -24,7 +25,7 @@ public class PnlEliminarCuenta extends javax.swing.JPanel {
         txtTipoECuenta = new javax.swing.JLabel();
         txtSaldoECuenta = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtIDClienteEC = new javax.swing.JTextField();
+        txtIDCuenta = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -101,7 +102,7 @@ public class PnlEliminarCuenta extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(50, 50, 50));
         jLabel4.setText("ID de la cuenta:");
 
-        txtIDClienteEC.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        txtIDCuenta.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,7 +112,7 @@ public class PnlEliminarCuenta extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtIDClienteEC, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtIDCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonMostrarDatos)
                 .addContainerGap(191, Short.MAX_VALUE))
@@ -131,7 +132,7 @@ public class PnlEliminarCuenta extends javax.swing.JPanel {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtIDClienteEC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIDCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonMostrarDatos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,15 +181,16 @@ public class PnlEliminarCuenta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonMostrarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarDatosActionPerformed
-        String idCuenta = txtIDClienteEC.getText().trim(); 
-        
-        if(idCuenta.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Ingrese el ID de la Cuenta.");
+        String idCuenta = txtIDCuenta.getText().trim();
+
+        if (idCuenta.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el ID de la cuenta.");
             return;
         }
-        
-        Cuenta c = banco.buscarCuenta(idCuenta);
-        
+
+        CuentaDAO dao = new CuentaDAO();
+        Cuenta c = dao.buscarCuenta(idCuenta);
+
         if (c != null) {
             txtTipoECuenta.setText(c.getTipo());
             txtSaldoECuenta.setText("S/. " + c.consultarSaldo());
@@ -199,30 +201,36 @@ public class PnlEliminarCuenta extends javax.swing.JPanel {
     }//GEN-LAST:event_botonMostrarDatosActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-         String idCuenta = txtIDClienteEC.getText().trim();
-        Cuenta c = banco.buscarCuenta(idCuenta);
-        
-        if (c == null) {
-            JOptionPane.showMessageDialog(this, "Busque una cuenta válida primero.");
-            return;
-        }
-       
-        if (c.consultarSaldo() > 0) {
-            JOptionPane.showMessageDialog(this, "No se puede eliminar una cuenta con dinero.\nRetire el saldo primero.");
-            return;
-        }
-        
-        int respuesta = JOptionPane.showConfirmDialog(this, 
-            "¿Está seguro de eliminar la cuenta " + idCuenta + "?", 
-            "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-            
-        if (respuesta == JOptionPane.YES_OPTION) {
-            banco.getCuentas().remove(c);
-            JOptionPane.showMessageDialog(this, "Cuenta eliminada exitosamente.");
-            txtIDClienteEC.setText("");
-            limpiarCampos();
-        }                                          
+        String idCuenta = txtIDCuenta.getText().trim();
 
+        if (idCuenta.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el ID de la cuenta a eliminar.");
+            return;
+        }
+
+        CuentaDAO dao = new CuentaDAO();
+        double saldo = dao.obtenerSaldo(idCuenta);
+
+        if (saldo > 0) {
+            JOptionPane.showMessageDialog(this, "No se puede eliminar la cuenta porque tiene saldo (S/. " + saldo + ").\nRealice un retiro primero.");
+            return;
+        }
+
+        int respuesta = JOptionPane.showConfirmDialog(this, 
+                "¿Seguro que desea eliminar la cuenta " + idCuenta + "?\nSe borrará todo su historial.",
+                "Confirmar Eliminación", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.WARNING_MESSAGE);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            if (dao.eliminarCuenta(idCuenta)) {
+                JOptionPane.showMessageDialog(this, "Cuenta eliminada exitosamente.");
+                limpiarCampos();
+                txtIDCuenta.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar (Verifique que la cuenta exista).");
+            }
+        }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void limpiarCampos() {
@@ -240,7 +248,7 @@ public class PnlEliminarCuenta extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField txtIDClienteEC;
+    private javax.swing.JTextField txtIDCuenta;
     private javax.swing.JLabel txtSaldoECuenta;
     private javax.swing.JLabel txtTipoECuenta;
     // End of variables declaration//GEN-END:variables

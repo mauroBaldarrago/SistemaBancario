@@ -1,4 +1,5 @@
 package GUI;
+import Datos.*;
 import java.awt.*;
 import javax.swing.*;
 import Logica.*;
@@ -179,25 +180,45 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String dni = jTextField1.getText();
+        String dni = jTextField1.getText().trim();
         String pass = new String(jPasswordField1.getPassword());
 
-        // Usamos el método iniciarSesion del Banco
-        Usuario usuario = banco.iniciarSesion(dni, pass);
-
-        if (usuario != null) {
-            this.dispose();
-
-            if (usuario instanceof Admin) {
-                new MenuAdmin(banco, (Admin) usuario).setVisible(true);
-            } else if (usuario instanceof Empleado) {
-                new MenuEmpleado(banco, (Empleado) usuario).setVisible(true);
-            } else if (usuario instanceof Cliente) {
-                new MenuCliente(banco, (Cliente) usuario).setVisible(true);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "DNI o Contraseña incorrectos.");
+        if (dni.isEmpty() || pass.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese DNI y Contraseña");
+            return;
         }
+
+        AdminDAO adminDao = new AdminDAO();
+        Admin admin = adminDao.login(dni, pass);
+
+        if (admin != null) {
+            MenuAdmin menu = new MenuAdmin(banco, admin); 
+            menu.setVisible(true);
+            this.dispose(); 
+            return;
+        }
+
+        EmpleadoDAO empDao = new EmpleadoDAO();
+        Empleado empleado = empDao.login(dni, pass);
+
+        if (empleado != null) {
+            MenuEmpleado menu = new MenuEmpleado(banco, empleado);
+            menu.setVisible(true);
+            this.dispose();
+            return;
+        }
+
+        ClienteDAO cliDao = new ClienteDAO();
+        Cliente cliente = cliDao.login(dni, pass);
+
+        if (cliente != null) {
+            MenuCliente menu = new MenuCliente(banco, cliente);
+            menu.setVisible(true);
+            this.dispose();
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.\nVerifique sus datos.");
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -214,54 +235,6 @@ public class Login extends javax.swing.JFrame {
 
      public static void main(String args[]) {        
         Banco banco = new Banco();
-        Admin admin = new Admin(
-            "Javier", "Solis", "00000000", 
-            "Av. Administrador", "999999999", 
-            "admin123", "ADM001"
-        );
-        // Agregamos el admin directamente a la lista del gestor
-        banco.getGestorUsuarios().getAdmins().add(admin); 
-
-        // --- B. REGISTRAR EMPLEADO ---
-        // DNI: 12345678 | Pass: emp123
-        Empleado emp = new Empleado(
-            "Luis", "Perez", "12345678", 
-            "Av. Central", "987654321", 
-            "EMP001", "Cajero", "luis@mail.com", "emp123"
-        );
-        banco.registrarEmpleado(emp);
-        
-        // CLIENTE 1: Alejandro (DNI: 32164255 | Pass: 1)
-        Cliente cli1 = new Cliente(
-            "Alejandro", "Mendoza", "32164255", 
-            "Av. Siempre Viva", "999999999", 
-            "CLI001", "alejandro@mail.com", "1"
-        );
-        banco.registrarCliente(cli1);
-
-        // CLIENTE 2: Maria (DNI: 45678912 | Pass: cli456)
-        Cliente cli2 = new Cliente(
-            "Maria", "Garcia", "45678912", 
-            "Jr. Los Olivos", "965432178", 
-            "CLI002", "maria@mail.com", "cli456"
-        );
-        banco.registrarCliente(cli2);
-        
-        // Cuenta para Alejandro (Saldo S/. 5000)
-        ArrayList<Cliente> titulares1 = new ArrayList<>();
-        titulares1.add(cli1);
-        Cuenta c1 = new Cuenta("CTA001", "Ahorro", 5000.00, titulares1);
-        banco.crearCuenta(c1);
-
-        // Cuenta para Maria (Saldo S/. 1500)
-        ArrayList<Cliente> titulares2 = new ArrayList<>();
-        titulares2.add(cli2);
-        Cuenta c2 = new Cuenta("CTA002", "Corriente", 1500.00, titulares2);
-        banco.crearCuenta(c2);
-
-        System.out.println("Sistema iniciado correctamente con datos de prueba.");
-        
-        // Lanzamos el Login pasando el banco cargado
         Login loginWindow = new Login(banco);
         loginWindow.setVisible(true);
     }

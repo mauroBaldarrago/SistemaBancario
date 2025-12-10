@@ -1,5 +1,6 @@
 package GUI.Paneles;
 import Logica.*;
+import Datos.CuentaDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -181,50 +182,24 @@ public class PnlCrearCuenta extends javax.swing.JPanel {
     }//GEN-LAST:event_tipoDRCActionPerformed
 
     private void botonRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRCActionPerformed
-        try {
-            String idCuenta = idDRC.getText().trim();
-            String saldoTxt = saldoDRC.getText().trim();
-            String idCliente = idClienteDRC.getText().trim();
-            String tipo = tipoDRC.getSelectedItem().toString();
+        String idCuenta = idDRC.getText();         
+        String idCliente = idClienteDRC.getText(); 
+        String tipo = tipoDRC.getSelectedItem().toString(); 
+        double saldoInicial = Double.parseDouble(saldoDRC.getText()); 
 
-            if (idCuenta.isEmpty() || saldoTxt.isEmpty() || idCliente.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
-                return;
+        CuentaDAO dao = new CuentaDAO();
+
+        if (dao.crearCuenta(idCuenta, tipo, saldoInicial)) {
+            if (dao.agregarTitular(idCuenta, idCliente)) {
+                JOptionPane.showMessageDialog(this, "Cuenta creada y titular asignado correctamente.");
+                idDRC.setText("");
+                idClienteDRC.setText("");
+                saldoDRC.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Cuenta creada, PERO el cliente ID no existe.");
             }
-            double saldo = Double.parseDouble(saldoTxt);
-            if (saldo < 0) {
-                JOptionPane.showMessageDialog(this, "El saldo inicial no puede ser negativo.");
-                return;
-            }
-            if (banco.buscarCuenta(idCuenta) != null) {
-                JOptionPane.showMessageDialog(this, "Error: Ya existe una cuenta con el ID " + idCuenta);
-                return;
-            }
-
-            Cliente titular = banco.buscarCliente(idCliente);
-
-            if (titular == null) {
-                JOptionPane.showMessageDialog(this, "Error: El Cliente con ID " + idCliente + " no existe.");
-                return;
-            }
-
-            ArrayList<Cliente> listaTitulares = new ArrayList<>();
-            listaTitulares.add(titular);
-            Cuenta nuevaCuenta = new Cuenta(idCuenta, tipo, saldo, listaTitulares);
-            
-            banco.getCuentas().add(nuevaCuenta);
-
-            JOptionPane.showMessageDialog(this, "¡Cuenta creada exitosamente!");
-
-            idDRC.setText("");
-            saldoDRC.setText("");
-            idClienteDRC.setText("");
-            tipoDRC.setSelectedIndex(0);
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El saldo debe ser un número válido.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage());
+        } else {
+            JOptionPane.showMessageDialog(this, "Error: El ID de cuenta ya existe.");
         }
     }//GEN-LAST:event_botonRCActionPerformed
 

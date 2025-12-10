@@ -1,4 +1,5 @@
 package GUI.Paneles;
+import Datos.EmpleadoDAO;
 import Logica.*;
 import javax.swing.JOptionPane;
 
@@ -207,29 +208,22 @@ public class PnlBuscarEmpleado extends javax.swing.JPanel {
     
     private void enviarBEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarBEActionPerformed
         String idBuscado = idEmpleadoDBE.getText().trim();
-
         if (idBuscado.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese un ID de Empleado.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un ID de Empleado.");
             return;
         }
 
-        Empleado encontrado = null;
-        for (Empleado e : banco.getGestorUsuarios().getEmpleados()) {
-            if (e.getIdEmpleado().equalsIgnoreCase(idBuscado)) {
-                encontrado = e;
-                break;
-            }
-        }
+        EmpleadoDAO dao = new EmpleadoDAO();
+        Empleado encontrado = dao.buscarEmpleado(idBuscado);
 
         if (encontrado != null) {
             nombreMBE.setText(encontrado.getNombre());
             apellidosMBE.setText(encontrado.getApellido());
             dniMBE.setText(encontrado.getDni());
-            
-            // Nota: cargoMDE parece ser la etiqueta para mostrar el cargo según tu diseño
-            cargoMDE.setText(encontrado.getCargo()); 
+            if (cargoMDE != null) cargoMDE.setText(encontrado.getCargo());
+
         } else {
-            JOptionPane.showMessageDialog(this, "Empleado no encontrado.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Empleado no encontrado en la Base de Datos.");
             limpiarCampos();
         }
     }//GEN-LAST:event_enviarBEActionPerformed

@@ -1,4 +1,5 @@
 package GUI.Paneles;
+import Datos.ClienteDAO;
 import Logica.*;
 import javax.swing.JOptionPane;
 
@@ -189,20 +190,22 @@ public class PnlBuscarCliente extends javax.swing.JPanel {
 
     private void enviarBCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarBCActionPerformed
         String idBuscado = idClienteDBC.getText().trim();
-        
         if (idBuscado.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor ingrese un ID de Cliente.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor ingrese un ID.");
             return;
         }
-        Cliente clienteEncontrado = banco.buscarCliente(idBuscado);
+
+        ClienteDAO dao = new ClienteDAO();
+        Cliente clienteEncontrado = dao.buscarCliente(idBuscado);
 
         if (clienteEncontrado != null) {
             nombreMBC.setText(clienteEncontrado.getNombre());
             apellidoMBC.setText(clienteEncontrado.getApellido());
             dniMBC.setText(clienteEncontrado.getDni());
             direccionMBC.setText(clienteEncontrado.getDireccion());
+
         } else {
-            JOptionPane.showMessageDialog(this, "Cliente no encontrado.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Cliente no encontrado en la Base de Datos.");
             limpiarCampos();
         }
     }//GEN-LAST:event_enviarBCActionPerformed

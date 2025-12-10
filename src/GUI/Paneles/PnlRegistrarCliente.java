@@ -251,57 +251,52 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                                           
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            try {
-        String dni       = txtDNIRC.getText();
-        String nombre    = txtNombreRC.getText();
-        String apellido  = txtaApellidoRC.getText();
+        String id = txtIDRC.getText();
+        String dni = txtDNIRC.getText();
+        String nombre = txtNombreRC.getText();
+        String apellido = txtaApellidoRC.getText();
         String direccion = txtDireccionRC.getText();
-        String celular   = txtCelularRC.getText();
-        String email     = txtCorreoRC.getText();
-        String idCliente = txtIDRC.getText();
-        String pass      = new String(txtContraseñaRC.getPassword());
+        String celular = txtCelularRC.getText();
+        String correo = txtCorreoRC.getText();
+        String pass = new String(txtContraseñaRC.getPassword());
 
-        if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() ||
-            direccion.isEmpty() || celular.isEmpty() || email.isEmpty() ||
-            idCliente.isEmpty() || pass.isEmpty()) {
-
-            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
+        if (id.isEmpty() || dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || pass.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos obligatorios.");
+        return; // ¡ALTO! No seguimos.
+        }
+        if (!Validaciones.validarDNI(dni)) {
+            JOptionPane.showMessageDialog(this, "El DNI es inválido (Debe tener 8 dígitos).");
+            return;
+        }
+        if (!Validaciones.validarNombre(nombre) || !Validaciones.validarNombre(apellido)) {
+            JOptionPane.showMessageDialog(this, "Nombre o Apellido inválidos (Solo letras).");
+            return;
+        }
+        if (!Validaciones.validarCelular(celular)) {
+            JOptionPane.showMessageDialog(this, "Celular inválido (Debe empezar con 9 y tener 9 dígitos).");
+            return;
+        }
+        if (!Validaciones.validarCorreo(correo)) {
+            JOptionPane.showMessageDialog(this, "Formato de correo inválido.");
             return;
         }
 
-        if (!dni.matches("\\d{8}")) {
-            JOptionPane.showMessageDialog(this, "El DNI debe tener 8 dígitos numéricos.");
-            return;
-        }
-
-        Cliente nuevoCliente = new Cliente(
-            nombre,
-            apellido,
-            dni,
-            direccion,
-            celular,
-            idCliente,
-            email,
-            pass
-        );
-
+        Cliente c = new Cliente(nombre, apellido, dni, direccion, celular, id, correo, pass);
         ClienteDAO dao = new ClienteDAO();
-        dao.registrarCliente(nuevoCliente);
 
-        JOptionPane.showMessageDialog(this, "¡Cliente registrado exitosamente!");
-
-        txtDNIRC.setText("");
-        txtNombreRC.setText("");
-        txtaApellidoRC.setText("");
-        txtDireccionRC.setText("");
-        txtCelularRC.setText("");
-        txtCorreoRC.setText("");
-        txtIDRC.setText("");
-        txtContraseñaRC.setText("");
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage());
-    }
+        if (dao.registrarCliente(c)) {
+            JOptionPane.showMessageDialog(this, "¡Cliente registrado en exitosamente!");
+            txtIDRC.setText("");
+            txtDNIRC.setText("");
+            txtNombreRC.setText("");
+            txtaApellidoRC.setText("");
+            txtDireccionRC.setText("");
+            txtCelularRC.setText("");
+            txtCorreoRC.setText("");
+            txtContraseñaRC.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error: El ID o DNI ya existen.");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

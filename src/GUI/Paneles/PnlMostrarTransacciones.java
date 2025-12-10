@@ -18,8 +18,8 @@ public class PnlMostrarTransacciones extends javax.swing.JPanel {
         }
         
     private void configurarTabla() {
-        String[] columnas = {"ID Trans.", "Tipo", "Monto", "Detalle", "Fecha"};
-    
+        String[] columnas = {"ID Trans.", "Fecha", "Tipo", "Monto", "Detalle"};
+
         modelo = new DefaultTableModel(null, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -27,7 +27,7 @@ public class PnlMostrarTransacciones extends javax.swing.JPanel {
             }
         };
         jTable1.setModel(modelo);
-    }   
+    }  
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -198,51 +198,24 @@ public class PnlMostrarTransacciones extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEnviarActionPerformed
-       String idCuenta = txtIDCuenta.getText();    
+        String idCuenta = txtIDCuenta.getText().trim();
+
+        if (idCuenta.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese el ID de la cuenta.");
+            return;
+        }
+
         modelo.setRowCount(0);
 
-        String sql = "SELECT * FROM transaccion WHERE id_cuenta = ?";
+        TransaccionDAO dao = new TransaccionDAO();
+        java.util.List<String[]> lista = dao.listarTransacciones(idCuenta);
 
-        try (java.sql.Connection con = Datos.ConexionBD.getConexion();
-             java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setString(1, idCuenta);
-            java.sql.ResultSet rs = ps.executeQuery();
-
-            boolean hayDatos = false;
-
-            while (rs.next()) {
-                hayDatos = true;
-
-                String tipo = rs.getString("tipo");
-                String detalle = "---"; 
-
-                if ("TRANSFERENCIA".equals(tipo)) {
-                    // Si es transferencia, mostramos la cuenta destino
-                    String destino = rs.getString("cuenta_destino");
-                    detalle = (destino != null) ? "A: " + destino : "---";
-                } else if ("PAGO_SERVICIO".equals(tipo)) {
-                    // Si es pago, mostramos el nombre del servicio
-                    String servicio = rs.getString("nombre_servicio");
-                    detalle = (servicio != null) ? servicio : "---";
-                }
-
-                modelo.addRow(new Object[]{
-                    rs.getInt("id_transaccion"), 
-                    tipo,                       
-                    rs.getDouble("monto"),        
-                    detalle,                      
-                    rs.getString("fecha")      
-                });
+        if (!lista.isEmpty()) {
+            for (String[] fila : lista) {
+                modelo.addRow(fila);
             }
-
-            if (!hayDatos) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Esta cuenta no tiene movimientos o no existe.");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al conectar con BD: " + e.getMessage());
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Esta cuenta no tiene movimientos registrados (o no existe).");
         }
     }//GEN-LAST:event_BotonEnviarActionPerformed
 

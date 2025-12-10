@@ -1,4 +1,5 @@
 package GUI.Paneles;
+import Datos.ClienteDAO;
 import Logica.*;
 import javax.swing.JOptionPane;
 
@@ -235,24 +236,21 @@ public class PnlEliminarCliente extends javax.swing.JPanel {
 
     private void botonMostrarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarDatosActionPerformed
         String idBuscado = txtIDClienteEC.getText().trim();
-        
-        if(idBuscado.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Ingrese un ID de Cliente.");
+
+        if (idBuscado.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un ID de cliente.");
             return;
         }
-        
-        Cliente c = banco.buscarCliente(idBuscado);
-        
+
+        ClienteDAO dao = new ClienteDAO();
+        Cliente c = dao.buscarCliente(idBuscado);
+
         if (c != null) {
-            // Llenar los labels (Verifica que coincidan con tus variables)
             txtNombresEC.setText(c.getNombre());
             txtApellidoEC.setText(c.getApellido());
             txtDNIEC.setText(c.getDni());
             txtDireccionEC.setText(c.getDireccion());
-            
-            // Si tienes label de correo usa:
-            if(txtCorreoEC != null) txtCorreoEC.setText(c.getCorreo()); 
-            
+            if(txtCorreoEC != null) txtCorreoEC.setText(c.getCorreo());
         } else {
             JOptionPane.showMessageDialog(this, "Cliente no encontrado.");
             limpiarCampos();
@@ -261,27 +259,34 @@ public class PnlEliminarCliente extends javax.swing.JPanel {
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         String idBuscado = txtIDClienteEC.getText().trim();
-        Cliente c = banco.buscarCliente(idBuscado);
-        
-        if (c == null) {
-            JOptionPane.showMessageDialog(this, "Primero busque un cliente válido.");
+
+        if (idBuscado.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el ID.");
             return;
         }
-        
-        // Confirmación de seguridad
-        int respuesta = JOptionPane.showConfirmDialog(this, 
-            "¿Seguro que desea eliminar al cliente " + c.getNombre() + "?\nEsta acción no se puede deshacer.",
-            "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-            
-        if (respuesta == JOptionPane.YES_OPTION) {
-            // Eliminar de la lista
-            banco.getGestorUsuarios().getClientes().remove(c);
-            
-            JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente.");
-            
-            // Limpiar todo
-            txtIDClienteEC.setText("");
-            limpiarCampos();
+
+        ClienteDAO dao = new ClienteDAO();
+
+        if (dao.tieneCuentas(idBuscado)) {
+            JOptionPane.showMessageDialog(this, 
+                "ERROR: No se puede eliminar a este cliente.\n" +
+                "Motivo: Todavía es titular de una o más cuentas bancarias.\n" +
+                "Solución: Primero elimine sus cuentas o quítele la titularidad.");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, 
+                "¿Seguro que desea eliminar al cliente " + idBuscado + "?", 
+                "Eliminar Cliente", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (dao.eliminarCliente(idBuscado)) {
+                JOptionPane.showMessageDialog(this, "Cliente eliminado del sistema.");
+                limpiarCampos();
+                txtIDClienteEC.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar (Verifique que el ID exista).");
+            }
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
 

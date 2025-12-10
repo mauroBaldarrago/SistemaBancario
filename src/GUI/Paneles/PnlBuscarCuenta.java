@@ -1,4 +1,5 @@
 package GUI.Paneles;
+import Datos.CuentaDAO;
 import Logica.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -188,23 +189,22 @@ public class PnlBuscarCuenta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String idCuenta = txtIDCuenta.getText().trim();
-
-        if (idCuenta.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID de Cuenta.");
+        String idBuscado = txtIDCuenta.getText().trim();
+        if (idBuscado.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese un ID de cuenta.");
             return;
         }
 
-        Cuenta cuentaEncontrada = banco.buscarCuenta(idCuenta);
+        CuentaDAO dao = new CuentaDAO();
+        Cuenta cuenta = dao.buscarCuenta(idBuscado);
 
-        if (cuentaEncontrada != null) {
-            lblTipoCuenta.setText(cuentaEncontrada.getTipo());
-            lblSaldoCuenta.setText("S/. " + cuentaEncontrada.consultarSaldo());
-            modelo.setRowCount(0);
-            
-            ArrayList<Cliente> titulares = cuentaEncontrada.getTitulares();
-            
-            if (titulares != null && !titulares.isEmpty()) {
+        if (cuenta != null) {
+            lblTipoCuenta.setText(cuenta.getTipo());
+            lblSaldoCuenta.setText("S/. " + cuenta.consultarSaldo());
+
+            modelo.setRowCount(0); 
+            ArrayList<Cliente> titulares = cuenta.getTitulares();
+            if (!titulares.isEmpty()) {
                 for (Cliente c : titulares) {
                     Object[] fila = {
                         c.getIdCliente(),
@@ -215,11 +215,10 @@ public class PnlBuscarCuenta extends javax.swing.JPanel {
                     modelo.addRow(fila);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Esta cuenta no tiene titulares registrados.");
+                JOptionPane.showMessageDialog(this, "Esta cuenta existe pero no tiene titulares asignados.");
             }
-            
         } else {
-            JOptionPane.showMessageDialog(this, "Cuenta no encontrada.");
+            JOptionPane.showMessageDialog(this, "Cuenta no encontrada en la Base de Datos.");
             limpiarCampos();
         }
     }//GEN-LAST:event_jButton1ActionPerformed

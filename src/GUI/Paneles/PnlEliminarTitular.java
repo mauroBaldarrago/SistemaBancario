@@ -1,5 +1,6 @@
 package GUI.Paneles;
 import Logica.*;
+import Datos.CuentaDAO;
 import javax.swing.JOptionPane;
 
 public class PnlEliminarTitular extends javax.swing.JPanel {
@@ -202,70 +203,51 @@ public class PnlEliminarTitular extends javax.swing.JPanel {
             return;
         }
 
-        Cuenta cuenta = banco.buscarCuenta(idCuenta);
-        if (cuenta == null) {
-            JOptionPane.showMessageDialog(this, "Cuenta no encontrada.");
+        CuentaDAO dao = new CuentaDAO();
+
+        int cantidad = dao.contarTitulares(idCuenta);
+        if (cantidad <= 1) {
+            JOptionPane.showMessageDialog(this, 
+                "¡ALTO! No se puede eliminar al titular.\n" +
+                "Motivo: Es el único dueño de la cuenta.\n" +
+                "Solución: Elimine la cuenta completa en el panel 'Eliminar Cuenta'.");
             return;
         }
 
-        Cliente titularAEliminar = null;
-        for (Cliente c : cuenta.getTitulares()) {
-            if (c.getIdCliente().equals(idTitular)) {
-                titularAEliminar = c;
-                break;
-            }
-        }
-
-        if (titularAEliminar == null) {
-            JOptionPane.showMessageDialog(this, "El cliente no está asociado a esta cuenta.");
-            return;
-        }
-
-        if (cuenta.getTitulares().size() <= 1) {
-            JOptionPane.showMessageDialog(this, "Error: No puede eliminar al único titular. La cuenta debe tener al menos uno.");
-            return;
-        }
-
-        int confirmacion = JOptionPane.showConfirmDialog(this, 
-                "¿Seguro que desea desvincular a " + titularAEliminar.getNombre() + " de la cuenta?",
+        int confirm = JOptionPane.showConfirmDialog(this, 
+                "¿Quitar a " + idTitular + " de la cuenta " + idCuenta + "?", 
                 "Confirmar", JOptionPane.YES_NO_OPTION);
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            cuenta.getTitulares().remove(titularAEliminar);           
-            JOptionPane.showMessageDialog(this, "Titular eliminado exitosamente.");           
-            txtIDCuentaET.setText("");
-            txtIDTitularET.setText("");
-            limpiarCampos();
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (dao.eliminarTitular(idCuenta, idTitular)) {
+                JOptionPane.showMessageDialog(this, "Titular desvinculado exitosamente.");
+                limpiarCampos();
+                txtIDCuentaET.setText("");
+                txtIDTitularET.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar.");
+            }
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void botonMostrarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarDatosActionPerformed
         String idCuenta = txtIDCuentaET.getText().trim();
-        String idTitular = txtIDTitularET.getText().trim();
+        String idTitular = txtIDTitularET.getText().trim(); // ID del Cliente a borrar
 
         if (idCuenta.isEmpty() || idTitular.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar el ID de Cuenta y el ID del Titular.");
-            return;
-        }
-        Cuenta cuenta = banco.buscarCuenta(idCuenta);
-        if (cuenta == null) {
-            JOptionPane.showMessageDialog(this, "La cuenta " + idCuenta + " no existe.");
-            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Ingrese ambos IDs (Cuenta y Cliente).");
             return;
         }
 
-        Cliente titularEncontrado = null;
-        for (Cliente c : cuenta.getTitulares()) {
-            if (c.getIdCliente().equals(idTitular)) {
-                titularEncontrado = c;
-                break;
-            }
-        }
+        CuentaDAO dao = new CuentaDAO();
+        Cliente c = dao.buscarTitularEnCuenta(idCuenta, idTitular);
 
-        if (titularEncontrado != null) {
-            txtNombresET.setText(titularEncontrado.getNombre());
-            txtApellidoET.setText(titularEncontrado.getApellido());
+        if (c != null) {
+            txtNombresET.setText(c.getNombre());
+            txtApellidoET.setText(c.getApellido());
         } else {
-            JOptionPane.showMessageDialog(this, "El cliente " + idTitular + " NO es titular de la cuenta " + idCuenta + ".");
+            JOptionPane.showMessageDialog(this, 
+                "Error: El cliente " + idTitular + " NO es titular de la cuenta " + idCuenta + ".");
             limpiarCampos();
         }
     }//GEN-LAST:event_botonMostrarDatosActionPerformed

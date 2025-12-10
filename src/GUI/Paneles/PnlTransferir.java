@@ -1,5 +1,6 @@
 package GUI.Paneles;
 import Logica.*; 
+import Datos.*;
 import javax.swing.JOptionPane;
 
 public class PnlTransferir extends javax.swing.JPanel {
@@ -189,73 +190,43 @@ public class PnlTransferir extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            String idTrans   = txtIDTransferencia.getText();
-            String idOrigen  = txtCOTransferencia.getText();
-            String idDestino = txtCDTransferencia.getText();
-            String idCliente = txtCliTransferencia.getText();
-            String idEmp     = txtETransferencia.getText();
-            String montoTxt  = txtMTransferencia.getText();
+    String idTrx = txtIDTransferencia.getText().trim();
+    String origen = txtCOTransferencia.getText().trim();
+    String destino = txtCDTransferencia.getText().trim();
+    String montoStr = txtMTransferencia.getText().trim();
 
-            if (idTrans.isEmpty() || idOrigen.isEmpty() || idDestino.isEmpty() || 
-                idCliente.isEmpty() || idEmp.isEmpty() || montoTxt.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
-                return;
-            }
-            if (idOrigen.equals(idDestino)) {
-                JOptionPane.showMessageDialog(this, "No puede transferir a la misma cuenta.");
-                return;
-            }
+    if (idTrx.isEmpty() || origen.isEmpty() || destino.isEmpty() || montoStr.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Faltan datos.");
+        return;
+    }
+    if (origen.equals(destino)) {
+        JOptionPane.showMessageDialog(this, "No puede transferir a la misma cuenta.");
+        return;
+    }
+    double monto = 0;
+    try {
+        monto = Double.parseDouble(montoStr);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Monto inválido.");
+        return;
+    }
+    if (!Validaciones.validarMontoPositivo(monto)) {
+        JOptionPane.showMessageDialog(this, "El monto debe ser positivo.");
+        return;
+    }
+    CuentaDAO ctaDao = new CuentaDAO();
+    double saldoActual = ctaDao.obtenerSaldo(origen);
+    if (saldoActual < monto) {
+        JOptionPane.showMessageDialog(this, "Saldo insuficiente. Tienes: S/." + saldoActual);
+        return;
+    }
 
-            double monto = Double.parseDouble(montoTxt);
-            if (monto <= 0) {
-                JOptionPane.showMessageDialog(this, "El monto debe ser mayor a 0.");
-                return;
-            }
-
-            Cuenta cOrigen  = banco.buscarCuenta(idOrigen);
-            Cuenta cDestino = banco.buscarCuenta(idDestino);
-            Cliente cliente = banco.buscarCliente(idCliente);
-            Empleado empleado = banco.buscarEmpleado(idEmp);
-
-            if (cOrigen == null) {
-                JOptionPane.showMessageDialog(this, "La Cuenta Origen no existe.");
-                return;
-            }
-            if (cDestino == null) {
-                JOptionPane.showMessageDialog(this, "La Cuenta Destino no existe.");
-                return;
-            }
-            if (cliente == null) {
-                JOptionPane.showMessageDialog(this, "El Cliente no existe.");
-                return;
-            }
-            if (empleado == null) {
-                JOptionPane.showMessageDialog(this, "El Empleado no existe.");
-                return;
-            }
-            if (cOrigen.consultarSaldo() < monto) {
-                JOptionPane.showMessageDialog(this, "Saldo insuficiente en cuenta origen.\nSaldo: " + cOrigen.consultarSaldo());
-                return;
-            }
-
-            Transferencia nuevaTrans = new Transferencia(idTrans, monto, cliente, empleado);
-            nuevaTrans.procesar(cOrigen, cDestino, monto, nuevaTrans);
-
-            JOptionPane.showMessageDialog(this, "¡Transferencia Exitosa!");
-
-            txtCDTransferencia.setText("");
-            txtCOTransferencia.setText("");
-            txtCliTransferencia.setText("");
-            txtETransferencia.setText("");
-            txtIDTransferencia.setText("");
-            txtMTransferencia.setText("");
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El monto debe ser numérico.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
-        }
+    TransaccionDAO trxDao = new TransaccionDAO();
+    if (trxDao.transferir(idTrx, origen, destino, monto)) {
+        JOptionPane.showMessageDialog(this, "Transferencia realizada.");
+    } else {
+        JOptionPane.showMessageDialog(this, "Error en la operación SQL.");
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

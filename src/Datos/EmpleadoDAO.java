@@ -65,34 +65,80 @@ public class EmpleadoDAO {
     }
     
     public Empleado login(String dni, String contrasena) {
-    String sql = "SELECT id_empleado, dni, nombre, apellido, direccion, celular, correo, cargo, contrasena " +
-                 "FROM empleado WHERE dni = ? AND contrasena = ? AND activo = 1";
+        String sql = "SELECT id_empleado, dni, nombre, apellido, direccion, celular, correo, cargo, contrasena " +
+                     "FROM empleado WHERE dni = ? AND contrasena = ? AND activo = 1";
 
-    try (Connection con = ConexionBD.getConexion();
-         PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-        ps.setString(1, dni);
-        ps.setString(2, contrasena);
+            ps.setString(1, dni);
+            ps.setString(2, contrasena);
 
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            return new Empleado(
-                rs.getString("nombre"),
-                rs.getString("apellido"),
-                rs.getString("dni"),
-                rs.getString("direccion"),
-                rs.getString("celular"),
-                rs.getString("id_empleado"),
-                rs.getString("cargo"),
-                rs.getString("correo"),
-                rs.getString("contrasena")
-            );
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Empleado(
+                    rs.getString("nombre"),
+                    rs.getString("apellido"),
+                    rs.getString("dni"),
+                    rs.getString("direccion"),
+                    rs.getString("celular"),
+                    rs.getString("id_empleado"),
+                    rs.getString("cargo"),
+                    rs.getString("correo"),
+                    rs.getString("contrasena")
+                );
+            }
+
+        } catch (Exception ex) {
+            throw new RuntimeException("Error al hacer login de empleado: " + ex.getMessage());
         }
-
-    } catch (Exception ex) {
-        throw new RuntimeException("Error al hacer login de empleado: " + ex.getMessage());
+        return null;
     }
-    return null;
-}
 
+    public Empleado buscarEmpleado(String idEmpleado) {
+        String sql = "SELECT * FROM empleado WHERE id_empleado = ?";
+        Empleado emp = null;
+
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, idEmpleado);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    emp = new Empleado(
+                        rs.getString("nombre"),
+                        rs.getString("apellido"),
+                        rs.getString("dni"),
+                        rs.getString("direccion"),
+                        rs.getString("celular"),
+                        rs.getString("id_empleado"),
+                        rs.getString("cargo"),
+                        rs.getString("correo"),
+                        rs.getString("contrasena")
+                    );
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al buscar empleado: " + e.getMessage());
+        }
+        return emp;
+    }
+    
+    public boolean eliminarEmpleado(String idEmpleado) {
+        String sql = "DELETE FROM empleado WHERE id_empleado = ?";
+
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, idEmpleado);
+            int filasAfectadas = ps.executeUpdate();
+
+            return filasAfectadas > 0; // Devuelve true si borró a alguien
+
+        } catch (Exception e) {
+            System.out.println("Error al eliminar empleado: " + e.getMessage());
+            return false;
+        }
+    }
 }

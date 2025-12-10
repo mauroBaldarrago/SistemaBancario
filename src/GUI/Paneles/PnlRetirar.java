@@ -1,4 +1,6 @@
 package GUI.Paneles;
+import Datos.CuentaDAO;
+import Datos.TransaccionDAO;
 import Logica.*;
 import javax.swing.JOptionPane;
 
@@ -176,71 +178,57 @@ public class PnlRetirar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {    
-            String idRetiro   = txtIDRetiro.getText();
-            String idCuenta   = txtIDCuenta.getText();
-            String idCliente  = txtIDCliente.getText();
-            String idEmpleado = txtIDEmpleado.getText();
-            String montoTxt   = txtMonto.getText();
+        String idTransaccion = txtIDRetiro.getText().trim(); // ID Manual (TRX...)
+        String idCuenta = txtIDCuenta.getText().trim();
+        String montoStr = txtMonto.getText().trim();
 
-            if (idRetiro.isEmpty() || idCuenta.isEmpty() || idCliente.isEmpty() || 
-                    idEmpleado.isEmpty() || montoTxt.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
-                    return;
-            }
 
-            double monto = Double.parseDouble(montoTxt);
-                        if (monto <= 0) {
-                JOptionPane.showMessageDialog(this, "El monto debe ser mayor a 0.");
-                return;
-            }
+        if (idTransaccion.isEmpty() || idCuenta.isEmpty() || montoStr.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
+            return;
+        }
 
-            Cuenta cuenta = banco.buscarCuenta(idCuenta);
-            Cliente cliente = banco.buscarCliente(idCliente);
-            
-            // Buscar empleado manualmente (ya que no tienes método directo aún)
-            Empleado empleado = null;
-            for (Empleado e : banco.getGestorUsuarios().getEmpleados()) {
-                if (e.getIdEmpleado().equals(idEmpleado)) {
-                    empleado = e;
-                    break;
-                }
-            }
-
-            // --- VALIDACIONES DE EXISTENCIA ---
-            if (cuenta == null) {
-                JOptionPane.showMessageDialog(this, "Error: La Cuenta no existe.");
-                return;
-            }
-            if (cliente == null) {
-                JOptionPane.showMessageDialog(this, "Error: El Cliente no existe.");
-                return;
-            }
-            if (empleado == null) {
-                JOptionPane.showMessageDialog(this, "Error: El Empleado no existe.");
-                return;
-            }
-
-            if (cuenta.consultarSaldo() < monto) {
-                JOptionPane.showMessageDialog(this, "Error: Saldo insuficiente.\nSaldo actual: S/. " + cuenta.consultarSaldo());
-                return;
-            }
-
-            Retiro nuevoRetiro = new Retiro(idRetiro, monto, cliente, empleado);
-            nuevoRetiro.procesar(cuenta, monto, nuevoRetiro);
-
-            JOptionPane.showMessageDialog(this, "¡Retiro realizado con éxito!\nNuevo Saldo: S/. " + cuenta.consultarSaldo());
-
-            txtIDCliente.setText("");
-            txtIDCuenta.setText("");
-            txtIDEmpleado.setText("");
-            txtIDRetiro.setText("");
-            txtMonto.setText("");
-
+        double monto = 0;
+        try {
+            monto = Double.parseDouble(montoStr);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El monto debe ser un número válido.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "Monto inválido. Ingrese solo números.");
+            return;
+        }
+
+        if (monto <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El monto debe ser mayor a 0.");
+            return;
+        }
+
+        CuentaDAO ctaDao = new CuentaDAO();
+        double saldoActual = ctaDao.obtenerSaldo(idCuenta);
+
+        if (saldoActual < monto) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Saldo Insuficiente.\n" +
+                "Saldo actual: S/. " + saldoActual + "\n" +
+                "Intenta retirar un monto menor.");
+            return;
+        }
+
+        TransaccionDAO trxDao = new TransaccionDAO();
+        if (trxDao.retirar(idTransaccion, idCuenta, monto)) {
+            // Consultamos el saldo nuevo para mostrarlo en el mensaje
+            double nuevoSaldo = ctaDao.obtenerSaldo(idCuenta);
+
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "¡Retiro realizado con éxito!\n" +
+                "Nuevo Saldo: S/. " + nuevoSaldo);
+
+            txtIDRetiro.setText("");
+            txtIDCuenta.setText("");
+            txtMonto.setText("");
+            if(txtIDCliente != null) txtIDCliente.setText("");
+            if(txtIDEmpleado != null) txtIDEmpleado.setText("");
+
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al procesar el retiro.\nVerifique que la cuenta exista o el ID de transacción no esté repetido.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

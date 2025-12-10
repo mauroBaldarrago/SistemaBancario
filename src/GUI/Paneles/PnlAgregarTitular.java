@@ -1,5 +1,6 @@
 package GUI.Paneles;
 import Logica.*;
+import Datos.CuentaDAO;
 import javax.swing.JOptionPane;
 
 public class PnlAgregarTitular extends javax.swing.JPanel {
@@ -193,40 +194,18 @@ public class PnlAgregarTitular extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String idCuenta = idCuentaATD.getText().trim();
-        String idClienteNuevo = idClienteATD.getText().trim();
+        String idCuenta = idCuentaATD.getText();
+        String idNuevoCliente = idClienteATD.getText();
 
-        if (idCuenta.isEmpty() || idClienteNuevo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar el ID de la Cuenta y del Cliente.");
-            return;
+        CuentaDAO dao = new CuentaDAO();
+
+        if (dao.agregarTitular(idCuenta, idNuevoCliente)) {
+            JOptionPane.showMessageDialog(this, "Nuevo titular agregado a la cuenta.");
+            idCuentaATD.setText("");
+            idClienteATD.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error: Verifique que la cuenta y el cliente existan.");
         }
-
-        Cuenta cuenta = banco.buscarCuenta(idCuenta);
-        if (cuenta == null) {
-            JOptionPane.showMessageDialog(this, "Error: La cuenta con ID " + idCuenta + " no existe.");
-            return;
-        }
-
-        Cliente nuevoTitular = banco.buscarCliente(idClienteNuevo);
-        if (nuevoTitular == null) {
-            JOptionPane.showMessageDialog(this, "Error: El cliente con ID " + idClienteNuevo + " no existe.");
-            return;
-        }
-
-        for (Cliente titular : cuenta.getTitulares()) {
-            if (titular.getIdCliente().equals(idClienteNuevo)) {
-                JOptionPane.showMessageDialog(this, "Este cliente YA es titular de esta cuenta.");
-                return;
-            }
-        }
-
-        cuenta.getTitulares().add(nuevoTitular);
-
-        JOptionPane.showMessageDialog(this, "¡Titular agregado exitosamente!\n" +
-                "Ahora la cuenta tiene " + cuenta.getTitulares().size() + " titulares.");
-
-        idCuentaATD.setText("");
-        idClienteATD.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

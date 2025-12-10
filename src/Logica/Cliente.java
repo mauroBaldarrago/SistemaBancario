@@ -12,12 +12,20 @@ public class Cliente extends Usuario {
         this.correo = correo;
         this.activo = true;
     }
+    public Cliente() {
+        super("", "", "", "", "", "");
+        this.idCliente = "";
+        this.correo = "";
+        this.activo = true;
+    }
 
     /* Getters necesarios */
     public String getIdCliente() {return idCliente;}
     public String getCorreo() {return correo;}
     public String getDireccion() {return direccion;}
     public boolean isActivo() {return activo;}
+    public void setNombre(String nombre) {this.nombre = nombre;}
+    public void setApellido(String apellido) {this.apellido = apellido;}
     public void setActivo(boolean activo) {this.activo = activo;}
 
     /* Método para mostrar los datos de Cliente (polimorfismo y heredación) */

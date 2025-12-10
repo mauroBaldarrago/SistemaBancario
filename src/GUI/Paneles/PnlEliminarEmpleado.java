@@ -1,4 +1,5 @@
 package GUI.Paneles;
+import Datos.EmpleadoDAO;
 import Logica.*;
 import javax.swing.JOptionPane;
 
@@ -207,10 +208,11 @@ public class PnlEliminarEmpleado extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(botonMostrarDatos)
-                    .addComponent(txtIDClienteEE, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIDClienteEE, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(botonMostrarDatos)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -236,26 +238,21 @@ public class PnlEliminarEmpleado extends javax.swing.JPanel {
 
     private void botonMostrarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarDatosActionPerformed
         String idBuscado = txtIDClienteEE.getText().trim();
-        
+
         if (idBuscado.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese el ID del Empleado.");
+            JOptionPane.showMessageDialog(this, "Ingrese el ID del empleado.");
             return;
         }
-        
-        Empleado encontrado = null;
-        for (Empleado e : banco.getGestorUsuarios().getEmpleados()) {
-            if (e.getIdEmpleado().equals(idBuscado)) {
-                encontrado = e;
-                break;
-            }
-        }
-        
-        if (encontrado != null) {
-            txtNombresEE.setText(encontrado.getNombre());
-            txtApellidoEE.setText(encontrado.getApellido());
-            txtDNIEE.setText(encontrado.getDni());
-            txtDireccionEE.setText(encontrado.getDireccion());
-            txtCargoEE.setText(encontrado.getCargo());
+
+        EmpleadoDAO dao = new EmpleadoDAO();
+        Empleado e = dao.buscarEmpleado(idBuscado);
+
+        if (e != null) {
+            txtNombresEE.setText(e.getNombre());
+            txtApellidoEE.setText(e.getApellido());
+            txtDNIEE.setText(e.getDni());
+            txtDireccionEE.setText(e.getDireccion());
+            txtCargoEE.setText(e.getCargo());
         } else {
             JOptionPane.showMessageDialog(this, "Empleado no encontrado.");
             limpiarCampos();
@@ -264,35 +261,28 @@ public class PnlEliminarEmpleado extends javax.swing.JPanel {
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         String idBuscado = txtIDClienteEE.getText().trim();
-        
-        // Buscar de nuevo para confirmar
-        Empleado encontrado = null;
-        for (Empleado e : banco.getGestorUsuarios().getEmpleados()) {
-            if (e.getIdEmpleado().equals(idBuscado)) {
-                encontrado = e;
-                break;
-            }
-        }
-        
-        if (encontrado == null) {
-            JOptionPane.showMessageDialog(this, "Busque un empleado válido primero.");
+
+        if (idBuscado.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingrese el ID para eliminar.");
             return;
         }
-        
-        // Confirmación
-        int respuesta = JOptionPane.showConfirmDialog(this, 
-            "¿Está seguro de eliminar al empleado " + encontrado.getNombre() + "?",
-            "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-            
-        if (respuesta == JOptionPane.YES_OPTION) {
-            // Eliminar de la lista
-            banco.getGestorUsuarios().getEmpleados().remove(encontrado);
-            
-            JOptionPane.showMessageDialog(this, "Empleado eliminado correctamente.");
-            
-            // Limpiar
-            txtIDClienteEE.setText("");
-            limpiarCampos();
+
+        int confirm = JOptionPane.showConfirmDialog(this, 
+                "¿Está seguro de eliminar al empleado " + idBuscado + "?\nEsta acción no se puede deshacer.", 
+                "Confirmar Despido", 
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            EmpleadoDAO dao = new EmpleadoDAO();
+
+            if (dao.eliminarEmpleado(idBuscado)) {
+                JOptionPane.showMessageDialog(this, "Empleado eliminado del sistema.");
+                limpiarCampos();
+                txtIDClienteEE.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar (Verifique que el ID exista).");
+            }
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
 

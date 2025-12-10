@@ -1,4 +1,6 @@
 package GUI.Paneles;
+import Datos.CuentaDAO;
+import Datos.TransaccionDAO;
 import Logica.*;
 import javax.swing.JOptionPane;
 
@@ -188,67 +190,53 @@ public class PnlPagoServicio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String idTransaccion = txtIDPPS.getText().trim();
+        String idCuenta = txtIDCPS.getText().trim();      
+        String servicio = txtIDSPPS.getText().trim();      
+        String montoStr = txtIDMPPS.getText().trim();      
+
+
+        if (idTransaccion.isEmpty() || idCuenta.isEmpty() || servicio.isEmpty() || montoStr.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos obligatorios.");
+            return;
+        }
+        double monto = 0;
         try {
-            String idTrans   = txtIDPPS.getText();
-            String idCuenta  = txtIDCPS.getText();
-            String idCliente = txtIDCliPS.getText();
-            String idEmp     = txtIDEPS.getText();
-            String servicio  = txtIDSPPS.getText();
-            String montoTxt  = txtIDMPPS.getText();
-
-            if (idTrans.isEmpty() || idCuenta.isEmpty() || idCliente.isEmpty() || 
-                idEmp.isEmpty() || servicio.isEmpty() || montoTxt.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
-                return;
-            }
-
-            double monto = Double.parseDouble(montoTxt);
-            
-            if (monto <= 0) {
-                JOptionPane.showMessageDialog(this, "El monto debe ser mayor a 0.");
-                return;
-            }
-
-            // --- 2. BUSCAR OBJETOS ---
-            Cuenta cuenta = banco.buscarCuenta(idCuenta);
-            Cliente cliente = banco.buscarCliente(idCliente);
-            Empleado empleado = banco.buscarEmpleado(idEmp);
-
-            if (cuenta == null) {
-                JOptionPane.showMessageDialog(this, "La Cuenta no existe.");
-                return;
-            }
-            if (cliente == null) {
-                JOptionPane.showMessageDialog(this, "El Cliente no existe.");
-                return;
-            }
-            if (empleado == null) {
-                JOptionPane.showMessageDialog(this, "El Empleado no existe.");
-                return;
-            }
-
-            if (cuenta.consultarSaldo() < monto) {
-                JOptionPane.showMessageDialog(this, "Saldo insuficiente para pagar el servicio.\nSaldo actual: S/. " + cuenta.consultarSaldo());
-                return;
-            }
-
-            PagoServicio nuevoPago = new PagoServicio(idTrans, monto, cliente, empleado, servicio);
-            nuevoPago.procesar(cuenta, monto, nuevoPago);
-
-            JOptionPane.showMessageDialog(this, "¡Pago de " + servicio + " realizado con éxito!\nNuevo Saldo: S/. " + cuenta.consultarSaldo());
-
-            // Limpiar campos
-            txtIDCPS.setText("");
-            txtIDCliPS.setText("");
-            txtIDEPS.setText("");
-            txtIDMPPS.setText("");
-            txtIDPPS.setText("");
-            txtIDSPPS.setText("");
-
+            monto = Double.parseDouble(montoStr);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El monto debe ser un número válido.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "El monto debe ser un número válido.");
+            return;
+        }
+        if (monto <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "El monto debe ser mayor a 0.");
+            return;
+        }
+
+        CuentaDAO cuentaDao = new CuentaDAO();
+        double saldoActual = cuentaDao.obtenerSaldo(idCuenta);
+
+        if (saldoActual < monto) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Saldo insuficiente para realizar el pago.\n" +
+                "Saldo actual: S/. " + saldoActual + "\n" +
+                "Monto a pagar: S/. " + monto);
+            return;
+        }
+
+        TransaccionDAO trxDao = new TransaccionDAO();
+
+        if (trxDao.pagarServicio(idTransaccion, idCuenta, servicio, monto)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "¡Pago de servicio realizado con éxito!");
+
+            txtIDPPS.setText("");
+            txtIDCPS.setText("");
+            txtIDSPPS.setText("");
+            txtIDMPPS.setText("");
+            if(txtIDCliPS != null) txtIDCliPS.setText("");
+            if(txtIDEPS != null) txtIDEPS.setText("");
+
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al realizar el pago.\nVerifique que la cuenta exista o que el ID de transacción no esté repetido.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
