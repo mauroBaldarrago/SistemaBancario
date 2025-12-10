@@ -1,6 +1,7 @@
 package GUI.Paneles;
 import Logica.*; 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PnlListaClientes extends javax.swing.JPanel {
@@ -28,9 +29,10 @@ public class PnlListaClientes extends javax.swing.JPanel {
     }
 
     private void llenarTabla() {
-        modelo.setRowCount(0);
-        ArrayList<Cliente> lista = banco.getGestorUsuarios().getClientes();
-
+    modelo.setRowCount(0);
+    try {
+        ClienteDAO dao = new ClienteDAO();
+        ArrayList<Cliente> lista = new ArrayList<>(dao.listarClientes());
         for (Cliente c : lista) {
             Object[] fila = {
                 c.getIdCliente(),
@@ -42,7 +44,11 @@ public class PnlListaClientes extends javax.swing.JPanel {
             };
             modelo.addRow(fila);
         }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error al cargar clientes: " + ex.getMessage());
     }
+}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

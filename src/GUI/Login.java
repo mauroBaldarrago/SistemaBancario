@@ -227,7 +227,7 @@ public class Login extends javax.swing.JFrame {
         Empleado emp = new Empleado(
             "Luis", "Perez", "12345678", 
             "Av. Central", "987654321", 
-            "EMP001", "Cajero", "emp123"
+            "EMP001", "Cajero", "luis@mail.com", "emp123"
         );
         banco.registrarEmpleado(emp);
         

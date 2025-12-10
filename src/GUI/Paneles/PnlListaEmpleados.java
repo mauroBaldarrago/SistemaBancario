@@ -27,8 +27,10 @@ public class PnlListaEmpleados extends javax.swing.JPanel {
     }
     
     private void llenarTabla() {
-        modelo.setRowCount(0);
-        ArrayList<Empleado> lista = banco.getGestorUsuarios().getEmpleados();      
+    modelo.setRowCount(0);
+    try {
+        EmpleadoDAO dao = new EmpleadoDAO();
+        ArrayList<Empleado> lista = new ArrayList<>(dao.listarEmpleados());
         for (Empleado e : lista) {
             Object[] fila = {
                 e.getIdEmpleado(),
@@ -40,7 +42,10 @@ public class PnlListaEmpleados extends javax.swing.JPanel {
             };
             modelo.addRow(fila);
         }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error al cargar empleados: " + ex.getMessage());
     }
+}
         
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

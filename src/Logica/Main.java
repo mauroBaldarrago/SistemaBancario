@@ -9,7 +9,7 @@ public class Main {
         // ==== INICIALIZACIÓN DE DATOS ====
         Empleado empleado1 = new Empleado(
             "Luis", "Pérez", "12345678", "Av. Central", "999999999",
-            "EMP001", "Cajero", "emp123"
+            "EMP001", "Cajero","luis@banco.com", "emp123"
         );
         banco.registrarEmpleado(empleado1);
         Cliente cliente1 = new Cliente(

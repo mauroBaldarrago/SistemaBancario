@@ -250,56 +250,57 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                                           
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            String dni       = txtDNIRC.getText();
-            String nombre    = txtNombreRC.getText();
-            String apellido  = txtaApellidoRC.getText();
-            String direccion = txtDireccionRC.getText();
-            String celular   = txtCelularRC.getText();
-            String email     = txtCorreoRC.getText();
-            String idCliente = txtIDRC.getText();
-            String pass      = new String(txtContraseñaRC.getPassword());
+            try {
+        String dni       = txtDNIRC.getText();
+        String nombre    = txtNombreRC.getText();
+        String apellido  = txtaApellidoRC.getText();
+        String direccion = txtDireccionRC.getText();
+        String celular   = txtCelularRC.getText();
+        String email     = txtCorreoRC.getText();
+        String idCliente = txtIDRC.getText();
+        String pass      = new String(txtContraseñaRC.getPassword());
 
-            if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() ||
-                direccion.isEmpty() || celular.isEmpty() || email.isEmpty() ||
-                idCliente.isEmpty() || pass.isEmpty()) {
+        if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() ||
+            direccion.isEmpty() || celular.isEmpty() || email.isEmpty() ||
+            idCliente.isEmpty() || pass.isEmpty()) {
 
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
-                return;
-            }
-            if (!dni.matches("\\d{8}")) {
-                JOptionPane.showMessageDialog(this, "El DNI debe tener 8 dígitos numéricos.");
-                return;
-            }
-            if (banco.buscarCliente(idCliente) != null) {
-                JOptionPane.showMessageDialog(this, "Ya existe un cliente con ese ID.");
-                return;
-            }
-            Cliente nuevoCliente = new Cliente(
-                nombre,
-                apellido,
-                dni,
-                direccion,
-                celular,
-                idCliente,
-                email,
-                pass
-            );
-            banco.registrarCliente(nuevoCliente);
-            JOptionPane.showMessageDialog(this, "¡Cliente registrado exitosamente!");
-
-            txtDNIRC.setText("");
-            txtDireccionRC.setText("");
-            txtCorreoRC.setText("");
-            txtIDRC.setText("");
-            txtNombreRC.setText("");
-            txtaApellidoRC.setText("");
-            txtCelularRC.setText("");
-            txtContraseñaRC.setText("");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
+            return;
         }
+
+        if (!dni.matches("\\d{8}")) {
+            JOptionPane.showMessageDialog(this, "El DNI debe tener 8 dígitos numéricos.");
+            return;
+        }
+
+        Cliente nuevoCliente = new Cliente(
+            nombre,
+            apellido,
+            dni,
+            direccion,
+            celular,
+            idCliente,
+            email,
+            pass
+        );
+
+        ClienteDAO dao = new ClienteDAO();
+        dao.registrarCliente(nuevoCliente);
+
+        JOptionPane.showMessageDialog(this, "¡Cliente registrado exitosamente!");
+
+        txtDNIRC.setText("");
+        txtNombreRC.setText("");
+        txtaApellidoRC.setText("");
+        txtDireccionRC.setText("");
+        txtCelularRC.setText("");
+        txtCorreoRC.setText("");
+        txtIDRC.setText("");
+        txtContraseñaRC.setText("");
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage());
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

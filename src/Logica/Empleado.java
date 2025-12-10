@@ -3,19 +3,26 @@ public class Empleado extends Usuario {
     /* Creando los atributos de la clase hija "Empleado" */
     private String idEmpleado;
     private String cargo;
+    private String correo;
 
     /* Constructor de Empleado (polimorfismo y heredación) */
-    public Empleado(String nombre, String apellido, String dni, String direccion, String celular, String idEmpleado, String cargo, String contrasena) {
+    public Empleado(String nombre, String apellido, String dni, String direccion,
+                    String celular, String idEmpleado, String cargo,
+                    String correo, String contrasena) {
+
         super(nombre, apellido, dni, direccion, celular, contrasena);
         this.idEmpleado = idEmpleado;
         this.cargo = cargo;
+        this.correo = correo;
     }
+
 
     /* Getters necesarios*/
     public String getIdEmpleado() {return idEmpleado;}
     public String getCargo() {return cargo;}
     public String getDireccion() {return direccion;}
     public void setCargo(String cargo) {this.cargo = cargo;}
+    public String getCorreo() {return correo;}
 
     /* Método para mostrar la transacción realizada */
     public void procesarTransaccion(String transaccion, String cargo) {

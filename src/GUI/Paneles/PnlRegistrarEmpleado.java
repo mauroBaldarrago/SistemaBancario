@@ -403,7 +403,7 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtCorreoRE, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,11 +424,12 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
                     .addComponent(jLabel8)
                     .addComponent(txtApellidoRE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel11)
-                    .addComponent(txtDireccionRE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCargoRE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCargoRE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(jLabel11)
+                        .addComponent(txtDireccionRE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -532,19 +533,22 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
             }
 
             Empleado nuevoEmp = new Empleado(
-                    nombre, 
-                    apellido, 
-                    dni, 
-                    direccion, 
-                    celular, 
-                    idEmp, 
-                    cargo, 
-                    pass
-            );
+    nombre,
+    apellido,
+    dni,
+    direccion,
+    celular,
+    idEmp,
+    email,
+    cargo,
+    pass
+);
 
-            banco.registrarEmpleado(nuevoEmp);
+EmpleadoDAO dao = new EmpleadoDAO();
+dao.registrarEmpleado(nuevoEmp);
 
-            JOptionPane.showMessageDialog(this, "¡Empleado registrado con éxito!");
+JOptionPane.showMessageDialog(this, "¡Empleado registrado con éxito!");
+
             txtApellidoRE.setText("");
             txtCargoRE.setText("");
             txtCelularRE.setText("");
@@ -597,10 +601,7 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -612,9 +613,6 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JTextField txtApellidoRE;
     private javax.swing.JTextField txtApellidoRE1;

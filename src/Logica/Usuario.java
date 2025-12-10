@@ -23,7 +23,8 @@ public abstract class Usuario {
     public String getApellido() { return apellido; }
     public String getDni() { return dni; }
     public String getCelular() {return celular;}
-
+    public String getContrasena() {return contrasena;}
+    
     /* Método de autenticación */
     public boolean verificarContrasena(String contrasena) {
         return this.contrasena.equals(contrasena);

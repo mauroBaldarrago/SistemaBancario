@@ -155,6 +155,16 @@ public class GestorUsuarios {
             System.out.println("Error: Ingrese un cargo válido (no puede estar vacío)");
         }
         
+        String correo;
+            while (true) {
+                System.out.print("Correo: ");
+                correo = sc.nextLine();
+                if (Validaciones.validarCorreo(correo)) {
+                    break;
+                }
+                System.out.println("Error: Ingrese un correo válido (ej: ejemplo@dominio.com)");
+            }
+
         String contrasena;
         while (true) {
             System.out.print("Contraseña: ");
@@ -163,7 +173,7 @@ public class GestorUsuarios {
             System.out.println("Error: Ingrese una contraseña válida (no puede estar vacía)");
         }
         
-        Empleado nuevo = new Empleado(nombre, apellido, dni, direccion, celular, idEmpleado, cargo, contrasena);
+        Empleado nuevo = new Empleado(nombre, apellido, dni, direccion, celular, idEmpleado, cargo, correo, contrasena);
         Empleado e = buscarEmpleado(nuevo.getIdEmpleado());
         if (e == null) {
             empleados.add(nuevo);
