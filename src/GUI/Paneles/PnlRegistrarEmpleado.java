@@ -1,6 +1,7 @@
 package GUI.Paneles;
-import Datos.EmpleadoDAO;
 import Logica.*;
+import Datos.*;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class PnlRegistrarEmpleado extends javax.swing.JPanel {
@@ -51,8 +52,6 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         txtCorreoRE = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        txtIDRE = new javax.swing.JTextField();
         txtDireccionRE = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -264,7 +263,6 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(139, 29));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(700, 355));
 
         jButton1.setBackground(new java.awt.Color(0, 51, 102));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -325,12 +323,6 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(50, 50, 50));
         jLabel6.setText("Contraseña:");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(50, 50, 50));
-        jLabel10.setText("ID:");
-
-        txtIDRE.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-
         txtDireccionRE.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         txtDireccionRE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,31 +349,22 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(214, 214, 214))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(253, 253, 253)
+                        .addGap(280, 280, 280)
                         .addComponent(jButton1))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGap(211, 211, 211)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(183, 183, 183))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIDRE, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtContraseñaRE, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCorreoRE, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtContraseñaRE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -405,13 +388,16 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDireccionRE, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                                .addComponent(txtDireccionRE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCorreoRE, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -428,25 +414,23 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
                     .addComponent(jLabel8)
                     .addComponent(txtApellidoRE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12)
                         .addComponent(jLabel11)
                         .addComponent(txtDireccionRE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtCargoRE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtCargoRE, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtCorreoRE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtIDRE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(txtContraseñaRE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         jPanel8.setBackground(new java.awt.Color(0, 51, 102));
@@ -477,15 +461,15 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -506,66 +490,64 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDireccionREActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            String dni       = txtDNIRE.getText(); 
-            String nombre    = txtNombreRE.getText(); 
-            String apellido  = txtApellidoRE.getText();
-            String direccion = txtDireccionRE.getText();
-            String celular   = txtCelularRE.getText();
-            String cargo     = txtCargoRE.getText(); 
-            String idEmp     = txtIDRE.getText();
-            String email     = txtCorreoRE.getText();
-            
-            String pass      = new String(txtContraseñaRE.getPassword());
+         try {
+        // Obtener datos del formulario
+        String dni       = txtDNIRE.getText();
+        String nombre    = txtNombreRE.getText();
+        String apellido  = txtApellidoRE.getText();
+        String direccion = txtDireccionRE.getText();
+        String celular   = txtCelularRE.getText();
+        String cargo     = txtCargoRE.getText();
+        String email     = txtCorreoRE.getText();
+        String pass      = new String(txtContraseñaRE.getPassword());
 
-            if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || 
-                direccion.isEmpty() || celular.isEmpty() || cargo.isEmpty() || 
-                idEmp.isEmpty() || pass.isEmpty()) {
-                
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
-                return;
-            }
-            if (!dni.matches("\\d{8}")) {
-                JOptionPane.showMessageDialog(this, "El DNI debe tener 8 dígitos numéricos.");
-                return;
-            }
-            for (Empleado e : banco.getGestorUsuarios().getEmpleados()) {
-                if (e.getIdEmpleado().equals(idEmp) || e.getDni().equals(dni)) {
-                    JOptionPane.showMessageDialog(this, "Ya existe un empleado con ese ID o DNI.");
-                    return;
-                }
-            }
+        // Validaciones
+        if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() ||
+            direccion.isEmpty() || celular.isEmpty() || cargo.isEmpty() ||
+            email.isEmpty() || pass.isEmpty()) {
 
-            Empleado nuevoEmp = new Empleado(
-    nombre,
-    apellido,
-    dni,
-    direccion,
-    celular,
-    idEmp,
-    email,
-    cargo,
-    pass
-);
-
-EmpleadoDAO dao = new EmpleadoDAO();
-dao.registrarEmpleado(nuevoEmp);
-
-JOptionPane.showMessageDialog(this, "¡Empleado registrado con éxito!");
-
-            txtApellidoRE.setText("");
-            txtCargoRE.setText("");
-            txtCelularRE.setText("");
-            txtNombreRE.setText("");
-            txtCorreoRE.setText("");
-            txtDireccionRE.setText("");
-            txtIDRE.setText("");
-            if (txtContraseñaRE != null) txtContraseñaRE.setText("");
-            txtContraseñaRE.setText("");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
+            return;
         }
+
+        if (!dni.matches("\\d{8}")) {
+            JOptionPane.showMessageDialog(this, "El DNI debe tener 8 dígitos numéricos.");
+            return;
+        }
+
+        // Crear objeto empleado
+        Empleado nuevoEmp = new Empleado(
+            nombre,
+            apellido,
+            dni,
+            direccion,
+            celular,
+            null,
+            email,
+            cargo,
+            pass
+        );
+
+        // Registrar en la base de datos
+        EmpleadoDAO dao = new EmpleadoDAO();
+        dao.registrarEmpleado(nuevoEmp);
+
+        JOptionPane.showMessageDialog(this, "¡Empleado registrado exitosamente!");
+
+        // Limpiar campos
+        txtDNIRE.setText("");
+        txtNombreRE.setText("");
+        txtApellidoRE.setText("");
+        txtDireccionRE.setText("");
+        txtCelularRE.setText("");
+        txtCargoRE.setText("");
+        txtCorreoRE.setText("");
+        txtContraseñaRE.setText("");
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage());
+    }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -592,7 +574,6 @@ JOptionPane.showMessageDialog(this, "¡Empleado registrado con éxito!");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -632,7 +613,6 @@ JOptionPane.showMessageDialog(this, "¡Empleado registrado con éxito!");
     private javax.swing.JTextField txtDNIRE1;
     private javax.swing.JTextField txtDireccionRE;
     private javax.swing.JTextField txtDireccionRE1;
-    private javax.swing.JTextField txtIDRE;
     private javax.swing.JTextField txtIDRE1;
     private javax.swing.JTextField txtNombreRE;
     private javax.swing.JTextField txtNombreRE1;

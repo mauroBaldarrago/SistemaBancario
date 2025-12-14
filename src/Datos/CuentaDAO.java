@@ -239,4 +239,26 @@ public class CuentaDAO {
         } catch(Exception e){}
         return 0;
     }
+    
+    public String generarNuevoIdCuenta() {
+        String nuevoId = "CTA001";
+        String sql = "SELECT id_cuenta FROM cuenta ORDER BY id_cuenta DESC LIMIT 1";
+
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                String ultimoId = rs.getString("id_cuenta");
+                int numero = Integer.parseInt(ultimoId.substring(3));
+                numero++;
+                nuevoId = String.format("CTA%03d", numero);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error generando ID cuenta: " + e.getMessage());
+        }
+
+        return nuevoId;
+    }
 }

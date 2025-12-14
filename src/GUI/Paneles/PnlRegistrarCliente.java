@@ -1,6 +1,6 @@
 package GUI.Paneles;
-import Datos.ClienteDAO;
 import Logica.*;
+import Datos.*;
 import javax.swing.JOptionPane;
 
 public class PnlRegistrarCliente extends javax.swing.JPanel {
@@ -27,8 +27,6 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         txtaApellidoRC = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        txtIDRC = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         txtCorreoRC = new javax.swing.JTextField();
         txtDireccionRC = new javax.swing.JTextField();
@@ -103,10 +101,6 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(50, 50, 50));
         jLabel6.setText("Contraseña:");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(50, 50, 50));
-        jLabel10.setText("ID:");
-
         jButton1.setBackground(new java.awt.Color(0, 51, 102));
         jButton1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -174,25 +168,17 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtNombreRC, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtIDRC, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCorreoRC, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCorreoRC, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtContraseñaRC))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDireccionRC, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDireccionRC, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtContraseñaRC)))))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -223,8 +209,6 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                     .addComponent(txtDireccionRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIDRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
                     .addComponent(jLabel6)
                     .addComponent(txtContraseñaRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -251,58 +235,60 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                                           
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String id = txtIDRC.getText();
-        String dni = txtDNIRC.getText();
-        String nombre = txtNombreRC.getText();
-        String apellido = txtaApellidoRC.getText();
+            try {
+        String dni       = txtDNIRC.getText();
+        String nombre    = txtNombreRC.getText();
+        String apellido  = txtaApellidoRC.getText();
         String direccion = txtDireccionRC.getText();
-        String celular = txtCelularRC.getText();
-        String correo = txtCorreoRC.getText();
-        String pass = new String(txtContraseñaRC.getPassword());
+        String celular   = txtCelularRC.getText();
+        String email     = txtCorreoRC.getText();
+        String pass      = new String(txtContraseñaRC.getPassword());
 
-        if (id.isEmpty() || dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || pass.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos obligatorios.");
-        return; // ¡ALTO! No seguimos.
-        }
-        if (!Validaciones.validarDNI(dni)) {
-            JOptionPane.showMessageDialog(this, "El DNI es inválido (Debe tener 8 dígitos).");
-            return;
-        }
-        if (!Validaciones.validarNombre(nombre) || !Validaciones.validarNombre(apellido)) {
-            JOptionPane.showMessageDialog(this, "Nombre o Apellido inválidos (Solo letras).");
-            return;
-        }
-        if (!Validaciones.validarCelular(celular)) {
-            JOptionPane.showMessageDialog(this, "Celular inválido (Debe empezar con 9 y tener 9 dígitos).");
-            return;
-        }
-        if (!Validaciones.validarCorreo(correo)) {
-            JOptionPane.showMessageDialog(this, "Formato de correo inválido.");
+        if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() ||
+            direccion.isEmpty() || celular.isEmpty() || email.isEmpty() ||
+            pass.isEmpty()) {
+
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
             return;
         }
 
-        Cliente c = new Cliente(nombre, apellido, dni, direccion, celular, id, correo, pass);
+        if (!dni.matches("\\d{8}")) {
+            JOptionPane.showMessageDialog(this, "El DNI debe tener 8 dígitos numéricos.");
+            return;
+        }
+
+        Cliente nuevoCliente = new Cliente(
+            nombre,
+            apellido,
+            dni,
+            direccion,
+            celular,
+            null,
+            email,
+            pass
+        );
+
         ClienteDAO dao = new ClienteDAO();
+        dao.registrarCliente(nuevoCliente);
 
-        if (dao.registrarCliente(c)) {
-            JOptionPane.showMessageDialog(this, "¡Cliente registrado en exitosamente!");
-            txtIDRC.setText("");
-            txtDNIRC.setText("");
-            txtNombreRC.setText("");
-            txtaApellidoRC.setText("");
-            txtDireccionRC.setText("");
-            txtCelularRC.setText("");
-            txtCorreoRC.setText("");
-            txtContraseñaRC.setText("");
-        } else {
-            JOptionPane.showMessageDialog(this, "Error: El ID o DNI ya existen.");
-        }
+        JOptionPane.showMessageDialog(this, "¡Cliente registrado exitosamente!");
+
+        txtDNIRC.setText("");
+        txtNombreRC.setText("");
+        txtaApellidoRC.setText("");
+        txtDireccionRC.setText("");
+        txtCelularRC.setText("");
+        txtCorreoRC.setText("");
+        txtContraseñaRC.setText("");
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al registrar: " + e.getMessage());
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
@@ -318,7 +304,6 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
     private javax.swing.JTextField txtCorreoRC;
     private javax.swing.JTextField txtDNIRC;
     private javax.swing.JTextField txtDireccionRC;
-    private javax.swing.JTextField txtIDRC;
     private javax.swing.JTextField txtNombreRC;
     private javax.swing.JTextField txtaApellidoRC;
     // End of variables declaration//GEN-END:variables

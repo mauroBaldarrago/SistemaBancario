@@ -1,6 +1,6 @@
 package GUI.Paneles;
 import Logica.*;
-import Datos.CuentaDAO;
+import Datos.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -21,11 +21,9 @@ public class PnlCrearCuenta extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         botonRC = new javax.swing.JButton();
         titulo2 = new javax.swing.JLabel();
-        idRC = new javax.swing.JLabel();
         saldoRC = new javax.swing.JLabel();
         idClienteRC = new javax.swing.JLabel();
         tipoRC = new javax.swing.JLabel();
-        idDRC = new javax.swing.JTextField();
         saldoDRC = new javax.swing.JTextField();
         idClienteDRC = new javax.swing.JTextField();
         tipoDRC = new javax.swing.JComboBox<>();
@@ -41,7 +39,7 @@ public class PnlCrearCuenta extends javax.swing.JPanel {
         TITULOLayout.setHorizontalGroup(
             TITULOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TITULOLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(259, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(255, 255, 255))
         );
@@ -69,10 +67,6 @@ public class PnlCrearCuenta extends javax.swing.JPanel {
         titulo2.setForeground(new java.awt.Color(50, 50, 50));
         titulo2.setText("Datos de la cuenta a registrar:");
 
-        idRC.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        idRC.setForeground(new java.awt.Color(50, 50, 50));
-        idRC.setText("ID:");
-
         saldoRC.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         saldoRC.setForeground(new java.awt.Color(50, 50, 50));
         saldoRC.setText("Saldo inicial:");
@@ -84,8 +78,6 @@ public class PnlCrearCuenta extends javax.swing.JPanel {
         tipoRC.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         tipoRC.setForeground(new java.awt.Color(50, 50, 50));
         tipoRC.setText("Tipo de cuenta:");
-
-        idDRC.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         saldoDRC.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
@@ -104,35 +96,29 @@ public class PnlCrearCuenta extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(idRC)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(idDRC, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(idClienteRC)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(idClienteDRC, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(135, 135, 135)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tipoRC)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tipoDRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(saldoRC)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(saldoDRC, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(titulo2))
+                        .addComponent(idClienteRC)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(idClienteDRC, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saldoRC)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saldoDRC, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(titulo2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(21, 21, 21))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(271, 271, 271)
-                .addComponent(botonRC, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(218, 218, 218)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonRC, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tipoRC)
+                        .addGap(18, 18, 18)
+                        .addComponent(tipoDRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,20 +129,13 @@ public class PnlCrearCuenta extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saldoRC)
                     .addComponent(saldoDRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idRC)
-                    .addComponent(idDRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(idClienteRC)
-                            .addComponent(idClienteDRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tipoRC)
-                            .addComponent(tipoDRC, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                    .addComponent(idClienteRC)
+                    .addComponent(idClienteDRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipoRC)
+                    .addComponent(tipoDRC, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addComponent(botonRC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
@@ -182,25 +161,49 @@ public class PnlCrearCuenta extends javax.swing.JPanel {
     }//GEN-LAST:event_tipoDRCActionPerformed
 
     private void botonRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRCActionPerformed
-        String idCuenta = idDRC.getText();         
-        String idCliente = idClienteDRC.getText(); 
-        String tipo = tipoDRC.getSelectedItem().toString(); 
-        double saldoInicial = Double.parseDouble(saldoDRC.getText()); 
+    try {
+        String saldoTxt = saldoDRC.getText().trim();
+        String idCliente = idClienteDRC.getText().trim();
+        String tipo = tipoDRC.getSelectedItem().toString();
+
+        if (saldoTxt.isEmpty() || idCliente.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
+            return;
+        }
+
+        double saldo = Double.parseDouble(saldoTxt);
+        if (saldo < 0) {
+            JOptionPane.showMessageDialog(this, "El saldo inicial no puede ser negativo.");
+            return;
+        }
+
+        Cliente titular = banco.buscarCliente(idCliente);
+        if (titular == null) {
+            JOptionPane.showMessageDialog(this, "Error: El Cliente con ID " + idCliente + " no existe.");
+            return;
+        }
+
+        ArrayList<Cliente> listaTitulares = new ArrayList<>();
+        listaTitulares.add(titular);
 
         CuentaDAO dao = new CuentaDAO();
+        String nuevoId = dao.generarNuevoIdCuenta(); // CTA###
+        Cuenta nuevaCuenta = new Cuenta(nuevoId, tipo, saldo, listaTitulares);
 
-        if (dao.crearCuenta(idCuenta, tipo, saldoInicial)) {
-            if (dao.agregarTitular(idCuenta, idCliente)) {
-                JOptionPane.showMessageDialog(this, "Cuenta creada y titular asignado correctamente.");
-                idDRC.setText("");
-                idClienteDRC.setText("");
-                saldoDRC.setText("");
-            } else {
-                JOptionPane.showMessageDialog(this, "Cuenta creada, PERO el cliente ID no existe.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Error: El ID de cuenta ya existe.");
-        }
+        dao.crearCuenta(nuevoId, tipo, saldo); // Inserta en DB
+        banco.getCuentas().add(nuevaCuenta);
+
+        JOptionPane.showMessageDialog(this, "¡Cuenta creada exitosamente con ID: " + nuevoId + "!");
+
+        saldoDRC.setText("");
+        idClienteDRC.setText("");
+        tipoDRC.setSelectedIndex(0);
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El saldo debe ser un número válido.");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage());
+    }       
     }//GEN-LAST:event_botonRCActionPerformed
 
 
@@ -209,8 +212,6 @@ public class PnlCrearCuenta extends javax.swing.JPanel {
     private javax.swing.JButton botonRC;
     private javax.swing.JTextField idClienteDRC;
     private javax.swing.JLabel idClienteRC;
-    private javax.swing.JTextField idDRC;
-    private javax.swing.JLabel idRC;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField saldoDRC;

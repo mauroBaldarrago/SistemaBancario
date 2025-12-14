@@ -141,4 +141,26 @@ public class EmpleadoDAO {
             return false;
         }
     }
+    
+    private String generarNuevoIdEmpleado() {
+        String sql = "SELECT id_empleado FROM empleado ORDER BY id_empleado DESC LIMIT 1";
+
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                String ultimoId = rs.getString("id_empleado");
+                int numero = Integer.parseInt(ultimoId.substring(3));
+                numero++;
+                return String.format("EMP%03d", numero);
+            } else {
+                return "EMP001";
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error generando ID Empleado: " + e.getMessage());
+            return "EMP001";
+        }
+    }
 }

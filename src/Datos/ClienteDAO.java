@@ -150,4 +150,27 @@ public class ClienteDAO {
             return false;
         }
     }
+    
+    public String generarNuevoIdCliente() {
+        String nuevoId = "CLI001";
+        String sql = "SELECT id_cliente FROM cliente ORDER BY id_cliente DESC LIMIT 1";
+
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                String ultimoId = rs.getString("id_cliente"); // ej: CLI020
+                int numero = Integer.parseInt(ultimoId.substring(3));
+                numero++;
+                nuevoId = String.format("CLI%03d", numero);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error generando ID cliente: " + e.getMessage());
+        }
+
+        return nuevoId;
+        }
 }
+
