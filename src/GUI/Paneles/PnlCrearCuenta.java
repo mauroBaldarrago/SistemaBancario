@@ -187,7 +187,7 @@ public class PnlCrearCuenta extends javax.swing.JPanel {
         listaTitulares.add(titular);
 
         CuentaDAO dao = new CuentaDAO();
-        String nuevoId = dao.generarNuevoIdCuenta(); // CTA###
+        String nuevoId = dao.generarNuevoIdCuenta();
         Cuenta nuevaCuenta = new Cuenta(nuevoId, tipo, saldo, listaTitulares);
 
         dao.crearCuenta(nuevoId, tipo, saldo); // Inserta en DB

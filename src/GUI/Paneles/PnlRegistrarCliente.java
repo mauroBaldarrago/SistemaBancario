@@ -111,6 +111,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
             }
         });
 
+        txtCorreoRC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)));
         txtCorreoRC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorreoRCActionPerformed(evt);
@@ -152,21 +153,9 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtaApellidoRC))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDNIRC, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCelularRC))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombreRC, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtContraseñaRC))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -174,12 +163,24 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                                 .addGap(23, 23, 23)
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDireccionRC, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtDireccionRC))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtContraseñaRC)))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtaApellidoRC))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNombreRC))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDNIRC, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCelularRC, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,9 +205,9 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(txtCorreoRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(txtDireccionRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDireccionRC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCorreoRC, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -244,6 +245,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         String email     = txtCorreoRC.getText();
         String pass      = new String(txtContraseñaRC.getPassword());
 
+        // Validaciones
         if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() ||
             direccion.isEmpty() || celular.isEmpty() || email.isEmpty() ||
             pass.isEmpty()) {
@@ -251,12 +253,31 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
             return;
         }
-
-        if (!dni.matches("\\d{8}")) {
-            JOptionPane.showMessageDialog(this, "El DNI debe tener 8 dígitos numéricos.");
+        if (!Validaciones.validarDNI(dni)) {
+            JOptionPane.showMessageDialog(this, "El DNI debe tener 8 números.");
             return;
         }
-
+        if (!Validaciones.validarNombre(nombre)) {
+            JOptionPane.showMessageDialog(this, "El nombre no es válido.");
+            return;
+        }
+        if (!Validaciones.validarNombre(apellido)) {
+            JOptionPane.showMessageDialog(this, "El apellido no es válido.");
+            return;
+        }
+        if (!Validaciones.validarCelular(celular)) {
+            JOptionPane.showMessageDialog(this, "El celular es inválido.Debe tener 9 dígitos y empezar con 9.");
+            return;
+        }
+        if (!Validaciones.validarCorreo(email)) {
+            JOptionPane.showMessageDialog(this, "El correo no tiene un formato válido.");
+            return;
+        }
+        if (pass.length() < 4) {
+            JOptionPane.showMessageDialog(this, "La contraseña es muy corta (mínimo 4 caracteres).");
+            return;
+        }
+        
         Cliente nuevoCliente = new Cliente(
             nombre,
             apellido,

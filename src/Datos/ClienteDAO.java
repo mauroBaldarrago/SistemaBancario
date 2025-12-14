@@ -45,7 +45,7 @@ public class ClienteDAO {
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, c.getIdCliente());
+            ps.setString(1, generarNuevoIdCliente());
             ps.setString(2, c.getDni());
             ps.setString(3, c.getNombre());
             ps.setString(4, c.getApellido());

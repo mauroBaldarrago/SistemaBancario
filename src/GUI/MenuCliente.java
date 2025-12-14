@@ -31,7 +31,6 @@ public class MenuCliente extends javax.swing.JFrame {
     }
 
     private void mostrarPanel(JPanel p) {
-        // Asumiendo que tu panel blanco grande se llama "PanelDerecho"
         p.setSize(PanelLayOut.getWidth(), PanelLayOut.getHeight());
         p.setLocation(0, 0);
         

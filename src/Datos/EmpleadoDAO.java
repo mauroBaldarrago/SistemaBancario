@@ -16,7 +16,7 @@ public class EmpleadoDAO {
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, e.getIdEmpleado());
+            ps.setString(1, generarNuevoIdEmpleado());
             ps.setString(2, e.getDni());
             ps.setString(3, e.getNombre());
             ps.setString(4, e.getApellido());

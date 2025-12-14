@@ -22,9 +22,7 @@ public class PnlDepositar extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtIDeposito = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
         txtIDCuenta = new javax.swing.JTextField();
-        txtIDCliente = new javax.swing.JTextField();
         txtIDEmpleado = new javax.swing.JTextField();
         txtMonto = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -70,21 +68,10 @@ public class PnlDepositar extends javax.swing.JPanel {
         txtIDeposito.setToolTipText("Ejemplo: DEP001");
         txtIDeposito.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(50, 50, 50));
-        jLabel9.setText("ID del cliente:");
-
         txtIDCuenta.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         txtIDCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDCuentaActionPerformed(evt);
-            }
-        });
-
-        txtIDCliente.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(50, 50, 50)), javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        txtIDCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDClienteActionPerformed(evt);
             }
         });
 
@@ -127,15 +114,10 @@ public class PnlDepositar extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtIDCliente))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -150,11 +132,11 @@ public class PnlDepositar extends javax.swing.JPanel {
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtIDCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(266, 266, 266))
+                .addGap(271, 271, 271))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,26 +151,22 @@ public class PnlDepositar extends javax.swing.JPanel {
                             .addComponent(jLabel11)
                             .addComponent(txtIDCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(3, 3, 3)))
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtIDCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(txtIDEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIDEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGap(70, 70, 70))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -196,7 +174,7 @@ public class PnlDepositar extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -213,25 +191,44 @@ public class PnlDepositar extends javax.swing.JPanel {
         try {
             monto = Double.parseDouble(montoTexto);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El monto debe ser un número válido (Ej: 50.00).");
+            JOptionPane.showMessageDialog(this, "El monto debe ser un número válido.");
+            txtMonto.requestFocus();
             return;
         }
-        if (!Validaciones.validarMontoPositivo(monto)) {
-            JOptionPane.showMessageDialog(this, "El monto debe ser mayor a 0.");
+        if (!Validaciones.validarMontoDeposito(monto)) {
+            JOptionPane.showMessageDialog(this, "El monto está fuera de los límites permitidos.\nMínimo: S/. 10, Máximo: S/. 50,000");
             return;
         }
 
-        TransaccionDAO dao = new TransaccionDAO();
-        if (dao.depositar(idTransaccion, idCuenta, monto)) {
-            JOptionPane.showMessageDialog(this, "Depósito exitoso.");
-            txtIDeposito.setText("");
-            txtIDCuenta.setText("");
-            txtMonto.setText("");
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al depositar (Verifique ID Cuenta).");
+        try {
+            Datos.CuentaDAO cuentaDao = new Datos.CuentaDAO();
+            if (cuentaDao.obtenerSaldo(idCuenta) == -1) {
+                 JOptionPane.showMessageDialog(this, "La cuenta destino no existe en el sistema.");
+                 return;
+            }
+            TransaccionDAO trxDao = new TransaccionDAO();
+            boolean exito = trxDao.depositar(idTransaccion, idCuenta, monto); 
+
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "¡Depósito realizado con éxito!");
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al realizar el depósito.\nVerifique los datos o intente nuevamente.");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error crítico: " + e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void limpiarCampos() {
+        txtIDeposito.setText("");
+        txtIDCuenta.setText("");
+        txtMonto.setText("");
+        txtIDEmpleado.setText("");
+        txtIDeposito.requestFocus();
+    }
+    
     private void txtIDCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDCuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDCuentaActionPerformed
@@ -239,10 +236,6 @@ public class PnlDepositar extends javax.swing.JPanel {
     private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMontoActionPerformed
-
-    private void txtIDClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDClienteActionPerformed
 
     private void txtIDEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDEmpleadoActionPerformed
         // TODO add your handling code here:
@@ -256,10 +249,8 @@ public class PnlDepositar extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtIDCliente;
     private javax.swing.JTextField txtIDCuenta;
     private javax.swing.JTextField txtIDEmpleado;
     private javax.swing.JTextField txtIDeposito;

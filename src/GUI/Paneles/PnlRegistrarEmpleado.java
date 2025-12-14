@@ -1,7 +1,6 @@
 package GUI.Paneles;
 import Logica.*;
 import Datos.*;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 public class PnlRegistrarEmpleado extends javax.swing.JPanel {
@@ -393,7 +392,7 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtCorreoRE, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -503,15 +502,34 @@ public class PnlRegistrarEmpleado extends javax.swing.JPanel {
 
         // Validaciones
         if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() ||
-            direccion.isEmpty() || celular.isEmpty() || cargo.isEmpty() ||
-            email.isEmpty() || pass.isEmpty()) {
+            direccion.isEmpty() || celular.isEmpty() || email.isEmpty() ||
+            pass.isEmpty()) {
 
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
             return;
         }
-
-        if (!dni.matches("\\d{8}")) {
-            JOptionPane.showMessageDialog(this, "El DNI debe tener 8 dígitos numéricos.");
+        if (!Validaciones.validarDNI(dni)) {
+            JOptionPane.showMessageDialog(this, "El DNI debe tener 8 números.");
+            return;
+        }
+        if (!Validaciones.validarNombre(nombre)) {
+            JOptionPane.showMessageDialog(this, "El nombre no es válido.");
+            return;
+        }
+        if (!Validaciones.validarNombre(apellido)) {
+            JOptionPane.showMessageDialog(this, "El apellido no es válido.");
+            return;
+        }
+        if (!Validaciones.validarCelular(celular)) {
+            JOptionPane.showMessageDialog(this, "El celular es inválido.Debe tener 9 dígitos y empezar con 9.");
+            return;
+        }
+        if (!Validaciones.validarCorreo(email)) {
+            JOptionPane.showMessageDialog(this, "El correo no tiene un formato válido.");
+            return;
+        }
+        if (pass.length() < 4) {
+            JOptionPane.showMessageDialog(this, "La contraseña es muy corta (mínimo 4 caracteres).");
             return;
         }
 

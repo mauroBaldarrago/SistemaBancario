@@ -1,6 +1,5 @@
 package Logica;
-import Datos.EmpleadoDAO;
-import Datos.ClienteDAO;
+import Datos.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,37 +17,21 @@ public class Banco {
          cuentas = new ArrayList<>();
          usuarioActual = null;
 
-         cargarUsuariosDesdeBD(); // Carga desde la BD
+         cargarUsuariosDesdeBD(); 
      }
 
 
-    /* MÉTODOS DE AUTENTICACIÓN */
     public Usuario iniciarSesion(String dni, String contrasena) {
-        // Buscar en clientes
-        for (Cliente c : gestorUsuarios.getClientes()) {
-            if (c.getDni().equals(dni) && c.verificarContrasena(contrasena)) {
-                usuarioActual = c;
-                System.out.println("\nBienvenido Cliente: " + c.getNombre() + " " + c.getApellido());
-                return c;
-            }
-        }
-        // Buscar en empleados
-        for (Empleado e : gestorUsuarios.getEmpleados()) {
-            if (e.getDni().equals(dni) && e.verificarContrasena(contrasena)) {
-                usuarioActual = e;
-                System.out.println("\nBienvenido Empleado: " + e.getNombre() + " " + e.getApellido());
-                return e;
-            }
-        }
-        // Buscar en administradores
-        for (Admin a : gestorUsuarios.getAdmins()) {
-            if (a.getDni().equals(dni) && a.verificarContrasena(contrasena)) {
-                usuarioActual = a;
-                System.out.println("\nBienvenido Administrador: " + a.getNombre() + " " + a.getApellido());
-                return a;
-            }
-        }
-        System.out.println("\nError: DNI o contraseña incorrectos");
+        AdminDAO adminDao = new AdminDAO();
+        Admin a = adminDao.login(dni, contrasena);
+        if (a != null) return a;
+        ClienteDAO clienteDao = new ClienteDAO();
+        Cliente c = clienteDao.login(dni, contrasena);
+        if (c != null) return c;
+        EmpleadoDAO empDao = new EmpleadoDAO();
+        Empleado e = empDao.login(dni, contrasena); 
+        if (e != null) return e;
+
         return null;
     }
 

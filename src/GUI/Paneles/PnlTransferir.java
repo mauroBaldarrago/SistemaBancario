@@ -195,15 +195,34 @@ public class PnlTransferir extends javax.swing.JPanel {
     String destino = txtCDTransferencia.getText().trim();
     String montoStr = txtMTransferencia.getText().trim();
 
+    //Validacionjes
     if (idTrx.isEmpty() || origen.isEmpty() || destino.isEmpty() || montoStr.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Faltan datos.");
         return;
     }
+    if (!Validaciones.validarCodigoCuenta(origen)) {
+        JOptionPane.showMessageDialog(this, "La cuenta de ORIGEN no es válida.");
+        return;
+    }
+    if (!Validaciones.validarCodigoCuenta(destino)) {
+        JOptionPane.showMessageDialog(this, "La cuenta de DESTINO no es válida.");
+        return;
+    }
     if (origen.equals(destino)) {
-        JOptionPane.showMessageDialog(this, "No puede transferir a la misma cuenta.");
+        JOptionPane.showMessageDialog(this, "No puede transferir dinero a la misma cuenta.");
         return;
     }
     double monto = 0;
+    try {
+        monto = Double.parseDouble(montoStr);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El monto debe ser un número válido.");
+        return;
+    }
+    if (!Validaciones.validarMontoTransferencia(monto)) {
+        JOptionPane.showMessageDialog(this, " El monto está fuera de los límites. Mínimo: S/. 10, Máximo: S/. 10,000");
+        return;
+    }
     try {
         monto = Double.parseDouble(montoStr);
     } catch (NumberFormatException e) {
@@ -214,6 +233,7 @@ public class PnlTransferir extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "El monto debe ser positivo.");
         return;
     }
+    
     CuentaDAO ctaDao = new CuentaDAO();
     double saldoActual = ctaDao.obtenerSaldo(origen);
     if (saldoActual < monto) {
